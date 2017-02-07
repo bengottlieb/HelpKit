@@ -30,7 +30,10 @@
 		B549E3691BF8CBCB0046463A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B549E3681BF8CBCB0046463A /* CloudKit.framework */; };
 		B5DC614C1E493297001CD747 /* HelpKit.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5DC614B1E493297001CD747 /* HelpKit.xcassets */; };
 		B5DC61501E49330C001CD747 /* HelpKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC614E1E49330C001CD747 /* HelpKitTests.swift */; };
-		B5DC61561E4933E4001CD747 /* Tooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC61551E4933E4001CD747 /* Tooltip.swift */; };
+		B5DC61561E4933E4001CD747 /* TooltipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC61551E4933E4001CD747 /* TooltipView.swift */; };
+		B5DC61591E4936AB001CD747 /* UIKit Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC61581E4936AB001CD747 /* UIKit Extensions.swift */; };
+		B5DC615B1E493759001CD747 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC615A1E493759001CD747 /* Appearance.swift */; };
+		B5DC615D1E4949FB001CD747 /* TestHarness.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5DC615C1E4949FB001CD747 /* TestHarness.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,7 +82,10 @@
 		B5DC614F1E49330C001CD747 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5DC61531E493342001CD747 /* HelpKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpKit.h; sourceTree = "<group>"; };
 		B5DC61541E493342001CD747 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B5DC61551E4933E4001CD747 /* Tooltip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tooltip.swift; sourceTree = "<group>"; };
+		B5DC61551E4933E4001CD747 /* TooltipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TooltipView.swift; sourceTree = "<group>"; };
+		B5DC61581E4936AB001CD747 /* UIKit Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit Extensions.swift"; sourceTree = "<group>"; };
+		B5DC615A1E493759001CD747 /* Appearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
+		B5DC615C1E4949FB001CD747 /* TestHarness.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TestHarness.storyboard; sourceTree = "<group>"; };
 		B5FEE6BC1C08D40B00EA7FCA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -116,6 +122,7 @@
 				B5FEE6BB1C08D3F400EA7FCA /* Misc */,
 				B5DC61491E493297001CD747 /* Framework Code */,
 				B5DC614D1E49330C001CD747 /* HelpKitTests */,
+				B5DC61571E493690001CD747 /* Infrastructure */,
 				B549E3521BF8CA4F0046463A /* TestHarness */,
 				B549E31C1BF8C8460046463A /* Products */,
 				B5FEE6BA1C08D35500EA7FCA /* Frameworks */,
@@ -137,6 +144,7 @@
 			children = (
 				B549E3531BF8CA4F0046463A /* AppDelegate.swift */,
 				B549E3551BF8CA4F0046463A /* ViewController.swift */,
+				B5DC615C1E4949FB001CD747 /* TestHarness.storyboard */,
 				B549E35A1BF8CA4F0046463A /* Assets.xcassets */,
 				B549E35C1BF8CA4F0046463A /* LaunchScreen.storyboard */,
 				B549E35F1BF8CA4F0046463A /* Info.plist */,
@@ -147,9 +155,10 @@
 		B5DC61491E493297001CD747 /* Framework Code */ = {
 			isa = PBXGroup;
 			children = (
-				B5DC61521E493342001CD747 /* iOS */,
 				B5DC614A1E493297001CD747 /* Rsc */,
-				B5DC61551E4933E4001CD747 /* Tooltip.swift */,
+				B5DC61551E4933E4001CD747 /* TooltipView.swift */,
+				B5DC61581E4936AB001CD747 /* UIKit Extensions.swift */,
+				B5DC615A1E493759001CD747 /* Appearance.swift */,
 			);
 			name = "Framework Code";
 			path = "HelpKit/Framework Code";
@@ -181,6 +190,14 @@
 			name = iOS;
 			path = HelpKit/iOS;
 			sourceTree = SOURCE_ROOT;
+		};
+		B5DC61571E493690001CD747 /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				B5DC61521E493342001CD747 /* iOS */,
+			);
+			name = Infrastructure;
+			sourceTree = "<group>";
 		};
 		B5FEE6BA1C08D35500EA7FCA /* Frameworks */ = {
 			isa = PBXGroup;
@@ -350,6 +367,7 @@
 			files = (
 				B549E35E1BF8CA4F0046463A /* LaunchScreen.storyboard in Resources */,
 				B549E35B1BF8CA4F0046463A /* Assets.xcassets in Resources */,
+				B5DC615D1E4949FB001CD747 /* TestHarness.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,7 +394,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5DC61561E4933E4001CD747 /* Tooltip.swift in Sources */,
+				B5DC61561E4933E4001CD747 /* TooltipView.swift in Sources */,
+				B5DC615B1E493759001CD747 /* Appearance.swift in Sources */,
+				B5DC61591E4936AB001CD747 /* UIKit Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

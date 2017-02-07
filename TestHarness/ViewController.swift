@@ -7,7 +7,13 @@
 //
 
 import UIKit
+import HelpKit
 
 class TestViewController: UIViewController {
-
+	@IBOutlet var button: UIButton!
+	
+	
+	@IBAction func showTip(sender: UIButton!) {
+		self.button.showTooltip(text: "Hello, this is my tip", direction: .left)
+	}
 }
