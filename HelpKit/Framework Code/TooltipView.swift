@@ -17,6 +17,8 @@ open class TooltipView: UIView {
 	convenience init(target: UIView, text: String, direction: TooltipView.ArrowDirection = .left, appearance: Appearance = .standard) {
 		self.init(frame: .zero)
 		self.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
+		self.layer.borderColor = UIColor.black.cgColor
+		self.layer.borderWidth = 1
 		
 		self.targetView = target
 		self.targetArrowDirection = direction
@@ -42,8 +44,8 @@ extension TooltipView {
 		var frame = self.targetWindow.convert(self.targetView.bounds, from: self.targetView)
 		let viewSize: CGSize
 		let minContentSize = self.contentSize
-		var contentWidth = minContentSize.width + self.appearance.contentInset.left + self.appearance.contentInset.right
-		var contentHeight = minContentSize.height + self.appearance.contentInset.top + self.appearance.contentInset.bottom
+		let contentWidth = minContentSize.width + self.appearance.contentInset.left + self.appearance.contentInset.right
+		let contentHeight = minContentSize.height + self.appearance.contentInset.top + self.appearance.contentInset.bottom
 		
 		
 		switch self.targetArrowDirection {
@@ -70,7 +72,7 @@ extension TooltipView {
 		case .right: if tooFarRight { direction = .left }
 		case .downRight:
 			if tooFarDown { direction = tooFarRight ? .upLeft : .upRight }
-			else if tooFarRight { direction = .upLeft }
+			else if tooFarRight { direction = .downLeft }
 		case .down: if tooFarDown { direction = .up }
 		case .downLeft:
 			if tooFarDown { direction = tooFarLeft ? .upRight : .downLeft }
@@ -83,39 +85,40 @@ extension TooltipView {
 		
 		let maxX = windowSize.width - viewSize.width
 		let maxY = windowSize.height - viewSize.height
+		let diag = sqrt(pow(self.appearance.arrowDistance, 2) / 2)
 		
 		switch direction {
 		case .up:
 			frame.origin.x = min(maxX, max(0, frame.midX - viewSize.width / 2))
-			frame.origin.y = frame.minY - viewSize.height
+			frame.origin.y = frame.minY - (viewSize.height + self.appearance.arrowDistance)
 			
 		case .upLeft:
-			frame.origin.x = min(maxX, frame.midX - (self.appearance.arrowSpread / 2 + self.appearance.arrowSpacingFromEdge))
-			frame.origin.y = frame.minY - viewSize.height
+			frame.origin.x = max(0, frame.minX - (viewSize.width + diag))
+			frame.origin.y = frame.minY - (viewSize.height + diag)
 			
 		case .upRight:
-			frame.origin.x = max(0, (frame.midX + self.appearance.arrowSpread / 2 + self.appearance.arrowSpacingFromEdge) - viewSize.width)
-			frame.origin.y = frame.minY - viewSize.height
+			frame.origin.x = frame.maxX + diag
+			frame.origin.y = frame.minY - (viewSize.height + diag)
 
 		case .down:
 			frame.origin.x = min(maxX, max(0, frame.midX - viewSize.width / 2))
-			frame.origin.y = frame.maxY
+			frame.origin.y = frame.maxY + self.appearance.arrowDistance
 			
 		case .downLeft:
-			frame.origin.x = min(maxX, frame.midX - (self.appearance.arrowSpread / 2 + self.appearance.arrowSpacingFromEdge))
-			frame.origin.y = frame.maxY
+			frame.origin.x = max(0, frame.minX - (viewSize.width + diag))
+			frame.origin.y = frame.maxY + diag
 			
 		case .downRight:
-			frame.origin.x = max(0, (frame.midX + self.appearance.arrowSpread / 2 + self.appearance.arrowSpacingFromEdge) - viewSize.width)
-			frame.origin.y = frame.maxY
+			frame.origin.x = frame.maxX + diag
+			frame.origin.y = frame.maxY + diag
 			
-		case .right:
-			frame.origin.y = min(maxY, max(0, frame.midY - viewSize.height / 2))
-			frame.origin.x = frame.minX - viewSize.width
-	
 		case .left:
 			frame.origin.y = min(maxY, max(0, frame.midY - viewSize.height / 2))
-			frame.origin.x = frame.maxX
+			frame.origin.x = max(0, frame.minX - (viewSize.width + self.appearance.arrowDistance))
+	
+		case .right:
+			frame.origin.y = min(maxY, max(0, frame.midY - viewSize.height / 2))
+			frame.origin.x = min(maxX, frame.maxX + self.appearance.arrowDistance)
 
 		}
 		frame.size = viewSize

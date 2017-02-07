@@ -20,9 +20,8 @@ public struct Appearance {
 	
 	var contentInset = UIEdgeInsets.zero
 	
-	var arrowDistance: CGFloat = 10
+	var arrowDistance: CGFloat = 30
 	var arrowSpread: CGFloat = 10			// how wide is the base of the arrow?
 	var arrowPoint: CGFloat = 1				// how wide is the tip of the arrow?
 	var arrowLength: CGFloat = 20			// how 'long' is the arrow?
-	var arrowSpacingFromEdge: CGFloat = 5
 }

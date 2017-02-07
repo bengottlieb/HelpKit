@@ -20,7 +20,7 @@ class TestViewController: UIViewController {
 		
 		self.tip?.removeFromSuperview()
 		
-		self.tip = self.button.showTooltip(text: "Hello, this is my tip", direction: directions[self.index])
+		self.tip = sender.showTooltip(text: "Hello, this is my tip", direction: directions[self.index])
 		print("Showing: \(directions[self.index])")
 		self.index += 1
 		if self.index >= directions.count { self.index = 0 }
