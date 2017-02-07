@@ -24,6 +24,5 @@ public struct Appearance {
 	var arrowSpread: CGFloat = 10			// how wide is the base of the arrow?
 	var arrowPoint: CGFloat = 1				// how wide is the tip of the arrow?
 	var arrowLength: CGFloat = 20			// how 'long' is the arrow?
-	var arrowPlacement = TooltipView.ArrowPlacement.mid		//where on the side is the base of the arrow?
 	var arrowSpacingFromEdge: CGFloat = 5
 }
