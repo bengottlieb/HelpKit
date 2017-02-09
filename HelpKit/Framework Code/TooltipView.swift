@@ -9,10 +9,12 @@
 import UIKit
 
 open class TooltipView: UIView {
+	
 	var targetView: UIView!
 	var targetArrowDirection = ArrowDirection.up
 	var targetWindow: UIWindow { return self.targetView.window! }
 	var appearance: Appearance!
+	var blocker: TooltipBlockerView? { return self.superview as? TooltipBlockerView }
 	
 	convenience init(target: UIView, text: String, direction: TooltipView.ArrowDirection = .left, appearance: Appearance = .standard) {
 		self.init(frame: .zero)
@@ -25,7 +27,6 @@ open class TooltipView: UIView {
 		self.appearance = appearance
 		
 		self.frame = self.boundingFrame
-		target.window?.addSubview(self)
 	}
 
 	open override func draw(_ rect: CGRect) {
@@ -33,7 +34,17 @@ open class TooltipView: UIView {
 	}
 }
 
+
 extension TooltipView {
+	public func show() {
+		let parent = TooltipBlocker.instance[self.targetWindow]
+		parent.add(tooltip: self)
+	}
+	
+	public func hide() {
+		self.blocker?.remove(tooltip: self)
+	}
+	
 	var contentSize: CGSize {
 		return CGSize(width: 100, height: 30)
 	}

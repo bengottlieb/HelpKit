@@ -13,14 +13,15 @@ class TestViewController: UIViewController {
 	@IBOutlet var button: UIButton!
 	
 	var index = 0
-	var tip: UIView?
+	var tip: TooltipView?
 	
 	@IBAction func showTip(sender: UIButton!) {
 		let directions: [TooltipView.ArrowDirection] = [.up, .upRight, .right, .downRight, .down, .downLeft, .left, .upLeft]
 		
-		self.tip?.removeFromSuperview()
+		self.tip?.hide()
 		
-		self.tip = sender.showTooltip(text: "Hello, this is my tip", direction: directions[self.index])
+		self.tip = sender.createTooltip(text: "Hello, this is my tip", direction: directions[self.index])
+		self.tip?.show()
 		print("Showing: \(directions[self.index])")
 		self.index += 1
 		if self.index >= directions.count { self.index = 0 }

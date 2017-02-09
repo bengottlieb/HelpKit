@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -20,57 +21,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GTe-WK-FBm">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GTe-WK-FBm">
                                 <rect key="frame" x="76" y="318" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="showTipWithSender:" destination="B6D-QI-aER" eventType="touchUpInside" id="AOy-Ja-ghD"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c66-ES-11H">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c66-ES-11H">
                                 <rect key="frame" x="76" y="557" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="showTipWithSender:" destination="B6D-QI-aER" eventType="touchUpInside" id="nvC-AE-fY7"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eol-I6-K4S">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eol-I6-K4S">
                                 <rect key="frame" x="274" y="557" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="showTipWithSender:" destination="B6D-QI-aER" eventType="touchUpInside" id="D0e-m8-Lva"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M83-6T-pFK">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M83-6T-pFK">
                                 <rect key="frame" x="274" y="318" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="showTipWithSender:" destination="B6D-QI-aER" eventType="touchUpInside" id="qB5-Te-2tJ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QsE-YL-nf1">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QsE-YL-nf1">
                                 <rect key="frame" x="274" y="35" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="showTipWithSender:" destination="B6D-QI-aER" eventType="touchUpInside" id="2t3-TS-e0J"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pHQ-Je-cs4">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pHQ-Je-cs4">
                                 <rect key="frame" x="40" y="28" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="showTipWithSender:" destination="B6D-QI-aER" eventType="touchUpInside" id="PIh-Gc-cgb"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y9D-I5-fNQ">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y9D-I5-fNQ">
                                 <rect key="frame" x="164" y="148" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="showTipWithSender:" destination="B6D-QI-aER" eventType="touchUpInside" id="87J-li-gTu"/>
@@ -78,6 +72,22 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="8DV-Me-9WO" firstAttribute="top" secondItem="eol-I6-K4S" secondAttribute="bottom" constant="80" id="4HR-nR-07H"/>
+                            <constraint firstItem="8DV-Me-9WO" firstAttribute="top" secondItem="c66-ES-11H" secondAttribute="bottom" constant="80" id="ArZ-Zv-FgL"/>
+                            <constraint firstItem="GTe-WK-FBm" firstAttribute="centerY" secondItem="9qE-9k-DMm" secondAttribute="centerY" id="Eqc-cH-P7L"/>
+                            <constraint firstItem="c66-ES-11H" firstAttribute="leading" secondItem="9qE-9k-DMm" secondAttribute="leadingMargin" constant="60" id="HKG-Bf-A4F"/>
+                            <constraint firstItem="Y9D-I5-fNQ" firstAttribute="centerY" secondItem="9qE-9k-DMm" secondAttribute="centerY" constant="-170.5" id="K8I-22-fU2"/>
+                            <constraint firstItem="GTe-WK-FBm" firstAttribute="leading" secondItem="9qE-9k-DMm" secondAttribute="leadingMargin" constant="60" id="L5p-4b-Vrz"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="QsE-YL-nf1" secondAttribute="trailing" constant="39" id="SVa-YX-IKW"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="eol-I6-K4S" secondAttribute="trailing" constant="39" id="TMO-CF-R2H"/>
+                            <constraint firstItem="Y9D-I5-fNQ" firstAttribute="centerX" secondItem="9qE-9k-DMm" secondAttribute="centerX" id="Ucw-oA-FAU"/>
+                            <constraint firstItem="pHQ-Je-cs4" firstAttribute="top" secondItem="YPP-cS-uCq" secondAttribute="bottom" constant="8" id="ZOy-YD-B6e"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="M83-6T-pFK" secondAttribute="trailing" constant="39" id="doh-6Q-r02"/>
+                            <constraint firstItem="M83-6T-pFK" firstAttribute="centerY" secondItem="9qE-9k-DMm" secondAttribute="centerY" id="hkF-ly-Fbe"/>
+                            <constraint firstItem="QsE-YL-nf1" firstAttribute="top" secondItem="YPP-cS-uCq" secondAttribute="bottom" constant="15" id="pJU-BL-QBj"/>
+                            <constraint firstItem="pHQ-Je-cs4" firstAttribute="leading" secondItem="9qE-9k-DMm" secondAttribute="leadingMargin" constant="24" id="seb-Lb-Pgr"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="button" destination="GTe-WK-FBm" id="Zcy-Aq-M7j"/>

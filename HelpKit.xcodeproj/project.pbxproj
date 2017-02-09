@@ -34,6 +34,7 @@
 		B5DC61591E4936AB001CD747 /* UIKit Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC61581E4936AB001CD747 /* UIKit Extensions.swift */; };
 		B5DC615B1E493759001CD747 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC615A1E493759001CD747 /* Appearance.swift */; };
 		B5DC615D1E4949FB001CD747 /* TestHarness.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5DC615C1E4949FB001CD747 /* TestHarness.storyboard */; };
+		B5DC61631E4C2707001CD747 /* TooltipBlocker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC61621E4C2707001CD747 /* TooltipBlocker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,7 @@
 		B5DC61581E4936AB001CD747 /* UIKit Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit Extensions.swift"; sourceTree = "<group>"; };
 		B5DC615A1E493759001CD747 /* Appearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
 		B5DC615C1E4949FB001CD747 /* TestHarness.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TestHarness.storyboard; sourceTree = "<group>"; };
+		B5DC61621E4C2707001CD747 /* TooltipBlocker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TooltipBlocker.swift; sourceTree = "<group>"; };
 		B5FEE6BC1C08D40B00EA7FCA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -157,6 +159,7 @@
 			children = (
 				B5DC614A1E493297001CD747 /* Rsc */,
 				B5DC61551E4933E4001CD747 /* TooltipView.swift */,
+				B5DC61621E4C2707001CD747 /* TooltipBlocker.swift */,
 				B5DC61581E4936AB001CD747 /* UIKit Extensions.swift */,
 				B5DC615A1E493759001CD747 /* Appearance.swift */,
 			);
@@ -394,6 +397,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5DC61631E4C2707001CD747 /* TooltipBlocker.swift in Sources */,
 				B5DC61561E4933E4001CD747 /* TooltipView.swift in Sources */,
 				B5DC615B1E493759001CD747 /* Appearance.swift in Sources */,
 				B5DC61591E4936AB001CD747 /* UIKit Extensions.swift in Sources */,
