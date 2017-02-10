@@ -48,18 +48,33 @@ extension TooltipView {
 	var contentSize: CGSize {
 		return CGSize(width: 100, height: 30)
 	}
-	
+
 	var boundingFrame: CGRect {
-		let windowSize = self.targetWindow.bounds.size
-		var direction = self.targetArrowDirection
+		let bounds = self.boundingFrame(for: self.targetArrowDirection)
+		let windowFrame = self.targetWindow.bounds
+
+		if windowFrame.intersection(bounds).size == bounds.size { return bounds }
+		let index = ArrowDirection.all.index(of: self.targetArrowDirection)!
+		let directionCount = ArrowDirection.all.count
+
+		for i in 1..<directionCount {
+			let newDirection = ArrowDirection.all[(index + i) % directionCount]
+			let newBounds = self.boundingFrame(for: newDirection)
+			if windowFrame.intersection(newBounds).size == newBounds.size { return newBounds }
+		}
+		return bounds
+	}
+
+	func boundingFrame(for direction: ArrowDirection) -> CGRect {
 		var frame = self.targetWindow.convert(self.targetView.bounds, from: self.targetView)
 		let viewSize: CGSize
 		let minContentSize = self.contentSize
 		let contentWidth = minContentSize.width + self.appearance.contentInset.left + self.appearance.contentInset.right
 		let contentHeight = minContentSize.height + self.appearance.contentInset.top + self.appearance.contentInset.bottom
+		let diag = sqrt(pow(self.appearance.arrowDistance, 2) / 2)
+	
 		
-		
-		switch self.targetArrowDirection {
+		switch direction {
 		case .up, .down:				// arrow from the top or bottom of the target, make sure there's space above
 			viewSize = CGSize(width: contentWidth, height: contentHeight + self.appearance.arrowDistance + self.appearance.arrowLength)
 
@@ -70,41 +85,13 @@ extension TooltipView {
 			viewSize = CGSize(width: contentWidth + self.appearance.arrowDistance + self.appearance.arrowLength, height: contentHeight + self.appearance.arrowDistance + self.appearance.arrowLength)
 		}
 		
-		let tooFarUp = viewSize.height > frame.minY
-		let tooFarLeft = viewSize.width > frame.minX
-		let tooFarDown = (windowSize.height - frame.maxY) < viewSize.height
-		let tooFarRight = (windowSize.width - frame.maxX) < viewSize.width
-		
-		switch direction {
-		case .up: if tooFarUp { direction = .down }
-		case .upRight:
-			if tooFarUp { direction = tooFarRight ? .downLeft : .downRight }
-			else if tooFarRight { direction = .downLeft }
-		case .right: if tooFarRight { direction = .left }
-		case .downRight:
-			if tooFarDown { direction = tooFarRight ? .upLeft : .upRight }
-			else if tooFarRight { direction = .downLeft }
-		case .down: if tooFarDown { direction = .up }
-		case .downLeft:
-			if tooFarDown { direction = tooFarLeft ? .upRight : .downLeft }
-			else if tooFarLeft { direction = .downRight }
-		case .left: if tooFarLeft { direction = .right }
-		case .upLeft:
-			if tooFarUp { direction = tooFarLeft ? .downRight : .downLeft }
-			else if tooFarLeft { direction = .downRight }
-		}
-		
-		let maxX = windowSize.width - viewSize.width
-		let maxY = windowSize.height - viewSize.height
-		let diag = sqrt(pow(self.appearance.arrowDistance, 2) / 2)
-		
 		switch direction {
 		case .up:
-			frame.origin.x = min(maxX, max(0, frame.midX - viewSize.width / 2))
+			frame.origin.x = frame.midX - viewSize.width / 2
 			frame.origin.y = frame.minY - (viewSize.height + self.appearance.arrowDistance)
 			
 		case .upLeft:
-			frame.origin.x = max(0, frame.minX - (viewSize.width + diag))
+			frame.origin.x = frame.minX - (viewSize.width + diag)
 			frame.origin.y = frame.minY - (viewSize.height + diag)
 			
 		case .upRight:
@@ -112,11 +99,11 @@ extension TooltipView {
 			frame.origin.y = frame.minY - (viewSize.height + diag)
 
 		case .down:
-			frame.origin.x = min(maxX, max(0, frame.midX - viewSize.width / 2))
+			frame.origin.x = frame.midX - viewSize.width / 2
 			frame.origin.y = frame.maxY + self.appearance.arrowDistance
 			
 		case .downLeft:
-			frame.origin.x = max(0, frame.minX - (viewSize.width + diag))
+			frame.origin.x = frame.minX - (viewSize.width + diag)
 			frame.origin.y = frame.maxY + diag
 			
 		case .downRight:
@@ -124,12 +111,12 @@ extension TooltipView {
 			frame.origin.y = frame.maxY + diag
 			
 		case .left:
-			frame.origin.y = min(maxY, max(0, frame.midY - viewSize.height / 2))
-			frame.origin.x = max(0, frame.minX - (viewSize.width + self.appearance.arrowDistance))
+			frame.origin.y = frame.midY - viewSize.height / 2
+			frame.origin.x = frame.minX - (viewSize.width + self.appearance.arrowDistance)
 	
 		case .right:
-			frame.origin.y = min(maxY, max(0, frame.midY - viewSize.height / 2))
-			frame.origin.x = min(maxX, frame.maxX + self.appearance.arrowDistance)
+			frame.origin.y = frame.midY - viewSize.height / 2
+			frame.origin.x = frame.maxX + self.appearance.arrowDistance
 
 		}
 		frame.size = viewSize
@@ -139,5 +126,8 @@ extension TooltipView {
 }
 
 extension TooltipView {
-	public enum ArrowDirection { case up, upRight, right, downRight, down, downLeft, left, upLeft }
+	public enum ArrowDirection: Int { case up, upRight, right, downRight, down, downLeft, left, upLeft
+	
+		static let all: [ArrowDirection] = [.up, .upRight, .right, .downRight, .down, .downLeft, .left, .upLeft]
+	}
 }
