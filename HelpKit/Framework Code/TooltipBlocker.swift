@@ -22,6 +22,7 @@ class TooltipBlocker {
 		
 		window.addSubview(view)
 		view.isUserInteractionEnabled = false
+		view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 		
 		UIView.animate(withDuration: 0.2) { view.animateIn() }
 		

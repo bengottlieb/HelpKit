@@ -9,6 +9,9 @@
 import UIKit
 
 open class TooltipView: UIView {
+	deinit {
+		self.targetView.removeObserver(self, forKeyPath: "center")
+	}
 	
 	var targetView: UIView!
 	var targetArrowDirection = ArrowDirection.up
@@ -32,6 +35,10 @@ open class TooltipView: UIView {
 	open override func draw(_ rect: CGRect) {
 		
 	}
+	
+	func reposition() {
+		self.frame = self.boundingFrame
+	}
 }
 
 
@@ -39,6 +46,11 @@ extension TooltipView {
 	public func show() {
 		let parent = TooltipBlocker.instance[self.targetWindow]
 		parent.add(tooltip: self)
+		self.targetView.addObserver(self, forKeyPath: "center", options: [.new], context: nil)
+	}
+	
+	open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+		self.reposition()
 	}
 	
 	public func hide() {
@@ -60,7 +72,9 @@ extension TooltipView {
 		for i in 1..<directionCount {
 			let newDirection = ArrowDirection.all[(index + i) % directionCount]
 			let newBounds = self.boundingFrame(for: newDirection)
-			if windowFrame.intersection(newBounds).size == newBounds.size { return newBounds }
+			if windowFrame.intersection(newBounds).size == newBounds.size {
+				return newBounds
+			}
 		}
 		return bounds
 	}
