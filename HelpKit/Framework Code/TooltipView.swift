@@ -14,30 +14,29 @@ open class TooltipView: UIView {
 	}
 	
 	var targetView: UIView!
-	var targetArrowDirection = ArrowDirection.up
+	var targetArrowDirection = ArrowDirection.none
 	var targetWindow: UIWindow { return self.targetView.window! }
 	var appearance: Appearance!
 	var blocker: TooltipBlockerView? { return self.superview as? TooltipBlockerView }
+	var tooltipLayer: TooltipLayer!
+	var effectiveArrowDirection: ArrowDirection = ArrowDirection.none
 	
 	convenience init(target: UIView, text: String, direction: TooltipView.ArrowDirection = .left, appearance: Appearance = .standard) {
 		self.init(frame: .zero)
-		self.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
-		self.layer.borderColor = UIColor.black.cgColor
-		self.layer.borderWidth = 1
 		
 		self.targetView = target
 		self.targetArrowDirection = direction
 		self.appearance = appearance
 		
+		
 		self.frame = self.boundingFrame
+		self.tooltipLayer = appearance.layerClass.init(frame: self.bounds, arrowDirection: self.effectiveArrowDirection)
+		self.layer.addSublayer(self.tooltipLayer)
 	}
 
-	open override func draw(_ rect: CGRect) {
-		
-	}
-	
 	func reposition() {
 		self.frame = self.boundingFrame
+		self.tooltipLayer?.arrowDirection = self.effectiveArrowDirection
 	}
 }
 
@@ -65,7 +64,10 @@ extension TooltipView {
 		let bounds = self.boundingFrame(for: self.targetArrowDirection)
 		let windowFrame = self.targetWindow.bounds
 
-		if windowFrame.intersection(bounds).size == bounds.size { return bounds }
+		if windowFrame.intersection(bounds).size == bounds.size {
+			self.effectiveArrowDirection = self.targetArrowDirection
+			return bounds
+		}
 		let index = ArrowDirection.all.index(of: self.targetArrowDirection)!
 		let directionCount = ArrowDirection.all.count
 
@@ -73,9 +75,11 @@ extension TooltipView {
 			let newDirection = ArrowDirection.all[(index + i) % directionCount]
 			let newBounds = self.boundingFrame(for: newDirection)
 			if windowFrame.intersection(newBounds).size == newBounds.size {
+				self.effectiveArrowDirection = self.targetArrowDirection
 				return newBounds
 			}
 		}
+		self.effectiveArrowDirection = self.targetArrowDirection
 		return bounds
 	}
 
@@ -132,6 +136,8 @@ extension TooltipView {
 			frame.origin.y = frame.midY - viewSize.height / 2
 			frame.origin.x = frame.maxX + self.appearance.arrowDistance
 
+		case .none:
+			break
 		}
 		frame.size = viewSize
 
@@ -140,7 +146,7 @@ extension TooltipView {
 }
 
 extension TooltipView {
-	public enum ArrowDirection: Int { case up, upRight, right, downRight, down, downLeft, left, upLeft
+	public enum ArrowDirection: Int { case none, up, upRight, right, downRight, down, downLeft, left, upLeft
 	
 		static let all: [ArrowDirection] = [.up, .upRight, .right, .downRight, .down, .downLeft, .left, .upLeft]
 	}

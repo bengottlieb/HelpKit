@@ -24,4 +24,6 @@ public struct Appearance {
 	var arrowSpread: CGFloat = 10			// how wide is the base of the arrow?
 	var arrowPoint: CGFloat = 1				// how wide is the tip of the arrow?
 	var arrowLength: CGFloat = 20			// how 'long' is the arrow?
+	
+	var layerClass = TooltipLayer.self
 }

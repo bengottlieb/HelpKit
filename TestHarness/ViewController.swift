@@ -22,7 +22,6 @@ class TestViewController: UIViewController {
 		
 		self.tip = sender.createTooltip(text: "Hello, this is my tip", direction: directions[self.index])
 		self.tip?.show()
-		print("Showing: \(directions[self.index])")
 		self.index += 1
 		if self.index >= directions.count { self.index = 0 }
 	}

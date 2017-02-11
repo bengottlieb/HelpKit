@@ -28,6 +28,7 @@
 		B549E35E1BF8CA4F0046463A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B549E35C1BF8CA4F0046463A /* LaunchScreen.storyboard */; };
 		B549E3661BF8CB750046463A /* HelpKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B549E31B1BF8C8460046463A /* HelpKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B549E3691BF8CBCB0046463A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B549E3681BF8CBCB0046463A /* CloudKit.framework */; };
+		B5D740DB1E4F402600E5C3E1 /* TooltipLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D740DA1E4F402600E5C3E1 /* TooltipLayer.swift */; };
 		B5DC614C1E493297001CD747 /* HelpKit.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5DC614B1E493297001CD747 /* HelpKit.xcassets */; };
 		B5DC61501E49330C001CD747 /* HelpKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC614E1E49330C001CD747 /* HelpKitTests.swift */; };
 		B5DC61561E4933E4001CD747 /* TooltipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC61551E4933E4001CD747 /* TooltipView.swift */; };
@@ -78,6 +79,7 @@
 		B549E35D1BF8CA4F0046463A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B549E35F1BF8CA4F0046463A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B549E3681BF8CBCB0046463A /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		B5D740DA1E4F402600E5C3E1 /* TooltipLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TooltipLayer.swift; sourceTree = "<group>"; };
 		B5DC614B1E493297001CD747 /* HelpKit.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = HelpKit.xcassets; sourceTree = "<group>"; };
 		B5DC614E1E49330C001CD747 /* HelpKitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpKitTests.swift; sourceTree = "<group>"; };
 		B5DC614F1E49330C001CD747 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 				B5DC61621E4C2707001CD747 /* TooltipBlocker.swift */,
 				B5DC61581E4936AB001CD747 /* UIKit Extensions.swift */,
 				B5DC615A1E493759001CD747 /* Appearance.swift */,
+				B5D740DA1E4F402600E5C3E1 /* TooltipLayer.swift */,
 			);
 			name = "Framework Code";
 			path = "HelpKit/Framework Code";
@@ -400,6 +403,7 @@
 				B5DC61631E4C2707001CD747 /* TooltipBlocker.swift in Sources */,
 				B5DC61561E4933E4001CD747 /* TooltipView.swift in Sources */,
 				B5DC615B1E493759001CD747 /* Appearance.swift in Sources */,
+				B5D740DB1E4F402600E5C3E1 /* TooltipLayer.swift in Sources */,
 				B5DC61591E4936AB001CD747 /* UIKit Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
