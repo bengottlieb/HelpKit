@@ -19,6 +19,7 @@ public struct Appearance {
 	var bodyFont = UIFont.systemFont(ofSize: 13)
 	
 	var contentInset = UIEdgeInsets.zero
+	var backgroundInset = UIEdgeInsets.zero
 	
 	var arrowDistance: CGFloat = 30
 	var arrowSpread: CGFloat = 10			// how wide is the base of the arrow?

@@ -30,7 +30,7 @@ open class TooltipView: UIView {
 		
 		
 		self.frame = self.boundingFrame
-		self.tooltipLayer = appearance.layerClass.init(frame: self.bounds, arrowDirection: self.effectiveArrowDirection)
+		self.tooltipLayer = appearance.layerClass.init(frame: self.bounds, appearance: self.appearance, arrowDirection: self.effectiveArrowDirection)
 		self.layer.addSublayer(self.tooltipLayer)
 	}
 
@@ -75,7 +75,7 @@ extension TooltipView {
 			let newDirection = ArrowDirection.all[(index + i) % directionCount]
 			let newBounds = self.boundingFrame(for: newDirection)
 			if windowFrame.intersection(newBounds).size == newBounds.size {
-				self.effectiveArrowDirection = self.targetArrowDirection
+				self.effectiveArrowDirection = newDirection
 				return newBounds
 			}
 		}
