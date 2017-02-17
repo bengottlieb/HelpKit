@@ -9,11 +9,14 @@
 import UIKit
 
 open class TooltipView: UIView {
+	public static var maxTooltipWidth: CGFloat = 200
+	
 	deinit {
 		self.targetView.removeObserver(self, forKeyPath: "center")
 	}
 	
 	var targetView: UIView!
+	var contentView: UIView!
 	var targetArrowDirection = ArrowDirection.none
 	var targetWindow: UIWindow { return self.targetView.window! }
 	var appearance: Appearance!
@@ -21,19 +24,24 @@ open class TooltipView: UIView {
 	var tooltipLayer: TooltipLayer!
 	var effectiveArrowDirection: ArrowDirection = ArrowDirection.none
 	
-	convenience init(target: UIView, text: String, direction: TooltipView.ArrowDirection = .left, appearance: Appearance = .standard) {
+	public convenience init(target: UIView, title: String? = nil, body: String? = nil, content: UIView? = nil, direction: TooltipView.ArrowDirection = .left, appearance: Appearance = .standard) {
 		self.init(frame: .zero)
 		
 		self.targetView = target
 		self.targetArrowDirection = direction
 		self.appearance = appearance
 		
+		if let content = content { self.contentView = content }
+		else if body != nil || title != nil { self.contentView = UILabel(tooltipTitle: title, body: body, appearance: appearance) }
 		
 		self.frame = self.boundingFrame
 		self.tooltipLayer = appearance.layerClass.init(frame: self.bounds, appearance: self.appearance, arrowDirection: self.effectiveArrowDirection)
 		self.layer.addSublayer(self.tooltipLayer)
+		self.addSubview(self.contentView)
+		self.contentView.center = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
 	}
-
+	
+	
 	func reposition() {
 		self.frame = self.boundingFrame
 		self.tooltipLayer?.arrowDirection = self.effectiveArrowDirection
@@ -57,7 +65,7 @@ extension TooltipView {
 	}
 	
 	var contentSize: CGSize {
-		return CGSize(width: 100, height: 30)
+		return self.contentView.bounds.size
 	}
 
 	var boundingFrame: CGRect {
@@ -87,8 +95,9 @@ extension TooltipView {
 		var frame = self.targetWindow.convert(self.targetView.bounds, from: self.targetView)
 		let viewSize: CGSize
 		let minContentSize = self.contentSize
-		let contentWidth = minContentSize.width + self.appearance.contentInset.left + self.appearance.contentInset.right
-		let contentHeight = minContentSize.height + self.appearance.contentInset.top + self.appearance.contentInset.bottom
+		let insets = self.appearance.contentInset(for: direction)
+		let contentWidth = minContentSize.width + insets.left + insets.right
+		let contentHeight = minContentSize.height + insets.top + insets.bottom
 		let diag = sqrt(pow(self.appearance.arrowDistance, 2) / 2)
 	
 		
@@ -104,35 +113,35 @@ extension TooltipView {
 		}
 		
 		switch direction {
-		case .up:
+		case .down:
 			frame.origin.x = frame.midX - viewSize.width / 2
 			frame.origin.y = frame.minY - (viewSize.height + self.appearance.arrowDistance)
 			
-		case .upLeft:
+		case .downRight:
 			frame.origin.x = frame.minX - (viewSize.width + diag)
 			frame.origin.y = frame.minY - (viewSize.height + diag)
 			
-		case .upRight:
+		case .downLeft:
 			frame.origin.x = frame.maxX + diag
 			frame.origin.y = frame.minY - (viewSize.height + diag)
 
-		case .down:
+		case .up:
 			frame.origin.x = frame.midX - viewSize.width / 2
 			frame.origin.y = frame.maxY + self.appearance.arrowDistance
 			
-		case .downLeft:
+		case .upRight:
 			frame.origin.x = frame.minX - (viewSize.width + diag)
 			frame.origin.y = frame.maxY + diag
 			
-		case .downRight:
+		case .upLeft:
 			frame.origin.x = frame.maxX + diag
 			frame.origin.y = frame.maxY + diag
 			
-		case .left:
+		case .right:
 			frame.origin.y = frame.midY - viewSize.height / 2
 			frame.origin.x = frame.minX - (viewSize.width + self.appearance.arrowDistance)
 	
-		case .right:
+		case .left:
 			frame.origin.y = frame.midY - viewSize.height / 2
 			frame.origin.x = frame.maxX + self.appearance.arrowDistance
 

@@ -10,7 +10,7 @@ import UIKit
 
 open class TooltipLayer: CALayer {
 	var arrowDirection: TooltipView.ArrowDirection { didSet { self.setNeedsDisplay() } }
-	var fill = UIColor.orange
+	var fill = UIColor.green
 	var border = UIColor.black
 	var appearance: Appearance
 	
@@ -26,14 +26,14 @@ open class TooltipLayer: CALayer {
 	
 	func arrowLocation(in bounds: CGRect) -> CGPoint? {
 		switch self.arrowDirection {
-		case .upLeft: return CGPoint(x: bounds.maxX, y: bounds.maxY)
-		case .left: return CGPoint(x: bounds.maxX, y: bounds.midY)
-		case .downLeft: return CGPoint(x: bounds.maxX, y: bounds.minY)
-		case .down: return CGPoint(x: bounds.midX, y: bounds.minY)
-		case .downRight: return CGPoint(x: bounds.minX, y: bounds.minY)
-		case .right: return CGPoint(x: bounds.minX, y: bounds.midY)
-		case .upRight: return CGPoint(x: bounds.minX, y: bounds.maxY)
-		case .up: return CGPoint(x: bounds.midX, y: bounds.maxY)
+		case .downRight: return CGPoint(x: bounds.maxX, y: bounds.maxY)
+		case .right: return CGPoint(x: bounds.maxX, y: bounds.midY)
+		case .upRight: return CGPoint(x: bounds.maxX, y: bounds.minY)
+		case .up: return CGPoint(x: bounds.midX, y: bounds.minY)
+		case .upLeft: return CGPoint(x: bounds.minX, y: bounds.minY)
+		case .left: return CGPoint(x: bounds.minX, y: bounds.midY)
+		case .downLeft: return CGPoint(x: bounds.minX, y: bounds.maxY)
+		case .down: return CGPoint(x: bounds.midX, y: bounds.maxY)
 		
 		case .none: return nil
 		}
@@ -57,7 +57,7 @@ open class TooltipLayer: CALayer {
 		var stemLocation: CGFloat = 0.5
 		
 		switch self.arrowDirection {
-		case .upLeft, .up, .upRight:
+		case .downRight, .down, .downLeft:
 			if self.arrowDirection == .upLeft { stemLocation = 0.8 }
 			else if self.arrowDirection == .upRight { stemLocation = 0.2 }
 			
@@ -73,7 +73,7 @@ open class TooltipLayer: CALayer {
 			if let arrowStart = self.arrowLocation(in: bounds) { bezier.addLine(to: arrowStart) }
 			break
 			
-		case .downLeft, .down, .downRight:
+		case .upLeft, .up, .upRight:
 			if self.arrowDirection == .downLeft { stemLocation = 0.8 }
 			else if self.arrowDirection == .downRight { stemLocation = 0.3 }
 			
@@ -90,7 +90,7 @@ open class TooltipLayer: CALayer {
 			if let arrowStart = self.arrowLocation(in: bounds) { bezier.addLine(to: arrowStart) }
 			break
 			
-		case .left:
+		case .right:
 			bezier = UIBezierPath()
 			if let arrowStart = self.arrowLocation(in: bounds) { bezier.move(to: arrowStart) }
 			bubble.size.width -= self.appearance.arrowLength
@@ -103,7 +103,7 @@ open class TooltipLayer: CALayer {
 			if let arrowStart = self.arrowLocation(in: bounds) { bezier.addLine(to: arrowStart) }
 			break
 			
-		case .right:
+		case .left:
 			bezier = UIBezierPath()
 			if let arrowStart = self.arrowLocation(in: bounds) { bezier.move(to: arrowStart) }
 			bubble.size.width -= self.appearance.arrowLength
@@ -121,6 +121,9 @@ open class TooltipLayer: CALayer {
 			break
 		}
 		
+		self.fill.setFill()
+		self.border.setStroke()
+		bezier.lineWidth = self.borderWidth
 		
 		bezier.fill()
 		bezier.stroke()
