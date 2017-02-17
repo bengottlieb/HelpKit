@@ -17,8 +17,10 @@ public struct Appearance {
 	var textColor = UIColor.black
 	var titleFont = UIFont.boldSystemFont(ofSize: 14)
 	var bodyFont = UIFont.systemFont(ofSize: 13)
+	var borderWidth: CGFloat = 2
+	var borderColor = UIColor.black
 	
-	var backgroundInset = UIEdgeInsets.zero
+	var backgroundInset = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
 	
 	var arrowDistance: CGFloat = 30
 	var arrowSpread: CGFloat = 10			// how wide is the base of the arrow?
@@ -41,13 +43,22 @@ public struct Appearance {
 	func contentInset(for direction: TooltipView.ArrowDirection) -> UIEdgeInsets {
 		var insets = self.backgroundInset
 		
-		
-//		let diag = sqrt(pow(self.appearance.arrowDistance, 2) / 2)
-//
-//		switch direction {
-//		case .upLeft:
-//			
-//		}
+		let diag = sqrt(pow(self.arrowDistance, 2) / 2)
+
+		switch direction {
+		case .upLeft: insets.top += diag; //insets.left += diag
+		case .upRight: insets.top += diag; //insets.right += diag
+
+		case.up: insets.top += self.arrowDistance
+		case .left: insets.left += self.arrowDistance
+		case .right: insets.right += self.arrowDistance
+		case .down: insets.bottom += self.arrowDistance
+
+		case .downLeft: insets.bottom += diag; //insets.left += diag
+		case .downRight: insets.bottom += diag; //insets.right += diag
+			
+		case .none: break
+		}
 		
 		return insets
 	}

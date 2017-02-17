@@ -12,12 +12,16 @@ open class TooltipLayer: CALayer {
 	var arrowDirection: TooltipView.ArrowDirection { didSet { self.setNeedsDisplay() } }
 	var fill = UIColor.green
 	var border = UIColor.black
+	var tipBorderWidth: CGFloat = 2
 	var appearance: Appearance
 	
 	public required init(frame: CGRect, appearance: Appearance, arrowDirection: TooltipView.ArrowDirection) {
 		self.arrowDirection = arrowDirection
 		self.appearance = appearance
 		super.init()
+		self.border = appearance.borderColor
+		self.fill = appearance.backgroundColor
+		self.tipBorderWidth = appearance.borderWidth
 		self.frame = frame
 		self.setNeedsDisplay()
 	}
@@ -40,13 +44,15 @@ open class TooltipLayer: CALayer {
 	}
 	
 	open override func draw(in ctx: CGContext) {
-		print("Drawing \(self.arrowDirection)")
+	//	print("Drawing \(self.arrowDirection)")
 		UIGraphicsPushContext(ctx)
-		var bezier = UIBezierPath(ovalIn: self.bounds)
-		let bounds = CGRect(x: self.bounds.origin.x + self.appearance.backgroundInset.left,
-		                    y: self.bounds.origin.y + self.appearance.backgroundInset.top,
-		                    width: self.bounds.width - (self.appearance.backgroundInset.left + self.appearance.backgroundInset.right),
-		                    height: self.bounds.height - (self.appearance.backgroundInset.top + self.appearance.backgroundInset.bottom))
+		let tipBounds = self.bounds.insetBy(dx: self.tipBorderWidth, dy: self.tipBorderWidth)
+		var bezier = UIBezierPath(ovalIn: tipBounds)
+		let inset = self.appearance.backgroundInset
+		let bounds = CGRect(x: tipBounds.origin.x + inset.left,
+		                    y: tipBounds.origin.y + inset.top,
+		                    width: tipBounds.width - (inset.left + inset.right),
+		                    height: tipBounds.height - (inset.top + inset.bottom))
 		var bubble = bounds
 		
 		if let arrowStart = self.arrowLocation(in: bounds) {
@@ -123,7 +129,7 @@ open class TooltipLayer: CALayer {
 		
 		self.fill.setFill()
 		self.border.setStroke()
-		bezier.lineWidth = self.borderWidth
+		bezier.lineWidth = self.tipBorderWidth
 		
 		bezier.fill()
 		bezier.stroke()

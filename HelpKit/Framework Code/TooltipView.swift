@@ -22,7 +22,12 @@ open class TooltipView: UIView {
 	var appearance: Appearance!
 	var blocker: TooltipBlockerView? { return self.superview as? TooltipBlockerView }
 	var tooltipLayer: TooltipLayer!
-	var effectiveArrowDirection: ArrowDirection = ArrowDirection.none
+	var effectiveArrowDirection: ArrowDirection = ArrowDirection.none { didSet {
+		let insets = self.appearance.contentInset(for: self.effectiveArrowDirection)
+		//self.contentView.frame = CGRect(x: insets.left, y: insets.top, width: self.bounds.width - (insets.left + insets.right), height: self.bounds.height - (insets.top + insets.bottom))
+		let contentSize = self.contentView.bounds.size
+		self.contentView.center = CGPoint(x: insets.left + contentSize.width / 2, y: insets.top + contentSize.height / 2)
+	}}
 	
 	public convenience init(target: UIView, title: String? = nil, body: String? = nil, content: UIView? = nil, direction: TooltipView.ArrowDirection = .left, appearance: Appearance = .standard) {
 		self.init(frame: .zero)
@@ -38,9 +43,7 @@ open class TooltipView: UIView {
 		self.tooltipLayer = appearance.layerClass.init(frame: self.bounds, appearance: self.appearance, arrowDirection: self.effectiveArrowDirection)
 		self.layer.addSublayer(self.tooltipLayer)
 		self.addSubview(self.contentView)
-		self.contentView.center = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
 	}
-	
 	
 	func reposition() {
 		self.frame = self.boundingFrame
@@ -93,24 +96,24 @@ extension TooltipView {
 
 	func boundingFrame(for direction: ArrowDirection) -> CGRect {
 		var frame = self.targetWindow.convert(self.targetView.bounds, from: self.targetView)
-		let viewSize: CGSize
 		let minContentSize = self.contentSize
 		let insets = self.appearance.contentInset(for: direction)
 		let contentWidth = minContentSize.width + insets.left + insets.right
 		let contentHeight = minContentSize.height + insets.top + insets.bottom
 		let diag = sqrt(pow(self.appearance.arrowDistance, 2) / 2)
+		let viewSize = CGSize(width: contentWidth, height: contentHeight)
 	
 		
-		switch direction {
-		case .up, .down:				// arrow from the top or bottom of the target, make sure there's space above
-			viewSize = CGSize(width: contentWidth, height: contentHeight + self.appearance.arrowDistance + self.appearance.arrowLength)
-
-		case .left, .right:				// arrow from the left or right of the target, make sure there's space to the side
-			viewSize = CGSize(width: contentWidth + self.appearance.arrowDistance + self.appearance.arrowLength, height: contentHeight)
-			
-		default:
-			viewSize = CGSize(width: contentWidth + self.appearance.arrowDistance + self.appearance.arrowLength, height: contentHeight + self.appearance.arrowDistance + self.appearance.arrowLength)
-		}
+//		switch direction {
+//		case .up, .down:				// arrow from the top or bottom of the target, make sure there's space above
+//			viewSize = CGSize(width: contentWidth, height: contentHeight + self.appearance.arrowDistance + self.appearance.arrowLength)
+//
+//		case .left, .right:				// arrow from the left or right of the target, make sure there's space to the side
+//			viewSize = CGSize(width: contentWidth + self.appearance.arrowDistance + self.appearance.arrowLength, height: contentHeight)
+//			
+//		default:
+//			viewSize = CGSize(width: contentWidth + self.appearance.arrowDistance + self.appearance.arrowLength, height: contentHeight + self.appearance.arrowDistance + self.appearance.arrowLength)
+//		}
 		
 		switch direction {
 		case .down:
