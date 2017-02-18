@@ -22,11 +22,13 @@ open class TooltipView: UIView {
 	var appearance: Appearance!
 	var blocker: TooltipBlockerView? { return self.superview as? TooltipBlockerView }
 	var tooltipLayer: TooltipLayer!
+	var fullSize: CGSize = .zero
 	var effectiveArrowDirection: ArrowDirection = ArrowDirection.none { didSet {
 		let insets = self.appearance.contentInset(for: self.effectiveArrowDirection)
 		//self.contentView.frame = CGRect(x: insets.left, y: insets.top, width: self.bounds.width - (insets.left + insets.right), height: self.bounds.height - (insets.top + insets.bottom))
-		let contentSize = self.contentView.bounds.size
-		self.contentView.center = CGPoint(x: insets.left + contentSize.width / 2, y: insets.top + contentSize.height / 2)
+		let contentSize = self.fullSize
+//		self.contentView.center = CGPoint(x: insets.left + contentSize.width / 2, y: insets.top + contentSize.height / 2)
+		self.contentView.frame = CGRect(x: insets.left, y: insets.top, width: contentSize.width - (insets.left + insets.right), height: contentSize.height - (insets.top + insets.bottom))
 	}}
 	
 	public convenience init(target: UIView, title: String? = nil, body: String? = nil, content: UIView? = nil, direction: TooltipView.ArrowDirection = .left, appearance: Appearance = .standard) {
@@ -72,25 +74,26 @@ extension TooltipView {
 	}
 
 	var boundingFrame: CGRect {
-		let bounds = self.boundingFrame(for: self.targetArrowDirection)
+		var bounds = self.boundingFrame(for: self.targetArrowDirection)
 		let windowFrame = self.targetWindow.bounds
+		var directionThatFits = self.targetArrowDirection
 
-		if windowFrame.intersection(bounds).size == bounds.size {
-			self.effectiveArrowDirection = self.targetArrowDirection
-			return bounds
-		}
-		let index = ArrowDirection.all.index(of: self.targetArrowDirection)!
-		let directionCount = ArrowDirection.all.count
+		if windowFrame.intersection(bounds).size != bounds.size {
+			let index = ArrowDirection.all.index(of: self.targetArrowDirection)!
+			let directionCount = ArrowDirection.all.count
 
-		for i in 1..<directionCount {
-			let newDirection = ArrowDirection.all[(index + i) % directionCount]
-			let newBounds = self.boundingFrame(for: newDirection)
-			if windowFrame.intersection(newBounds).size == newBounds.size {
-				self.effectiveArrowDirection = newDirection
-				return newBounds
+			for i in 1..<directionCount {
+				let newDirection = ArrowDirection.all[(index + i) % directionCount]
+				let newBounds = self.boundingFrame(for: newDirection)
+				if windowFrame.intersection(newBounds).size == newBounds.size {
+					bounds = newBounds
+					directionThatFits = newDirection
+					break
+				}
 			}
 		}
-		self.effectiveArrowDirection = self.targetArrowDirection
+		self.fullSize = bounds.size
+		self.effectiveArrowDirection = directionThatFits
 		return bounds
 	}
 
@@ -101,19 +104,20 @@ extension TooltipView {
 		let contentWidth = minContentSize.width + insets.left + insets.right
 		let contentHeight = minContentSize.height + insets.top + insets.bottom
 		let diag = sqrt(pow(self.appearance.arrowDistance, 2) / 2)
-		let viewSize = CGSize(width: contentWidth, height: contentHeight)
+		var viewSize = CGSize(width: contentWidth, height: contentHeight)
 	
 		
-//		switch direction {
-//		case .up, .down:				// arrow from the top or bottom of the target, make sure there's space above
-//			viewSize = CGSize(width: contentWidth, height: contentHeight + self.appearance.arrowDistance + self.appearance.arrowLength)
-//
-//		case .left, .right:				// arrow from the left or right of the target, make sure there's space to the side
-//			viewSize = CGSize(width: contentWidth + self.appearance.arrowDistance + self.appearance.arrowLength, height: contentHeight)
-//			
-//		default:
-//			viewSize = CGSize(width: contentWidth + self.appearance.arrowDistance + self.appearance.arrowLength, height: contentHeight + self.appearance.arrowDistance + self.appearance.arrowLength)
-//		}
+		switch direction {
+		case .up, .down:				// arrow from the top or bottom of the target, make sure there's space above
+			viewSize.height += self.appearance.arrowDistance + self.appearance.arrowLength
+
+		case .left, .right:				// arrow from the left or right of the target, make sure there's space to the side
+			viewSize.width += self.appearance.arrowDistance + self.appearance.arrowLength
+			
+		default:
+			viewSize.width += self.appearance.arrowDistance + self.appearance.arrowLength
+			viewSize.height += self.appearance.arrowDistance + self.appearance.arrowLength
+		}
 		
 		switch direction {
 		case .down:

@@ -10,18 +10,19 @@ import UIKit
 
 open class TooltipLayer: CALayer {
 	var arrowDirection: TooltipView.ArrowDirection { didSet { self.setNeedsDisplay() } }
-	var fill = UIColor.green
-	var border = UIColor.black
-	var tipBorderWidth: CGFloat = 2
+	var fill: UIColor
+	var border: UIColor
+	var tipBorderWidth: CGFloat
 	var appearance: Appearance
 	
 	public required init(frame: CGRect, appearance: Appearance, arrowDirection: TooltipView.ArrowDirection) {
 		self.arrowDirection = arrowDirection
 		self.appearance = appearance
-		super.init()
 		self.border = appearance.borderColor
 		self.fill = appearance.backgroundColor
 		self.tipBorderWidth = appearance.borderWidth
+		super.init()
+		//self.backgroundColor = UIColor.orange.cgColor
 		self.frame = frame
 		self.setNeedsDisplay()
 	}
@@ -44,22 +45,22 @@ open class TooltipLayer: CALayer {
 	}
 	
 	open override func draw(in ctx: CGContext) {
-	//	print("Drawing \(self.arrowDirection)")
+		print("Drawing \(self.arrowDirection)")
 		UIGraphicsPushContext(ctx)
 		let tipBounds = self.bounds.insetBy(dx: self.tipBorderWidth, dy: self.tipBorderWidth)
 		var bezier = UIBezierPath(ovalIn: tipBounds)
-		let inset = self.appearance.backgroundInset
-		let bounds = CGRect(x: tipBounds.origin.x + inset.left,
-		                    y: tipBounds.origin.y + inset.top,
-		                    width: tipBounds.width - (inset.left + inset.right),
-		                    height: tipBounds.height - (inset.top + inset.bottom))
-		var bubble = bounds
+//		let inset = self.appearance.backgroundInset
+//		let bounds = CGRect(x: tipBounds.origin.x - inset.left,
+//		                    y: tipBounds.origin.y - inset.top,
+//		                    width: tipBounds.width + (inset.left + inset.right),
+//		                    height: tipBounds.height + (inset.top + inset.bottom))
+		var bubble = tipBounds
 		
 		if let arrowStart = self.arrowLocation(in: bounds) {
 			bezier.move(to: arrowStart)
 		}
 		
-		let stemWidth: CGFloat = 30
+		let stemWidth: CGFloat = self.appearance.arrowSpread
 		var stemLocation: CGFloat = 0.5
 		
 		switch self.arrowDirection {

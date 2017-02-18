@@ -16,6 +16,7 @@ class TestViewController: UIViewController {
 	var tip: TooltipView?
 	
 	@IBAction func showTip(sender: UIButton!) {
+//		let directions: [TooltipView.ArrowDirection] = [.right, .left]
 		let directions: [TooltipView.ArrowDirection] = [.up, .upRight, .right, .downRight, .down, .downLeft, .left, .upLeft]
 		
 		self.tip?.hide()

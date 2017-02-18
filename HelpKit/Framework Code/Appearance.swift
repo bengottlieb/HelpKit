@@ -13,24 +13,37 @@ public struct Appearance {
 	public static var standard = Appearance()
 	
 	
-	var backgroundColor = UIColor(white: 0.75, alpha: 0.9)
+	var backgroundColor = UIColor.white
 	var textColor = UIColor.black
-	var titleFont = UIFont.boldSystemFont(ofSize: 14)
+	
+	
+	var titleFont = UIFont.systemFont(ofSize: 14)
+	var titleAlignment: NSTextAlignment = .center
+
 	var bodyFont = UIFont.systemFont(ofSize: 13)
-	var borderWidth: CGFloat = 2
-	var borderColor = UIColor.black
+	var bodyAlignment: NSTextAlignment = .center
+	
+	var borderWidth: CGFloat = 0.5
+	var borderColor = UIColor.gray
 	
 	var backgroundInset = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
 	
-	var arrowDistance: CGFloat = 30
-	var arrowSpread: CGFloat = 10			// how wide is the base of the arrow?
+	var arrowDistance: CGFloat = 00
+	var arrowSpread: CGFloat = 8			// how wide is the base of the arrow?
 	var arrowPoint: CGFloat = 1				// how wide is the tip of the arrow?
-	var arrowLength: CGFloat = 20			// how 'long' is the arrow?
+	var arrowLength: CGFloat = 8			// how 'long' is the arrow?
 	
 	var layerClass = TooltipLayer.self
 	
-	var titleAttributes: [String: Any] { return [ NSFontAttributeName: self.titleFont, NSForegroundColorAttributeName: self.textColor ] }
-	var bodyAttributes: [String: Any] { return [ NSFontAttributeName: self.bodyFont, NSForegroundColorAttributeName: self.textColor ] }
+	var titleAttributes: [String: Any] {
+		let paraStyle = NSMutableParagraphStyle(); paraStyle.alignment = self.titleAlignment
+		return [ NSFontAttributeName: self.titleFont, NSForegroundColorAttributeName: self.textColor, NSParagraphStyleAttributeName: paraStyle ]
+	}
+
+	var bodyAttributes: [String: Any] {
+		let paraStyle = NSMutableParagraphStyle(); paraStyle.alignment = self.bodyAlignment
+		return [ NSFontAttributeName: self.bodyFont, NSForegroundColorAttributeName: self.textColor, NSParagraphStyleAttributeName: paraStyle ]
+	}
 	
 	func minimumHeight(forTitle title: String?, and body: String?) -> CGFloat {
 		var height: CGFloat = 0
@@ -46,16 +59,16 @@ public struct Appearance {
 		let diag = sqrt(pow(self.arrowDistance, 2) / 2)
 
 		switch direction {
-		case .upLeft: insets.top += diag; //insets.left += diag
-		case .upRight: insets.top += diag; //insets.right += diag
+		case .upLeft: insets.top += diag + self.arrowLength; //insets.left += diag
+		case .upRight: insets.top += diag + self.arrowLength; //insets.right += diag
 
-		case.up: insets.top += self.arrowDistance
-		case .left: insets.left += self.arrowDistance
-		case .right: insets.right += self.arrowDistance
-		case .down: insets.bottom += self.arrowDistance
+		case .up: insets.top += self.arrowDistance + self.arrowLength
+		case .left: insets.left += self.arrowDistance + self.arrowLength
+		case .right: insets.right += self.arrowDistance + self.arrowLength
+		case .down: insets.bottom += self.arrowDistance + self.arrowLength
 
-		case .downLeft: insets.bottom += diag; //insets.left += diag
-		case .downRight: insets.bottom += diag; //insets.right += diag
+		case .downLeft: insets.bottom += diag + self.arrowLength; //insets.left += diag
+		case .downRight: insets.bottom += diag + self.arrowLength; //insets.right += diag
 			
 		case .none: break
 		}

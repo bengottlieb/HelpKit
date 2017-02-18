@@ -35,6 +35,7 @@ public extension UILabel {
 		self.lineBreakMode = .byWordWrapping
 		
 		self.backgroundColor = .clear
+		//self.backgroundColor = .green
 	}
 	
 	
