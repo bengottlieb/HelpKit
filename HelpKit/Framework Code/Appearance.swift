@@ -58,24 +58,24 @@ extension Appearance {
 		return height
 	}
 	
-	func contentInset(for direction: TooltipView.ArrowDirection) -> UIEdgeInsets {
+	func contentInset(for direction: TooltipView.TipPosition) -> UIEdgeInsets {
 		var insets = self.backgroundInset
 		
 		let diag = sqrt(pow(self.arrowDistance, 2) / 2)
 
 		switch direction {
-		case .upLeft: insets.top += diag + self.arrowLength; //insets.left += diag
-		case .upRight: insets.top += diag + self.arrowLength; //insets.right += diag
+		case .belowRight: insets.top += diag + self.arrowLength; //insets.rightSide += diag
+		case .belowLeft: insets.top += diag + self.arrowLength; //insets.leftSide += diag
 
-		case .up: insets.top += self.arrowDistance + self.arrowLength
-		case .left: insets.left += self.arrowDistance + self.arrowLength
-		case .right: insets.right += self.arrowDistance + self.arrowLength
-		case .down: insets.bottom += self.arrowDistance + self.arrowLength
+		case .below: insets.top += self.arrowDistance + self.arrowLength
+		case .rightSide: insets.left += self.arrowDistance + self.arrowLength
+		case .leftSide: insets.right += self.arrowDistance + self.arrowLength
+		case .above: insets.bottom += self.arrowDistance + self.arrowLength
 
-		case .downLeft: insets.bottom += diag + self.arrowLength; //insets.left += diag
-		case .downRight: insets.bottom += diag + self.arrowLength; //insets.right += diag
+		case .aboveRight: insets.bottom += diag + self.arrowLength; //insets.rightSide += diag
+		case .aboveLeft: insets.bottom += diag + self.arrowLength; //insets.leftSide += diag
 			
-		case .none: break
+		case .best: break
 		}
 		
 		return insets

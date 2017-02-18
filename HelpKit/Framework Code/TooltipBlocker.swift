@@ -81,16 +81,16 @@ class TooltipBlockerView: UIView {
 extension TooltipView {
 	var hiddenTransform: CGAffineTransform {
 		switch self.effectiveArrowDirection {
-		case .left:
+		case .rightSide:
 			return CGAffineTransform(scaleX: 0.01, y: 1.0).concatenating(CGAffineTransform(translationX: -self.bounds.width / 2, y: 0))
 			
-		case .right:
+		case .leftSide:
 			return CGAffineTransform(scaleX: 0.01, y: 1.0).concatenating(CGAffineTransform(translationX: self.bounds.width / 2, y: 0))
 			
-		case .up, .upLeft, .upRight:
+		case .below, .belowRight, .belowLeft:
 			return CGAffineTransform(scaleX: 1.0, y: 0.01).concatenating(CGAffineTransform(translationX: 0, y: -self.bounds.height / 2))
 			
-		case .down, .downLeft, .downRight:
+		case .above, .aboveRight, .aboveLeft:
 			return CGAffineTransform(scaleX: 1.0, y: 0.01).concatenating(CGAffineTransform(translationX: 0, y: self.bounds.height / 2))
 			
 		default:

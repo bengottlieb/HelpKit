@@ -17,21 +17,21 @@ open class TooltipView: UIView {
 	
 	var targetView: UIView!
 	var contentView: UIView!
-	var targetArrowDirection = ArrowDirection.none
+	var targetArrowDirection = TipPosition.best
 	var targetWindow: UIWindow { return self.targetView.window! }
 	var appearance: Appearance!
 	var blocker: TooltipBlockerView? { return self.superview as? TooltipBlockerView }
 	var tooltipLayer: TooltipLayer!
 	var fullSize: CGSize = .zero
-	var effectiveArrowDirection: ArrowDirection = ArrowDirection.none { didSet {
+	var effectiveArrowDirection: TipPosition = TipPosition.best { didSet {
 		let insets = self.appearance.contentInset(for: self.effectiveArrowDirection)
-		//self.contentView.frame = CGRect(x: insets.left, y: insets.top, width: self.bounds.width - (insets.left + insets.right), height: self.bounds.height - (insets.top + insets.bottom))
+		//self.contentView.frame = CGRect(x: insets.rightSide, y: insets.top, width: self.bounds.width - (insets.rightSide + insets.leftSide), height: self.bounds.height - (insets.top + insets.bottom))
 		let contentSize = self.fullSize
-//		self.contentView.center = CGPoint(x: insets.left + contentSize.width / 2, y: insets.top + contentSize.height / 2)
+//		self.contentView.center = CGPoint(x: insets.rightSide + contentSize.width / 2, y: insets.top + contentSize.height / 2)
 		self.contentView.frame = CGRect(x: insets.left, y: insets.top, width: contentSize.width - (insets.left + insets.right), height: contentSize.height - (insets.top + insets.bottom))
 	}}
 	
-	public convenience init(target: UIView, title: String? = nil, body: String? = nil, content: UIView? = nil, direction: TooltipView.ArrowDirection = .left, appearance: Appearance = .standard) {
+	public convenience init(target: UIView, title: String? = nil, body: String? = nil, content: UIView? = nil, direction: TooltipView.TipPosition = .rightSide, appearance: Appearance = .standard) {
 		self.init(frame: .zero)
 		
 		self.targetView = target
@@ -42,14 +42,14 @@ open class TooltipView: UIView {
 		else if body != nil || title != nil { self.contentView = UILabel(tooltipTitle: title, body: body, appearance: appearance) }
 		
 		self.frame = self.boundingFrame
-		self.tooltipLayer = appearance.layerClass.init(frame: self.bounds, appearance: self.appearance, arrowDirection: self.effectiveArrowDirection)
+		self.tooltipLayer = appearance.layerClass.init(frame: self.bounds, appearance: self.appearance, TipPosition: self.effectiveArrowDirection)
 		self.layer.addSublayer(self.tooltipLayer)
 		self.addSubview(self.contentView)
 	}
 	
 	func reposition() {
 		self.frame = self.boundingFrame
-		self.tooltipLayer?.arrowDirection = self.effectiveArrowDirection
+		self.tooltipLayer?.TipPosition = self.effectiveArrowDirection
 	}
 }
 
@@ -79,11 +79,11 @@ extension TooltipView {
 		var directionThatFits = self.targetArrowDirection
 
 		if windowFrame.intersection(bounds).size != bounds.size {
-			let index = ArrowDirection.all.index(of: self.targetArrowDirection)!
-			let directionCount = ArrowDirection.all.count
+			let index = TipPosition.all.index(of: self.targetArrowDirection)!
+			let directionCount = TipPosition.all.count
 
 			for i in 1..<directionCount {
-				let newDirection = ArrowDirection.all[(index + i) % directionCount]
+				let newDirection = TipPosition.all[(index + i) % directionCount]
 				let newBounds = self.boundingFrame(for: newDirection)
 				if windowFrame.intersection(newBounds).size == newBounds.size {
 					bounds = newBounds
@@ -97,7 +97,7 @@ extension TooltipView {
 		return bounds
 	}
 
-	func boundingFrame(for direction: ArrowDirection) -> CGRect {
+	func boundingFrame(for direction: TipPosition) -> CGRect {
 		var frame = self.targetWindow.convert(self.targetView.bounds, from: self.targetView)
 		let minContentSize = self.contentSize
 		let insets = self.appearance.contentInset(for: direction)
@@ -108,10 +108,10 @@ extension TooltipView {
 	
 		
 		switch direction {
-		case .up, .down:				// arrow from the top or bottom of the target, make sure there's space above
+		case .below, .above:				// arrow from the top or bottom of the target, make sure there's space above
 			viewSize.height += self.appearance.arrowDistance + self.appearance.arrowLength
 
-		case .left, .right:				// arrow from the left or right of the target, make sure there's space to the side
+		case .rightSide, .leftSide:				// arrow from the left or right of the target, make sure there's space to the side
 			viewSize.width += self.appearance.arrowDistance + self.appearance.arrowLength
 			
 		default:
@@ -120,39 +120,39 @@ extension TooltipView {
 		}
 		
 		switch direction {
-		case .down:
+		case .above:
 			frame.origin.x = frame.midX - viewSize.width / 2
 			frame.origin.y = frame.minY - (viewSize.height + self.appearance.arrowDistance)
 			
-		case .downRight:
+		case .aboveLeft:
 			frame.origin.x = frame.minX - (viewSize.width + diag)
 			frame.origin.y = frame.minY - (viewSize.height + diag)
 			
-		case .downLeft:
+		case .aboveRight:
 			frame.origin.x = frame.maxX + diag
 			frame.origin.y = frame.minY - (viewSize.height + diag)
 
-		case .up:
+		case .below:
 			frame.origin.x = frame.midX - viewSize.width / 2
 			frame.origin.y = frame.maxY + self.appearance.arrowDistance
 			
-		case .upRight:
+		case .belowLeft:
 			frame.origin.x = frame.minX - (viewSize.width + diag)
 			frame.origin.y = frame.maxY + diag
 			
-		case .upLeft:
+		case .belowRight:
 			frame.origin.x = frame.maxX + diag
 			frame.origin.y = frame.maxY + diag
 			
-		case .right:
+		case .leftSide:
 			frame.origin.y = frame.midY - viewSize.height / 2
 			frame.origin.x = frame.minX - (viewSize.width + self.appearance.arrowDistance)
 	
-		case .left:
+		case .rightSide:
 			frame.origin.y = frame.midY - viewSize.height / 2
 			frame.origin.x = frame.maxX + self.appearance.arrowDistance
 
-		case .none:
+		case .best:
 			break
 		}
 		frame.size = viewSize
@@ -162,8 +162,8 @@ extension TooltipView {
 }
 
 extension TooltipView {
-	public enum ArrowDirection: Int { case none, up, upRight, right, downRight, down, downLeft, left, upLeft
+	public enum TipPosition: Int { case best, above, aboveRight, rightSide, belowRight, below, belowLeft, leftSide, aboveLeft
 	
-		static let all: [ArrowDirection] = [.up, .upRight, .right, .downRight, .down, .downLeft, .left, .upLeft]
+		static let all: [TipPosition] = [.below, .belowLeft, .leftSide, .aboveLeft, .above, .aboveRight, .rightSide, .belowRight]
 	}
 }

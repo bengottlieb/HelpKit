@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIView {
-	@discardableResult public func createTooltip(text: String, direction: TooltipView.ArrowDirection = .left, appearance: Appearance = .standard) -> TooltipView {
+	@discardableResult public func createTooltip(text: String, direction: TooltipView.TipPosition = .rightSide, appearance: Appearance = .standard) -> TooltipView {
 		
 		let tip = TooltipView(target: self, title: text, direction: direction, appearance: appearance)
 		return tip
