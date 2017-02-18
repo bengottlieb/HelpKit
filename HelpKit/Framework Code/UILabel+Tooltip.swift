@@ -29,7 +29,7 @@ public extension UILabel {
 			labelSize = size
 		}
 		
-		self.init(frame: CGRect(origin: .zero, size: labelSize))
+		self.init(frame: CGRect(origin: .zero, size: CGSize(width: ceil(labelSize.width), height: ceil(labelSize.height))))
 		self.attributedText = content
 		self.numberOfLines = 0
 		self.lineBreakMode = .byWordWrapping

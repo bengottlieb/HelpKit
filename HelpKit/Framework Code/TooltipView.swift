@@ -98,12 +98,13 @@ extension TooltipView {
 	}
 
 	func boundingFrame(for direction: TipPosition) -> CGRect {
-		var frame = self.targetWindow.convert(self.targetView.bounds, from: self.targetView)
+		let raw = self.targetWindow.convert(self.targetView.bounds, from: self.targetView)
+		var frame = CGRect(x: ceil(raw.origin.x), y: ceil(raw.origin.y), width: ceil(raw.width), height: ceil(raw.height))
 		let minContentSize = self.contentSize
 		let insets = self.appearance.contentInset(for: direction)
 		let contentWidth = minContentSize.width + insets.left + insets.right
 		let contentHeight = minContentSize.height + insets.top + insets.bottom
-		let diag = sqrt(pow(self.appearance.arrowDistance, 2) / 2)
+		let diag = ceil(sqrt(pow(self.appearance.arrowDistance, 2) / 2))
 		var viewSize = CGSize(width: contentWidth, height: contentHeight)
 	
 		
