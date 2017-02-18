@@ -43,15 +43,15 @@ class TooltipBlocker {
 
 class TooltipBlockerView: UIView {
 	func setup() {
-		self.backgroundColor = UIColor(white: 0.1, alpha: 0)
+		self.backgroundColor = .clear
 	}
 	
 	func animateIn() {
-		self.backgroundColor = UIColor(white: 0.1, alpha: 0.35)
+		self.backgroundColor = Appearance.backgroundColor
 	}
 
 	func animateOut() {
-		self.backgroundColor = UIColor(white: 0.1, alpha: 0)
+		self.backgroundColor = .clear
 	}
 
 	func add(tooltip: TooltipView) {

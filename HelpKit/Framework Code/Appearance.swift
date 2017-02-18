@@ -13,36 +13,41 @@ public struct Appearance {
 	public static var standard = Appearance()
 	
 	
-	var backgroundColor = UIColor.white
-	var textColor = UIColor.black
+	public var tipBackgroundColor = UIColor.white			/// what color is the 'bubble' of the tooltip?
+	public static var backgroundColor = UIColor.clear		/// what color (if any) is the 'blocking' view behind the tip?
+	public var tipCornerRadius: CGFloat = 5					/// how round are the tip's bubble's corners?
 	
 	
-	var titleFont = UIFont.systemFont(ofSize: 14)
-	var titleAlignment: NSTextAlignment = .center
+	public var titleColor = UIColor.black
+	public var titleFont = UIFont.systemFont(ofSize: 14)
+	public var titleAlignment: NSTextAlignment = .center
 
-	var bodyFont = UIFont.systemFont(ofSize: 13)
-	var bodyAlignment: NSTextAlignment = .center
+	public var bodyColor = UIColor.black
+	public var bodyFont = UIFont.systemFont(ofSize: 13)
+	public var bodyAlignment: NSTextAlignment = .center
 	
-	var borderWidth: CGFloat = 0.5
-	var borderColor = UIColor.gray
+	public var borderWidth: CGFloat = 0.5
+	public var borderColor = UIColor.gray
 	
-	var backgroundInset = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+	public var backgroundInset = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
 	
-	var arrowDistance: CGFloat = 00
-	var arrowSpread: CGFloat = 8			// how wide is the base of the arrow?
-	var arrowPoint: CGFloat = 1				// how wide is the tip of the arrow?
-	var arrowLength: CGFloat = 8			// how 'long' is the arrow?
+	public var arrowDistance: CGFloat = 00		/// how far is the arrow from its target view?
+	public var arrowSpread: CGFloat = 8			/// how wide is the base of the arrow?
+	public var arrowPoint: CGFloat = 1			/// how wide is the tip of the arrow?
+	public var arrowLength: CGFloat = 8			/// how 'long' is the arrow?
 	
-	var layerClass = TooltipLayer.self
-	
+	public var layerClass = TooltipLayer.self
+}
+
+extension Appearance {
 	var titleAttributes: [String: Any] {
 		let paraStyle = NSMutableParagraphStyle(); paraStyle.alignment = self.titleAlignment
-		return [ NSFontAttributeName: self.titleFont, NSForegroundColorAttributeName: self.textColor, NSParagraphStyleAttributeName: paraStyle ]
+		return [ NSFontAttributeName: self.titleFont, NSForegroundColorAttributeName: self.titleColor, NSParagraphStyleAttributeName: paraStyle ]
 	}
 
 	var bodyAttributes: [String: Any] {
 		let paraStyle = NSMutableParagraphStyle(); paraStyle.alignment = self.bodyAlignment
-		return [ NSFontAttributeName: self.bodyFont, NSForegroundColorAttributeName: self.textColor, NSParagraphStyleAttributeName: paraStyle ]
+		return [ NSFontAttributeName: self.bodyFont, NSForegroundColorAttributeName: self.bodyColor, NSParagraphStyleAttributeName: paraStyle ]
 	}
 	
 	func minimumHeight(forTitle title: String?, and body: String?) -> CGFloat {

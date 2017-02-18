@@ -19,7 +19,7 @@ open class TooltipLayer: CALayer {
 		self.arrowDirection = arrowDirection
 		self.appearance = appearance
 		self.border = appearance.borderColor
-		self.fill = appearance.backgroundColor
+		self.fill = appearance.tipBackgroundColor
 		self.tipBorderWidth = appearance.borderWidth
 		super.init()
 		//self.backgroundColor = UIColor.orange.cgColor
@@ -62,7 +62,9 @@ open class TooltipLayer: CALayer {
 		
 		let stemWidth: CGFloat = self.appearance.arrowSpread
 		var stemLocation: CGFloat = 0.5
-		
+		let radius = self.appearance.tipCornerRadius
+		let pi = CGFloat.pi
+
 		switch self.arrowDirection {
 		case .downRight, .down, .downLeft:
 			if self.arrowDirection == .upLeft { stemLocation = 0.8 }
@@ -71,13 +73,17 @@ open class TooltipLayer: CALayer {
 			bezier = UIBezierPath()
 			if let arrowStart = self.arrowLocation(in: bounds) { bezier.move(to: arrowStart) }
 			bubble.size.height -= self.appearance.arrowLength
-			bezier.addLine(to: CGPoint(x: bubble.minX + bubble.width * stemLocation - stemWidth / 2, y: bubble.maxY))
-			bezier.addLine(to: CGPoint(x: bubble.minX, y: bubble.maxY))
-			bezier.addLine(to: CGPoint(x: bubble.minX, y: bubble.minY))
-			bezier.addLine(to: CGPoint(x: bubble.maxX, y: bubble.minY))
-			bezier.addLine(to: CGPoint(x: bubble.maxX, y: bubble.maxY))
-			bezier.addLine(to: CGPoint(x: bubble.minX + bubble.width * stemLocation + stemWidth / 2, y: bubble.maxY))
-			if let arrowStart = self.arrowLocation(in: bounds) { bezier.addLine(to: arrowStart) }
+			bezier.addLine(to: CGPoint(x: bubble.minX + bubble.width * stemLocation - stemWidth / 2, y: bubble.maxY))			// left border of arrow stem
+			bezier.addLine(to: CGPoint(x: bubble.minX + radius, y: bubble.maxY))												// left portion of bottom border
+			bezier.addArc(withCenter: bubble.bottomLeft(inset: radius), radius: radius, startAngle: pi * 0.5, endAngle: -pi, clockwise: true)
+			bezier.addLine(to: CGPoint(x: bubble.minX, y: bubble.minY + radius))												// left border
+			bezier.addArc(withCenter: bubble.topLeft(inset: radius), radius: radius, startAngle: -pi, endAngle: -pi * 0.5, clockwise: true)
+			bezier.addLine(to: CGPoint(x: bubble.maxX - radius, y: bubble.minY))												// top border
+			bezier.addArc(withCenter: bubble.topRight(inset: radius), radius: radius, startAngle: -pi * 0.5, endAngle: 0, clockwise: true)
+			bezier.addLine(to: CGPoint(x: bubble.maxX, y: bubble.maxY - radius))												// right border
+			bezier.addArc(withCenter: bubble.bottomRight(inset: radius), radius: radius, startAngle: 0, endAngle: pi * 0.5, clockwise: true)
+			bezier.addLine(to: CGPoint(x: bubble.minX + bubble.width * stemLocation + stemWidth / 2, y: bubble.maxY))			// right portion of bottom border
+			if let arrowStart = self.arrowLocation(in: bounds) { bezier.addLine(to: arrowStart) }								// right border of arrow stem
 			break
 			
 		case .upLeft, .up, .upRight:
@@ -88,26 +94,34 @@ open class TooltipLayer: CALayer {
 			if let arrowStart = self.arrowLocation(in: bounds) { bezier.move(to: arrowStart) }
 			bubble.size.height -= self.appearance.arrowLength
 			bubble.origin.y += self.appearance.arrowLength
-			bezier.addLine(to: CGPoint(x: bubble.minX + bubble.width * stemLocation - stemWidth / 2, y: bubble.minY))
-			bezier.addLine(to: CGPoint(x: bubble.minX, y: bubble.minY))
-			bezier.addLine(to: CGPoint(x: bubble.minX, y: bubble.maxY))
-			bezier.addLine(to: CGPoint(x: bubble.maxX, y: bubble.maxY))
-			bezier.addLine(to: CGPoint(x: bubble.maxX, y: bubble.minY))
-			bezier.addLine(to: CGPoint(x: bubble.minX + bubble.width * stemLocation + stemWidth / 2, y: bubble.minY))
-			if let arrowStart = self.arrowLocation(in: bounds) { bezier.addLine(to: arrowStart) }
+			bezier.addLine(to: CGPoint(x: bubble.minX + bubble.width * stemLocation - stemWidth / 2, y: bubble.minY))			// left border of arrow stem
+			bezier.addLine(to: CGPoint(x: bubble.minX + radius, y: bubble.minY))												// left portion of top border
+			bezier.addArc(withCenter: bubble.topLeft(inset: radius), radius: radius, startAngle: -pi * 0.5, endAngle: -pi, clockwise: false)
+			bezier.addLine(to: CGPoint(x: bubble.minX, y: bubble.maxY - radius))												// left border
+			bezier.addArc(withCenter: bubble.bottomLeft(inset: radius), radius: radius, startAngle: -pi, endAngle: pi * 0.5, clockwise: false)
+			bezier.addLine(to: CGPoint(x: bubble.maxX - radius, y: bubble.maxY))												// bottom border
+			bezier.addArc(withCenter: bubble.bottomRight(inset: radius), radius: radius, startAngle: pi * 0.5, endAngle: 0, clockwise: false)
+			bezier.addLine(to: CGPoint(x: bubble.maxX, y: bubble.minY + radius))												// right border
+			bezier.addArc(withCenter: bubble.topRight(inset: radius), radius: radius, startAngle: 0, endAngle: -pi * 0.5, clockwise: false)
+			bezier.addLine(to: CGPoint(x: bubble.minX + bubble.width * stemLocation + stemWidth / 2, y: bubble.minY))			// right portion of top border
+			if let arrowStart = self.arrowLocation(in: bounds) { bezier.addLine(to: arrowStart) }								// right border of arrow stem
 			break
 			
 		case .right:
 			bezier = UIBezierPath()
 			if let arrowStart = self.arrowLocation(in: bounds) { bezier.move(to: arrowStart) }
 			bubble.size.width -= self.appearance.arrowLength
-			bezier.addLine(to: CGPoint(x: bubble.maxX, y: bubble.minY + bubble.height * stemLocation + stemWidth / 2))
-			bezier.addLine(to: CGPoint(x: bubble.maxX, y: bubble.maxY))
-			bezier.addLine(to: CGPoint(x: bubble.minX, y: bubble.maxY))
-			bezier.addLine(to: CGPoint(x: bubble.minX, y: bubble.minY))
-			bezier.addLine(to: CGPoint(x: bubble.maxX, y: bubble.minY))
-			bezier.addLine(to: CGPoint(x: bubble.maxX, y: bubble.minY + bubble.height * stemLocation - stemWidth / 2))
-			if let arrowStart = self.arrowLocation(in: bounds) { bezier.addLine(to: arrowStart) }
+			bezier.addLine(to: CGPoint(x: bubble.maxX, y: bubble.minY + bubble.height * stemLocation + stemWidth / 2))			// bottom border of arrow stem
+			bezier.addLine(to: CGPoint(x: bubble.maxX, y: bubble.maxY - radius))												// bottom portion of right border
+			bezier.addArc(withCenter: bubble.bottomRight(inset: radius), radius: radius, startAngle: 0, endAngle: pi * 0.5, clockwise: true)
+			bezier.addLine(to: CGPoint(x: bubble.minX + radius, y: bubble.maxY))												// bottom border
+			bezier.addArc(withCenter: bubble.bottomLeft(inset: radius), radius: radius, startAngle: pi * 0.5, endAngle: pi, clockwise: true)
+			bezier.addLine(to: CGPoint(x: bubble.minX, y: bubble.minY + radius))												// left border
+			bezier.addArc(withCenter: bubble.topLeft(inset: radius), radius: radius, startAngle: pi, endAngle: -pi * 0.5, clockwise: true)
+			bezier.addLine(to: CGPoint(x: bubble.maxX - radius, y: bubble.minY))												// top border
+			bezier.addArc(withCenter: bubble.topRight(inset: radius), radius: radius, startAngle: -pi * 0.5, endAngle: 0, clockwise: true)
+			bezier.addLine(to: CGPoint(x: bubble.maxX, y: bubble.minY + bubble.height * stemLocation - stemWidth / 2))			// top portion of right border
+			if let arrowStart = self.arrowLocation(in: bounds) { bezier.addLine(to: arrowStart) }								// top border of arrow stem
 			break
 			
 		case .left:
@@ -115,12 +129,16 @@ open class TooltipLayer: CALayer {
 			if let arrowStart = self.arrowLocation(in: bounds) { bezier.move(to: arrowStart) }
 			bubble.size.width -= self.appearance.arrowLength
 			bubble.origin.x += self.appearance.arrowLength
-			bezier.addLine(to: CGPoint(x: bubble.minX, y: bubble.minY + bubble.height * stemLocation + stemWidth / 2))
-			bezier.addLine(to: CGPoint(x: bubble.minX, y: bubble.maxY))
-			bezier.addLine(to: CGPoint(x: bubble.maxX, y: bubble.maxY))
-			bezier.addLine(to: CGPoint(x: bubble.maxX, y: bubble.minY))
-			bezier.addLine(to: CGPoint(x: bubble.minX, y: bubble.minY))
-			bezier.addLine(to: CGPoint(x: bubble.minX, y: bubble.minY + bubble.height * stemLocation - stemWidth / 2))
+			bezier.addLine(to: CGPoint(x: bubble.minX, y: bubble.minY + bubble.height * stemLocation + stemWidth / 2))			// bottom border of arrow stem
+			bezier.addLine(to: CGPoint(x: bubble.minX, y: bubble.maxY - radius))												// bottom portion of left border
+			bezier.addArc(withCenter: bubble.bottomLeft(inset: radius), radius: radius, startAngle: -pi, endAngle: pi * 0.5, clockwise: false)
+			bezier.addLine(to: CGPoint(x: bubble.maxX - radius, y: bubble.maxY))												// bottom border
+			bezier.addArc(withCenter: bubble.bottomRight(inset: radius), radius: radius, startAngle: pi * 0.5, endAngle: 0, clockwise: false)
+			bezier.addLine(to: CGPoint(x: bubble.maxX, y: bubble.minY + radius))												// right border
+			bezier.addArc(withCenter: bubble.topRight(inset: radius), radius: radius, startAngle: 0, endAngle: -pi * 0.5, clockwise: false)
+			bezier.addLine(to: CGPoint(x: bubble.minX + radius, y: bubble.minY))												// top border
+			bezier.addArc(withCenter: bubble.topLeft(inset: radius), radius: radius, startAngle: -pi * 0.5, endAngle: -pi, clockwise: false)
+			bezier.addLine(to: CGPoint(x: bubble.minX, y: bubble.minY + bubble.height * stemLocation - stemWidth / 2))			// top portion of left border
 			if let arrowStart = self.arrowLocation(in: bounds) { bezier.addLine(to: arrowStart) }
 			break
 			
@@ -136,4 +154,11 @@ open class TooltipLayer: CALayer {
 		bezier.stroke()
 		UIGraphicsPopContext()
 	}
+}
+
+extension CGRect {
+	func topLeft(inset: CGFloat) -> CGPoint { return CGPoint(x: self.minX + inset, y: self.minY + inset) }
+	func topRight(inset: CGFloat) -> CGPoint { return CGPoint(x: self.maxX - inset, y: self.minY + inset) }
+	func bottomLeft(inset: CGFloat) -> CGPoint { return CGPoint(x: self.minX + inset, y: self.maxY - inset) }
+	func bottomRight(inset: CGFloat) -> CGPoint { return CGPoint(x: self.maxX - inset, y: self.maxY - inset) }
 }
