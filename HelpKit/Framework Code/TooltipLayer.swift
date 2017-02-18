@@ -45,7 +45,7 @@ open class TooltipLayer: CALayer {
 	}
 	
 	open override func draw(in ctx: CGContext) {
-		print("Drawing \(self.arrowDirection)")
+		//print("Drawing \(self.arrowDirection)")
 		UIGraphicsPushContext(ctx)
 		let tipBounds = self.bounds.insetBy(dx: self.tipBorderWidth, dy: self.tipBorderWidth)
 		var bezier = UIBezierPath(ovalIn: tipBounds)

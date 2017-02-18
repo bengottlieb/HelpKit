@@ -90,7 +90,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="button" destination="GTe-WK-FBm" id="Zcy-Aq-M7j"/>
+                        <outlet property="button" destination="M83-6T-pFK" id="VYf-li-Vrm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iyf-vp-wqT" userLabel="First Responder" sceneMemberID="firstResponder"/>

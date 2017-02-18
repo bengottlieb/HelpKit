@@ -55,9 +55,9 @@ open class TooltipView: UIView {
 
 
 extension TooltipView {
-	public func show() {
+	public func show(over duration: TimeInterval = 0.05) {
 		let parent = TooltipBlocker.instance[self.targetWindow]
-		parent.add(tooltip: self)
+		parent.add(tooltip: self, over: duration)
 		self.targetView.addObserver(self, forKeyPath: "center", options: [.new], context: nil)
 	}
 	
@@ -65,8 +65,8 @@ extension TooltipView {
 		self.reposition()
 	}
 	
-	public func hide() {
-		self.blocker?.remove(tooltip: self)
+	public func hide(over duration: TimeInterval = 0.05) {
+		self.blocker?.remove(tooltip: self, over: duration)
 	}
 	
 	var contentSize: CGSize {

@@ -21,16 +21,18 @@ class TestViewController: UIViewController {
 	}
 	
 	@IBAction func showTip(sender: UIButton!) {
-		let directions: [TooltipView.ArrowDirection] = [.down]
-//		let directions: [TooltipView.ArrowDirection] = [.up, .upRight, .right, .downRight, .down, .downLeft, .left, .upLeft]
+//		let directions: [TooltipView.ArrowDirection] = [.left]
+		let directions: [TooltipView.ArrowDirection] = [.up, .upRight, .right, .downRight, .down, .downLeft, .left, .upLeft]
 		
 		self.tip?.hide()
 		
 		var appearance = Appearance.standard
-		appearance.backgroundInset = UIEdgeInsets(top: 30, left: 30, bottom: 30, right: 30)
+		appearance.tipCornerRadius = 10
+		appearance.backgroundInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 		appearance.tipBackgroundColor = UIColor(red: 0.1, green: 0.7, blue: 0.3, alpha: 1.0)
 		appearance.titleColor = .white
 		
+		print("Attempting to display at: \(directions[self.index])")
 		self.tip = sender.createTooltip(text: "Hello, this is my tip", direction: directions[self.index], appearance: appearance)
 		self.tip?.show()
 		self.index += 1
