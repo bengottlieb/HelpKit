@@ -10,8 +10,9 @@ import UIKit
 import HelpKit
 
 class Page2Scene:  Scene {
+	@IBOutlet var thirdPartLabel: UILabel!
 	override func viewDidLoad() {
-		self.onScreenDuration = nil
+		super.viewDidLoad()
 		self.transitionDuration = 0.2
 	}
 	

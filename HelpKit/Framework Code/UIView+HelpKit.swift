@@ -43,6 +43,16 @@ extension UIView {
 		return views
 	}
 	
+	var viewsWithSceneIDs: [UIView] {
+		var views: [UIView] = []
+		
+		for view in self.subviews {
+			if view.sceneID != nil { views.append(view) }
+			views += view.viewsWithSceneIDs
+		}
+		return views
+	}
+	
 	var animatableState: AnimatableState? {
 		get { return AnimatableState(frame: self.frame, alpha: self.alpha, transform: self.transform) }
 		set {

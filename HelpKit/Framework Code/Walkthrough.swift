@@ -57,8 +57,8 @@ extension Walkthrough {
 		
 		self.visible.append(scene)
 		scene.show(in: self)
-		if let duration = scene.onScreenDuration {
-			self.nextSceneTimer = Timer.scheduledTimer(timeInterval: duration, target: self, selector: #selector(advanceToNext), userInfo: nil, repeats: false)
+		if scene.onScreenDuration != 0 {
+			self.nextSceneTimer = Timer.scheduledTimer(timeInterval: scene.onScreenDuration, target: self, selector: #selector(advanceToNext), userInfo: nil, repeats: false)
 		}
 	}
 	
@@ -72,5 +72,20 @@ extension Walkthrough {
 			let scene = self.scenes[index + 1]
 			self.show(next: scene, over: scene.transitionDuration)
 		}
+	}
+}
+
+extension Walkthrough {
+	func existingView(with id: String) -> UIView? {
+		for view in self.viewsWithSceneIDs { if view.sceneID == id && !view.isHidden { return view }}
+		return nil
+	}
+	
+	var viewsWithSceneIDs: [UIView] {
+		var views: [UIView] = []
+		
+		for scene in self.visible { views += scene.view.viewsWithSceneIDs }
+		
+		return views
 	}
 }
