@@ -34,7 +34,7 @@ extension UIView {
 		get { return AnimatableState(frame: self.frame, alpha: self.alpha, transform: self.transform) }
 		set {
 			guard let state = newValue else { return }
-			self.center = CGPoint(x: state.frame.midX, y: state.frame.midX)
+			self.center = CGPoint(x: state.frame.midX, y: state.frame.midY)
 			self.alpha = state.alpha
 			self.transform = state.transform
 		}

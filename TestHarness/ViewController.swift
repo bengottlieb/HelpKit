@@ -14,10 +14,21 @@ class TestViewController: UIViewController {
 	
 	var index = 0
 	var tip: TooltipView?
+	var walkthrough = Walkthrough()
+	
+	func showWalkthrough() {
+		self.walkthrough.add(ids: ["page1", "page2"], from: UIStoryboard(name: "Walkthrough", bundle: nil))
+		self.walkthrough.present(in: self)
+	}
 	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
+		//self.showAllTips()
+		self.showWalkthrough()
+	}
+	
+	func showAllTips() {
 		var delay: TimeInterval = 0.1
 		let queue = DispatchQueue.main
 		

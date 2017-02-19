@@ -8,19 +8,31 @@
 
 import UIKit
 
+public typealias Scene = WalkthroughScene
+
 public class Walkthrough: UIViewController {
 	var scenes: [Scene] = []
 	var current: Scene?
+	weak var nextSceneTimer: Timer?
 	
-	func add(scene: Scene) {
+	public func add(scene: Scene) {
 		if scene.walkthroughOrder == nil { scene.walkthroughOrder = self.scenes.count }
+		if self.scenes.count == 0 { scene.replacesExisting = true }
 		self.scenes.append(scene)
 	}
 	
-	func add(from storyboard: UIStoryboard, with ids: [String]) {
+	public func add(ids: [String], from storyboard: UIStoryboard) {
 		for id in ids {
 			if let scene = storyboard.instantiateViewController(withIdentifier: id) as? Scene { self.add(scene: scene) }
 		}
+	}
+	
+	public func present(in parent: UIViewController) {
+		self.willMove(toParentViewController: parent)
+		parent.addChildViewController(self)
+		self.view.frame = parent.view.bounds
+		parent.view.addSubview(self.view)
+		self.didMove(toParentViewController: parent)
 	}
 }
 
@@ -33,14 +45,27 @@ extension Walkthrough {
 
 extension Walkthrough {
 	public func start() {
-		precondition(self.scenes.first!.replacesExisting, "First walkthrough scene must have 'replacesExisiting' set")
-		
 		self.show(next: self.scenes.first!, over: 0)
 	}
 	
 	public func show(next scene: Scene, over interval: TimeInterval?) {
 		if scene.replacesExisting { self.current?.remove(over: interval) }
 		
+		self.current = scene
+		self.current!.show(in: self)
+		if let duration = scene.onScreenDuration {
+			self.nextSceneTimer = Timer.scheduledTimer(timeInterval: duration, target: self, selector: #selector(proceed), userInfo: nil, repeats: false)
+		}
+	}
+	
+	func proceed() {
+		guard let current = self.current, let index = self.scenes.index(of: current) else { return }
 		
+		if index >= self.scenes.count - 1 {
+			
+		} else {
+			let scene = self.scenes[index + 1]
+			self.show(next: scene, over: scene.transitionDuration)
+		}
 	}
 }

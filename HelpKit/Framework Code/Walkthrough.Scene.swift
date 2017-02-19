@@ -8,12 +8,17 @@
 
 import UIKit
 
-extension Walkthrough {
-	open class Scene: UIViewController {
+//extension Walkthrough {
+	open class WalkthroughScene: UIViewController {
 		public var replacesExisting = false
-		public var duration: TimeInterval?
+		public var onScreenDuration: TimeInterval? = 0.5
 		public var walkthroughOrder: Int?
-		public var transitionDuration: TimeInterval = 0
+		public var transitionDuration: TimeInterval = 1.0
+		
+		open override func viewDidLoad() {
+			super.viewDidLoad()
+			if !self.replacesExisting { self.view.backgroundColor = nil }
+		}
 		
 		func remove(over: TimeInterval? = nil) {
 			let duration = over ?? self.transitionDuration
@@ -39,21 +44,19 @@ extension Walkthrough {
 			
 			self.view.transitionableViews.forEach { view in
 				finalStates[view.hashValue] = view.animatableState
-				view.animatableState = view.transitionOutType?.transform(state: view.animatableState, forTransitionOut: false, in: self)
+				view.animatableState = view.transitionInType?.transform(state: view.animatableState, forTransitionOut: false, in: self)
 			}
 			
+			parent.view.addSubview(self.view)
 			if duration > 0 {
 				UIView.animate(withDuration: duration, animations: {
 					self.view.transitionableViews.forEach { view in
 						view.animatableState = finalStates[view.hashValue]
 					}
 				}) { completed in
-					self.view.removeFromSuperview()
 				}
-			} else {
-				parent.view.addSubview(self.view)
 			}
 		}
 
 	}
-}
+//}

@@ -30,8 +30,9 @@
 		B549E3691BF8CBCB0046463A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B549E3681BF8CBCB0046463A /* CloudKit.framework */; };
 		B56B4CF81E58B2BC00955E5E /* UIView+HelpKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56B4CF71E58B2BC00955E5E /* UIView+HelpKit.swift */; };
 		B56B4CFA1E58EF9B00955E5E /* TooltipView.Behavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56B4CF91E58EF9B00955E5E /* TooltipView.Behavior.swift */; };
-		B56B4CFD1E59540D00955E5E /* Walkthrough.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56B4CFC1E59540D00955E5E /* Walkthrough.swift */; };
-		B56B4CFF1E59542100955E5E /* Walkthrough.Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56B4CFE1E59542100955E5E /* Walkthrough.Scene.swift */; };
+		B56B4D041E59E05F00955E5E /* Walkthrough.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56B4CFC1E59540D00955E5E /* Walkthrough.swift */; };
+		B56B4D051E59E05F00955E5E /* Walkthrough.Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56B4CFE1E59542100955E5E /* Walkthrough.Scene.swift */; };
+		B56B4D071E59E16000955E5E /* Walkthrough.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B56B4D061E59E16000955E5E /* Walkthrough.storyboard */; };
 		B5C23CC51E571A91002E0F3A /* UILabel+Tooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C23CC41E571A91002E0F3A /* UILabel+Tooltip.swift */; };
 		B5C23CC71E59C03B002E0F3A /* UIView+Walkthrough.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C23CC61E59C03B002E0F3A /* UIView+Walkthrough.swift */; };
 		B5D740DB1E4F402600E5C3E1 /* TooltipView.BackgroundLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D740DA1E4F402600E5C3E1 /* TooltipView.BackgroundLayer.swift */; };
@@ -87,6 +88,7 @@
 		B56B4CF91E58EF9B00955E5E /* TooltipView.Behavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TooltipView.Behavior.swift; sourceTree = "<group>"; };
 		B56B4CFC1E59540D00955E5E /* Walkthrough.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Walkthrough.swift; sourceTree = "<group>"; };
 		B56B4CFE1E59542100955E5E /* Walkthrough.Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Walkthrough.Scene.swift; sourceTree = "<group>"; };
+		B56B4D061E59E16000955E5E /* Walkthrough.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Walkthrough.storyboard; sourceTree = "<group>"; };
 		B5C23CC41E571A91002E0F3A /* UILabel+Tooltip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Tooltip.swift"; sourceTree = "<group>"; };
 		B5C23CC61E59C03B002E0F3A /* UIView+Walkthrough.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Walkthrough.swift"; sourceTree = "<group>"; };
 		B5D740DA1E4F402600E5C3E1 /* TooltipView.BackgroundLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TooltipView.BackgroundLayer.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 			children = (
 				B549E3531BF8CA4F0046463A /* AppDelegate.swift */,
 				B549E3551BF8CA4F0046463A /* ViewController.swift */,
+				B56B4D061E59E16000955E5E /* Walkthrough.storyboard */,
 				B5DC615C1E4949FB001CD747 /* TestHarness.storyboard */,
 				B549E35A1BF8CA4F0046463A /* Assets.xcassets */,
 				B549E35C1BF8CA4F0046463A /* LaunchScreen.storyboard */,
@@ -383,6 +386,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B549E35E1BF8CA4F0046463A /* LaunchScreen.storyboard in Resources */,
+				B56B4D071E59E16000955E5E /* Walkthrough.storyboard in Resources */,
 				B549E35B1BF8CA4F0046463A /* Assets.xcassets in Resources */,
 				B5DC615D1E4949FB001CD747 /* TestHarness.storyboard in Resources */,
 			);
@@ -411,16 +415,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B56B4D051E59E05F00955E5E /* Walkthrough.Scene.swift in Sources */,
 				B5DC61631E4C2707001CD747 /* TooltipBlocker.swift in Sources */,
 				B56B4CFA1E58EF9B00955E5E /* TooltipView.Behavior.swift in Sources */,
 				B5DC61561E4933E4001CD747 /* TooltipView.swift in Sources */,
 				B5DC615B1E493759001CD747 /* TooltipView.Appearance.swift in Sources */,
-				B56B4CFD1E59540D00955E5E /* Walkthrough.swift in Sources */,
 				B5C23CC71E59C03B002E0F3A /* UIView+Walkthrough.swift in Sources */,
 				B5D740DB1E4F402600E5C3E1 /* TooltipView.BackgroundLayer.swift in Sources */,
+				B56B4D041E59E05F00955E5E /* Walkthrough.swift in Sources */,
 				B5C23CC51E571A91002E0F3A /* UILabel+Tooltip.swift in Sources */,
 				B56B4CF81E58B2BC00955E5E /* UIView+HelpKit.swift in Sources */,
-				B56B4CFF1E59542100955E5E /* Walkthrough.Scene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
