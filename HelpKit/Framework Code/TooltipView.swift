@@ -9,11 +9,12 @@
 import UIKit
 
 open class TooltipView: UIView {
-	public static var maxTooltipWidth: CGFloat = 200
+	public static var behavior = Behavior()
 	
 	deinit {
 		self.targetView.removeObserver(self, forKeyPath: "center")
 	}
+	
 	
 	var targetView: UIView!
 	var contentView: UIView!
@@ -163,7 +164,7 @@ extension TooltipView {
 }
 
 extension TooltipView {
-	public enum TipPosition: Int { case best, above, aboveRight, rightSide, belowRight, below, belowLeft, leftSide, aboveLeft
+	public enum TipPosition: String { case best, above, aboveRight, rightSide, belowRight, below, belowLeft, leftSide, aboveLeft
 	
 		static let all: [TipPosition] = [.below, .belowLeft, .leftSide, .aboveLeft, .above, .aboveRight, .rightSide, .belowRight]
 	}

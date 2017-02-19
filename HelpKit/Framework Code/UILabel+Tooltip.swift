@@ -13,7 +13,7 @@ public extension UILabel {
 		if (title == nil || title!.isEmpty) && (body == nil || body!.isEmpty) { self.init(frame: CGRect.zero); return nil }
 		
 		let minHeight = appearance.minimumHeight(forTitle: title, and: body)
-		var labelSize = CGSize(width: TooltipView.maxTooltipWidth, height: minHeight)
+		var labelSize = CGSize(width: Appearance.maxTooltipWidth, height: minHeight)
 		let minWidth: CGFloat = 20
 		let content = NSMutableAttributedString()
 		let checkChunk: CGFloat = 15.0

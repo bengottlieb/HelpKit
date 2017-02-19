@@ -17,7 +17,19 @@ class TestViewController: UIViewController {
 	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		self.showTip(sender: button)
+		
+		var delay: TimeInterval = 0.1
+		let queue = DispatchQueue.main
+		
+		self.view.subviews.forEach { view in
+			queue.asyncAfter(deadline: .now() + delay) {
+				if let button = view as? UIButton {
+					self.showTip(sender: button)
+				}
+				self.tip = nil
+			}
+			delay += 0.02
+		}
 	}
 	
 	@IBAction func showTip(sender: UIButton!) {

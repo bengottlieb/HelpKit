@@ -24,9 +24,34 @@ class TooltipBlocker {
 		view.isUserInteractionEnabled = false
 		view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 		
+		if TooltipView.behavior.tapOutsideTipsToDismissAll {
+			view.isUserInteractionEnabled = true
+			view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapped)))
+		}
+		
 		UIView.animate(withDuration: 0.2) { view.animateIn() }
 		
 		return view
+	}
+	
+	@objc func tapped(_ recog: UITapGestureRecognizer) {
+		self.hide(tips: self.allTips, duration: 0.05, interval: 0.05)
+	}
+	
+	func hide(tips: [TooltipView], duration: TimeInterval, interval: TimeInterval) {
+		var delay: TimeInterval = 0.1
+		let queue = DispatchQueue.main
+		
+		tips.forEach { tip in
+			queue.asyncAfter(deadline: .now() + delay) {
+				tip.hide(over: duration)
+			}
+			delay += interval
+		}
+	}
+	
+	var allTips: [TooltipView] {
+		return self.blockingViews.values.reduce([]) { $0 + ($1.subviews as? [TooltipView] ?? []) }
 	}
 	
 	func remove(blocker: TooltipBlockerView) {
