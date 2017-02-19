@@ -22,7 +22,7 @@ open class TooltipView: UIView {
 	var targetWindow: UIWindow { return self.targetView.window! }
 	var appearance: Appearance!
 	var blocker: TooltipBlockerView? { return self.superview as? TooltipBlockerView }
-	var tooltipLayer: TooltipLayer!
+	var tooltipLayer: TooltipView.BackgroundLayer!
 	var fullSize: CGSize = .zero
 	var effectiveArrowDirection: TipPosition = TipPosition.best { didSet {
 		let insets = self.appearance.contentInset(for: self.effectiveArrowDirection)

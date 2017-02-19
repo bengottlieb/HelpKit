@@ -37,7 +37,7 @@ extension TooltipView {
 		public var arrowPoint: CGFloat = 1			/// how wide is the tip of the arrow?
 		public var arrowLength: CGFloat = 8			/// how 'long' is the arrow?
 		
-		public var layerClass = TooltipLayer.self
+		public var layerClass = TooltipView.BackgroundLayer.self
 	}
 }
 
