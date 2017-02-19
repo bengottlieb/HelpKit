@@ -33,6 +33,7 @@
 		B56B4D041E59E05F00955E5E /* Walkthrough.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56B4CFC1E59540D00955E5E /* Walkthrough.swift */; };
 		B56B4D051E59E05F00955E5E /* Walkthrough.Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56B4CFE1E59542100955E5E /* Walkthrough.Scene.swift */; };
 		B56B4D071E59E16000955E5E /* Walkthrough.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B56B4D061E59E16000955E5E /* Walkthrough.storyboard */; };
+		B56B4D091E5A2C9100955E5E /* Page2Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56B4D081E5A2C9100955E5E /* Page2Scene.swift */; };
 		B5C23CC51E571A91002E0F3A /* UILabel+Tooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C23CC41E571A91002E0F3A /* UILabel+Tooltip.swift */; };
 		B5C23CC71E59C03B002E0F3A /* UIView+Walkthrough.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C23CC61E59C03B002E0F3A /* UIView+Walkthrough.swift */; };
 		B5D740DB1E4F402600E5C3E1 /* TooltipView.BackgroundLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D740DA1E4F402600E5C3E1 /* TooltipView.BackgroundLayer.swift */; };
@@ -89,6 +90,7 @@
 		B56B4CFC1E59540D00955E5E /* Walkthrough.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Walkthrough.swift; sourceTree = "<group>"; };
 		B56B4CFE1E59542100955E5E /* Walkthrough.Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Walkthrough.Scene.swift; sourceTree = "<group>"; };
 		B56B4D061E59E16000955E5E /* Walkthrough.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Walkthrough.storyboard; sourceTree = "<group>"; };
+		B56B4D081E5A2C9100955E5E /* Page2Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Page2Scene.swift; sourceTree = "<group>"; };
 		B5C23CC41E571A91002E0F3A /* UILabel+Tooltip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Tooltip.swift"; sourceTree = "<group>"; };
 		B5C23CC61E59C03B002E0F3A /* UIView+Walkthrough.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Walkthrough.swift"; sourceTree = "<group>"; };
 		B5D740DA1E4F402600E5C3E1 /* TooltipView.BackgroundLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TooltipView.BackgroundLayer.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 			children = (
 				B549E3531BF8CA4F0046463A /* AppDelegate.swift */,
 				B549E3551BF8CA4F0046463A /* ViewController.swift */,
+				B56B4D081E5A2C9100955E5E /* Page2Scene.swift */,
 				B56B4D061E59E16000955E5E /* Walkthrough.storyboard */,
 				B5DC615C1E4949FB001CD747 /* TestHarness.storyboard */,
 				B549E35A1BF8CA4F0046463A /* Assets.xcassets */,
@@ -440,6 +443,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B56B4D091E5A2C9100955E5E /* Page2Scene.swift in Sources */,
 				B549E3561BF8CA4F0046463A /* ViewController.swift in Sources */,
 				B549E3541BF8CA4F0046463A /* AppDelegate.swift in Sources */,
 			);

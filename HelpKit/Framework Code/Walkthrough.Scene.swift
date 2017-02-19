@@ -14,6 +14,7 @@ import UIKit
 		public var onScreenDuration: TimeInterval? = 0.5
 		public var walkthroughOrder: Int?
 		public var transitionDuration: TimeInterval = 0.2
+		public var walkthrough: Walkthrough!
 		
 		open override func viewDidLoad() {
 			super.viewDidLoad()

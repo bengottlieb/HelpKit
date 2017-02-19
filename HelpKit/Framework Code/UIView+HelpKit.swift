@@ -20,7 +20,7 @@ extension String {
 	func substring(withPrefix prefix: String) -> String? {
 		let splits = CharacterSet(charactersIn: ":= ")
 		for component in self.components(separatedBy: ",") {
-			if component.hasPrefix(prefix) {
+			if component.trimmingCharacters(in: .whitespaces).hasPrefix(prefix) {
 				let subs = component.components(separatedBy: splits)
 				if subs.count > 1 { return subs.last }
 			}

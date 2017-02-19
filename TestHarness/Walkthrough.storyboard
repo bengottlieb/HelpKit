@@ -44,10 +44,10 @@
             </objects>
             <point key="canvasLocation" x="908" y="156"/>
         </scene>
-        <!--Walkthrough Scene-->
+        <!--Page2 Scene-->
         <scene sceneID="8Cn-Ju-nLA">
             <objects>
-                <viewController storyboardIdentifier="page2" id="Wf9-Nk-vSY" customClass="WalkthroughScene" customModule="HelpKit" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="page2" id="Wf9-Nk-vSY" customClass="Page2Scene" customModule="TestHarness" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="byk-Qk-Eie"/>
                         <viewControllerLayoutGuide type="bottom" id="Bp4-wt-0GM"/>
@@ -62,13 +62,25 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransition" value="in: moveUp"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransition" value="in: moveUp, out: moveUp"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5PJ-64-CRS">
+                                <rect key="frame" x="159" y="396" width="57" height="30"/>
+                                <state key="normal" title="Let's Go"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransition" value="in: drop, out: moveDown"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="advance" destination="Wf9-Nk-vSY" eventType="touchUpInside" id="YwD-rF-NKA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Bp4-wt-0GM" firstAttribute="top" secondItem="5PJ-64-CRS" secondAttribute="bottom" constant="241" id="5Oh-08-mAs"/>
                             <constraint firstItem="dAq-d6-8GB" firstAttribute="centerX" secondItem="ee2-8v-NHg" secondAttribute="centerX" id="5t0-r6-jFa"/>
+                            <constraint firstItem="5PJ-64-CRS" firstAttribute="centerX" secondItem="dAq-d6-8GB" secondAttribute="centerX" id="DcK-O2-IeA"/>
                             <constraint firstItem="dAq-d6-8GB" firstAttribute="top" secondItem="byk-Qk-Eie" secondAttribute="bottom" constant="117" id="mR4-2f-BWE"/>
                         </constraints>
                     </view>
