@@ -9,11 +9,11 @@
 import UIKit
 
 public extension UILabel {
-	public convenience init?(tooltipTitle title: String?, body: String?, appearance: Appearance) {
+	public convenience init?(tooltipTitle title: String?, body: String?, appearance: TooltipView.Appearance) {
 		if (title == nil || title!.isEmpty) && (body == nil || body!.isEmpty) { self.init(frame: CGRect.zero); return nil }
 		
 		let minHeight = appearance.minimumHeight(forTitle: title, and: body)
-		var labelSize = CGSize(width: Appearance.maxTooltipWidth, height: minHeight)
+		var labelSize = CGSize(width: TooltipView.Appearance.maxTooltipWidth, height: minHeight)
 		let minWidth: CGFloat = 20
 		let content = NSMutableAttributedString()
 		let checkChunk: CGFloat = 15.0

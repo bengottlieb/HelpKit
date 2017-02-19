@@ -13,9 +13,9 @@ open class TooltipLayer: CALayer {
 	var fill: UIColor
 	var border: UIColor
 	var tipBorderWidth: CGFloat
-	var appearance: Appearance
+	var appearance: TooltipView.Appearance
 	
-	public required init(frame: CGRect, appearance: Appearance, TipPosition: TooltipView.TipPosition) {
+	public required init(frame: CGRect, appearance: TooltipView.Appearance, TipPosition: TooltipView.TipPosition) {
 		self.TipPosition = TipPosition
 		self.appearance = appearance
 		self.border = appearance.borderColor

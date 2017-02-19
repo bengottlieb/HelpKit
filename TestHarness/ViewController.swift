@@ -38,7 +38,7 @@ class TestViewController: UIViewController {
 		
 		self.tip?.hide()
 		
-		var appearance = Appearance.standard
+		var appearance = TooltipView.Appearance.standard
 		appearance.tipCornerRadius = 10
 		appearance.backgroundInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 		appearance.tipBackgroundColor = UIColor(red: 0.1, green: 0.7, blue: 0.3, alpha: 1.0)

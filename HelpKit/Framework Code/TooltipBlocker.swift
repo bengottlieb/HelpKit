@@ -72,7 +72,7 @@ class TooltipBlockerView: UIView {
 	}
 	
 	func animateIn() {
-		self.backgroundColor = Appearance.backgroundColor
+		self.backgroundColor = TooltipView.Appearance.backgroundColor
 	}
 
 	func animateOut() {

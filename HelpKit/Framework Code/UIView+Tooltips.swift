@@ -8,7 +8,15 @@
 
 import UIKit
 
-public extension UIView {
+extension UIView {
+	@discardableResult public func createTooltip(text: String, direction: TooltipView.TipPosition = .rightSide, appearance: TooltipView.Appearance = .standard) -> TooltipView {
+		
+		let tip = TooltipView(target: self, title: text, direction: direction, appearance: appearance)
+		return tip
+	}
+}
+
+extension UIView {
 	private struct Keys {
 		static var tipTitle = "tt:title"
 		static var tipBody = "tt:body"
