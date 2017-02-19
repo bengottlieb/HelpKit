@@ -45,12 +45,20 @@ open class TooltipView: UIView {
 		self.frame = self.boundingFrame
 		self.tooltipLayer = appearance.layerClass.init(frame: self.bounds, appearance: self.appearance, TipPosition: self.effectiveArrowDirection)
 		self.layer.addSublayer(self.tooltipLayer)
+		self.isUserInteractionEnabled = true
+		self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapped)))
 		self.addSubview(self.contentView)
 	}
 	
 	func reposition() {
 		self.frame = self.boundingFrame
 		self.tooltipLayer?.TipPosition = self.effectiveArrowDirection
+	}
+	
+	func tapped(recog: UITapGestureRecognizer) {
+		if recog.state == .recognized && TooltipView.behavior.tapTipsToDismiss {
+			self.hide(over: 0.2)
+		}
 	}
 }
 
