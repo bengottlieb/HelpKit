@@ -26,7 +26,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransitionIn" value="pop"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransition" value="in: moveDown"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                         </subviews>
@@ -62,7 +62,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransitionIn" value="moveLeft"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransition" value="in: moveUp"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                         </subviews>
@@ -76,6 +76,42 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LxV-Bx-CJI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1530" y="155"/>
+        </scene>
+        <!--Walkthrough Scene-->
+        <scene sceneID="zim-qi-fdZ">
+            <objects>
+                <viewController storyboardIdentifier="page3" id="L41-F9-5U5" customClass="WalkthroughScene" customModule="HelpKit" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VRR-5P-Qbp"/>
+                        <viewControllerLayoutGuide type="bottom" id="TZr-P8-yko"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4ha-Zz-dPq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WOW" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EEI-cX-mEh">
+                                <rect key="frame" x="165.5" y="137" width="44" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransition" value="in: pop"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="EEI-cX-mEh" firstAttribute="centerX" secondItem="4ha-Zz-dPq" secondAttribute="centerX" id="Uxm-0a-qbr"/>
+                            <constraint firstItem="EEI-cX-mEh" firstAttribute="top" secondItem="VRR-5P-Qbp" secondAttribute="bottom" constant="117" id="sYm-3l-o9s"/>
+                        </constraints>
+                    </view>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="replacesExisting" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BiA-yX-d1R" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2175" y="154"/>
         </scene>
     </scenes>
 </document>

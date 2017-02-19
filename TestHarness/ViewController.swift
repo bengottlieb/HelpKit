@@ -17,8 +17,10 @@ class TestViewController: UIViewController {
 	var walkthrough = Walkthrough()
 	
 	func showWalkthrough() {
-		self.walkthrough.add(ids: ["page1", "page2"], from: UIStoryboard(name: "Walkthrough", bundle: nil))
+		self.walkthrough.add(scene: Scene())
+		self.walkthrough.add(ids: ["page1", "page2", "page3"], from: UIStoryboard(name: "Walkthrough", bundle: nil))
 		self.walkthrough.present(in: self)
+		self.walkthrough.view.backgroundColor = .white
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {

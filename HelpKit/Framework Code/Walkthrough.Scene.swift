@@ -13,11 +13,11 @@ import UIKit
 		public var replacesExisting = false
 		public var onScreenDuration: TimeInterval? = 0.5
 		public var walkthroughOrder: Int?
-		public var transitionDuration: TimeInterval = 1.0
+		public var transitionDuration: TimeInterval = 0.2
 		
 		open override func viewDidLoad() {
 			super.viewDidLoad()
-			if !self.replacesExisting { self.view.backgroundColor = nil }
+			self.view.backgroundColor = nil
 		}
 		
 		func remove(over: TimeInterval? = nil) {
@@ -26,7 +26,7 @@ import UIKit
 			if duration > 0 {
 				UIView.animate(withDuration: duration, animations: {
 					self.view.transitionableViews.forEach { view in
-						view.animatableState = view.transitionOutType?.transform(state: view.animatableState, forTransitionOut: true, in: self)
+						view.animatableState = view.transitionOut?.transform(state: view.animatableState, forTransitionOut: true, in: self)
 					}
 				}) { completed in
 					self.view.removeFromSuperview()
@@ -44,7 +44,7 @@ import UIKit
 			
 			self.view.transitionableViews.forEach { view in
 				finalStates[view.hashValue] = view.animatableState
-				view.animatableState = view.transitionInType?.transform(state: view.animatableState, forTransitionOut: false, in: self)
+				view.animatableState = view.transitionIn?.transform(state: view.animatableState, forTransitionOut: false, in: self)
 			}
 			
 			parent.view.addSubview(self.view)

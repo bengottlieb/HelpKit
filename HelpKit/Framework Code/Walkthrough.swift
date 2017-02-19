@@ -12,7 +12,7 @@ public typealias Scene = WalkthroughScene
 
 public class Walkthrough: UIViewController {
 	var scenes: [Scene] = []
-	var current: Scene?
+	var visible: [Scene] = []
 	weak var nextSceneTimer: Timer?
 	
 	public func add(scene: Scene) {
@@ -49,17 +49,20 @@ extension Walkthrough {
 	}
 	
 	public func show(next scene: Scene, over interval: TimeInterval?) {
-		if scene.replacesExisting { self.current?.remove(over: interval) }
+		if scene.replacesExisting {
+			self.visible.forEach { $0.remove(over: interval) }
+			self.visible = []
+		}
 		
-		self.current = scene
-		self.current!.show(in: self)
+		self.visible.append(scene)
+		scene.show(in: self)
 		if let duration = scene.onScreenDuration {
 			self.nextSceneTimer = Timer.scheduledTimer(timeInterval: duration, target: self, selector: #selector(proceed), userInfo: nil, repeats: false)
 		}
 	}
 	
 	func proceed() {
-		guard let current = self.current, let index = self.scenes.index(of: current) else { return }
+		guard let current = self.visible.last, let index = self.scenes.index(of: current) else { return }
 		
 		if index >= self.scenes.count - 1 {
 			

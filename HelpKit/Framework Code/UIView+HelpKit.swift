@@ -16,15 +16,28 @@ extension UIView {
 	}
 }
 
+extension String {
+	func substring(withPrefix prefix: String) -> String? {
+		let splits = CharacterSet(charactersIn: ":= ")
+		for component in self.components(separatedBy: ",") {
+			if component.hasPrefix(prefix) {
+				let subs = component.components(separatedBy: splits)
+				if subs.count > 1 { return subs.last }
+			}
+		}
+		return nil
+	}
+}
+
 extension UIView {
-	var transitionInType: Walkthrough.Transition? { return Walkthrough.Transition(rawValue: self.sceneTransitionIn) }
-	var transitionOutType: Walkthrough.Transition? { return Walkthrough.Transition(rawValue: self.sceneTransitionOut) }
+	var transitionIn: Walkthrough.Transition? { return Walkthrough.Transition(rawValue: self.sceneTransition?.substring(withPrefix: "in") ?? "") }
+	var transitionOut: Walkthrough.Transition? { return Walkthrough.Transition(rawValue: self.sceneTransition?.substring(withPrefix: "out") ?? "") }
 
 	var transitionableViews: [UIView] {
 		var views: [UIView] = []
 		
 		for view in self.subviews {
-			if view.transitionInType != nil || view.transitionOutType != nil { views.append(view) }
+			if view.sceneTransition != nil { views.append(view) }
 			views += view.transitionableViews
 		}
 		return views
@@ -54,21 +67,16 @@ extension UIView {
 		static var tipAppearance = "hk:appearance"
 		static var tipPosition = "hk:position"
 		static var sceneID = "hk:sceneID"
-		static var sceneTransitionIn = "hk:TransitionIn"
-		static var sceneTransitionOut = "hk:TransitionOut"
+		static var sceneTransition = "hk:Transition"
 	}
 	
 	@IBInspectable public var sceneID: String? {
 		get { return objc_getAssociatedObject(self, &Keys.sceneID) as? String }
 		set { objc_setAssociatedObject(self, &Keys.sceneID, newValue as NSString?, .OBJC_ASSOCIATION_RETAIN_NONATOMIC ) }
 	}
-	@IBInspectable public var sceneTransitionIn: String? {
-		get { return objc_getAssociatedObject(self, &Keys.sceneTransitionIn) as? String }
-		set { objc_setAssociatedObject(self, &Keys.sceneTransitionIn, newValue as NSString?, .OBJC_ASSOCIATION_RETAIN_NONATOMIC ) }
-	}
-	@IBInspectable public var sceneTransitionOut: String? {
-		get { return objc_getAssociatedObject(self, &Keys.sceneTransitionOut) as? String }
-		set { objc_setAssociatedObject(self, &Keys.sceneTransitionOut, newValue as NSString?, .OBJC_ASSOCIATION_RETAIN_NONATOMIC ) }
+	@IBInspectable public var sceneTransition: String? {
+		get { return objc_getAssociatedObject(self, &Keys.sceneTransition) as? String }
+		set { objc_setAssociatedObject(self, &Keys.sceneTransition, newValue as NSString?, .OBJC_ASSOCIATION_RETAIN_NONATOMIC ) }
 	}
 	
 	
