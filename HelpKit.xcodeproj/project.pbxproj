@@ -32,7 +32,6 @@
 		B56B4CFA1E58EF9B00955E5E /* TooltipView.Behavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56B4CF91E58EF9B00955E5E /* TooltipView.Behavior.swift */; };
 		B5C23CC51E571A91002E0F3A /* UILabel+Tooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C23CC41E571A91002E0F3A /* UILabel+Tooltip.swift */; };
 		B5D740DB1E4F402600E5C3E1 /* TooltipView.BackgroundLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D740DA1E4F402600E5C3E1 /* TooltipView.BackgroundLayer.swift */; };
-		B5DC614C1E493297001CD747 /* HelpKit.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5DC614B1E493297001CD747 /* HelpKit.xcassets */; };
 		B5DC61501E49330C001CD747 /* HelpKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC614E1E49330C001CD747 /* HelpKitTests.swift */; };
 		B5DC61561E4933E4001CD747 /* TooltipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC61551E4933E4001CD747 /* TooltipView.swift */; };
 		B5DC615B1E493759001CD747 /* TooltipView.Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC615A1E493759001CD747 /* TooltipView.Appearance.swift */; };
@@ -85,7 +84,6 @@
 		B56B4CF91E58EF9B00955E5E /* TooltipView.Behavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TooltipView.Behavior.swift; sourceTree = "<group>"; };
 		B5C23CC41E571A91002E0F3A /* UILabel+Tooltip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Tooltip.swift"; sourceTree = "<group>"; };
 		B5D740DA1E4F402600E5C3E1 /* TooltipView.BackgroundLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TooltipView.BackgroundLayer.swift; sourceTree = "<group>"; };
-		B5DC614B1E493297001CD747 /* HelpKit.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = HelpKit.xcassets; sourceTree = "<group>"; };
 		B5DC614E1E49330C001CD747 /* HelpKitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpKitTests.swift; sourceTree = "<group>"; };
 		B5DC614F1E49330C001CD747 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5DC61531E493342001CD747 /* HelpKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpKit.h; sourceTree = "<group>"; };
@@ -160,10 +158,9 @@
 			path = TestHarness;
 			sourceTree = "<group>";
 		};
-		B5DC61491E493297001CD747 /* Framework Code */ = {
+		B56B4CFB1E59534A00955E5E /* Tooltips */ = {
 			isa = PBXGroup;
 			children = (
-				B5DC614A1E493297001CD747 /* Rsc */,
 				B5DC61551E4933E4001CD747 /* TooltipView.swift */,
 				B5D740DA1E4F402600E5C3E1 /* TooltipView.BackgroundLayer.swift */,
 				B56B4CF91E58EF9B00955E5E /* TooltipView.Behavior.swift */,
@@ -172,16 +169,16 @@
 				B56B4CF71E58B2BC00955E5E /* UIView+Tooltips.swift */,
 				B5DC61621E4C2707001CD747 /* TooltipBlocker.swift */,
 			);
-			name = "Framework Code";
-			path = "HelpKit/Framework Code";
+			name = Tooltips;
 			sourceTree = "<group>";
 		};
-		B5DC614A1E493297001CD747 /* Rsc */ = {
+		B5DC61491E493297001CD747 /* Framework Code */ = {
 			isa = PBXGroup;
 			children = (
-				B5DC614B1E493297001CD747 /* HelpKit.xcassets */,
+				B56B4CFB1E59534A00955E5E /* Tooltips */,
 			);
-			path = Rsc;
+			name = "Framework Code";
+			path = "HelpKit/Framework Code";
 			sourceTree = "<group>";
 		};
 		B5DC614D1E49330C001CD747 /* HelpKitTests */ = {
@@ -362,7 +359,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5DC614C1E493297001CD747 /* HelpKit.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
