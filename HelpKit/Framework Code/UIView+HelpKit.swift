@@ -19,17 +19,14 @@ extension UIView {
 extension UIView {
 	public struct PresentationInfo {
 		var id: String?									// id
+		var batchID: String?							// batch
 		var inTransition: Walkthrough.Transition?		// in
 		var outTransition: Walkthrough.Transition?		// out
-		var inDuration: TimeInterval?					// inDur
-		var outDuration: TimeInterval?					// outDur
-		var inDelay: TimeInterval = 0					// inDelay
-		var outDelay: TimeInterval = 0					// outDelay
-		var batchID: String?							// batch
+		var otherTransition: Walkthrough.Transition?	// other
 		
 		init?(_ string: String?) {
 			guard let formatted = string else { return nil }
-			let outerSplits = CharacterSet(charactersIn: ",;")
+			let outerSplits = CharacterSet(charactersIn: ";")
 			let innerSplits = CharacterSet(charactersIn: ":= ")
 			let components = formatted.components(separatedBy: outerSplits)
 			
@@ -38,18 +35,12 @@ extension UIView {
 				
 				switch parts.first ?? "" {
 				case "id": self.id = parts.last
+				case "batch": self.batchID = parts.last
 
 				case "in": self.inTransition = Walkthrough.Transition(rawValue: parts.last)
 				case "out": self.outTransition = Walkthrough.Transition(rawValue: parts.last)
-					
-				case "inDur": self.inDuration = TimeInterval(parts.last!)
-				case "outDur": self.outDuration = TimeInterval(parts.last!)
+				case "other": self.outTransition = Walkthrough.Transition(rawValue: parts.last)
 
-				case "inDelay": self.inDelay = TimeInterval(parts.last!) ?? 0
-				case "outDelay": self.inDelay = TimeInterval(parts.last!) ?? 0
-					
-				case "batch": self.batchID = parts.last
-					
 				default: break
 				}
 			}

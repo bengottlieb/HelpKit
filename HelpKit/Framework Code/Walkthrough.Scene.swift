@@ -48,7 +48,7 @@ import UIKit
 				
 				let finalState = view.animatableState
 				view.animatableState = info.inTransition?.transform(state: view.animatableState, forTransitionOut: false, in: self)
-				UIView.animate(withDuration: info.inDuration ?? duration, delay: info.inDelay, options: [], animations: {
+				UIView.animate(withDuration: info.inTransition?.duration ?? duration, delay: info.inTransition?.delay ?? 0, options: [], animations: {
 					view.animatableState = finalState
 				}, completion: nil)
 			}

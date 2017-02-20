@@ -1,5 +1,5 @@
 //
-//  UIView+Walkthrough.swift
+//  Walkthrough+Transition.swift
 //  HelpKit
 //
 //  Created by Ben Gottlieb on 2/19/17.
@@ -9,24 +9,37 @@
 import UIKit
 
 extension Walkthrough {
-	public enum Transition { case fade, moveLeft, moveRight, moveUp, moveDown, pop, drop
+	struct Transition {
+		public enum Kind: String { case fade, moveLeft, moveRight, moveUp, moveDown, pop, drop }
+		let kind: Kind
+		let duration: TimeInterval?
+		let delay: TimeInterval
+		
 		init?(rawValue: String?) {
-			switch rawValue ?? "" {
-			case "fade": self = .fade
-			case "moveLeft": self = .moveLeft
-			case "moveRight": self = .moveRight
-			case "moveUp": self = .moveUp
-			case "moveDown": self = .moveDown
-			case "pop": self = .pop
-			case "drop": self = .drop
-			default: return nil
+			guard let components = rawValue?.components(separatedBy: ","), let kind = Kind(rawValue: components.first ?? "") else {
+				self.kind = .drop
+				return nil
+			}
+			
+			self.kind = kind
+			
+			if components.count > 1, let dur = TimeInterval(components[1]) {
+				self.duration = dur
+			} else {
+				self.duration = nil
+			}
+
+			if components.count > 2, let delay = TimeInterval(components[2]) {
+				self.delay = delay
+			} else {
+				self.delay = 0
 			}
 		}
 		
 		func transform(state: UIView.AnimatableState?, forTransitionOut: Bool, in parent: Scene) -> UIView.AnimatableState? {
 			guard var result = state else { return nil }
 			
-			switch self {
+			switch self.kind {
 			case .fade:
 				result.alpha = 0
 				
