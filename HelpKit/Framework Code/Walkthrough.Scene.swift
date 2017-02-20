@@ -15,6 +15,7 @@ import UIKit
 		public var walkthroughOrder: Int?
 		public var transitionDuration: TimeInterval = 0.2
 		public var walkthrough: Walkthrough!
+		public var timeline = Walkthrough.Timeline()
 		
 		open override func viewDidLoad() {
 			super.viewDidLoad()
@@ -39,7 +40,7 @@ import UIKit
 		}
 		
 		func removeFromWalkthrough() {
-			self.view.alpha = 0.25
+			self.timeline.end()
 			self.view.removeFromSuperview()
 		}
 
@@ -71,6 +72,7 @@ import UIKit
 				}
 			}
 			
+			self.timeline.start()
 			return effectiveDuration
 		}
 
