@@ -19,6 +19,9 @@ class TestViewController: UIViewController {
 	func showWalkthrough() {
 		self.walkthrough.add(scene: Scene())
 		self.walkthrough.add(ids: ["page1", "page2", "page3"], from: UIStoryboard(name: "Walkthrough", bundle: nil))
+		let lastScene = UIStoryboard(name: "Walkthrough", bundle: nil).instantiateViewController(withIdentifier: "page4") as! Scene
+		lastScene.replacesExisting = true
+		self.walkthrough.add(scene: lastScene)
 		self.walkthrough.present(in: self)
 		self.walkthrough.view.backgroundColor = .white
 	}

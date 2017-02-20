@@ -64,7 +64,7 @@ extension Walkthrough {
 	
 	public func show(next scene: Scene, over interval: TimeInterval?) {
 		if scene.replacesExisting {
-			self.visible.forEach { $0.remove(over: nil) }
+			self.visible.forEach { $0.remove(over: $0.transitionDuration) }
 			self.visible = []
 		}
 		

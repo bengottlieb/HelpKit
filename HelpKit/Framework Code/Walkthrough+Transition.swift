@@ -10,6 +10,7 @@ import UIKit
 
 extension Walkthrough {
 	struct Transition {
+		public enum Phase { case `in`, out, other }
 		public enum Kind: String { case fade, moveLeft, moveRight, moveUp, moveDown, pop, drop }
 		let kind: Kind
 		let duration: TimeInterval?
@@ -36,7 +37,7 @@ extension Walkthrough {
 			}
 		}
 		
-		func transform(state: UIView.AnimatableState?, forTransitionOut: Bool, in parent: Scene) -> UIView.AnimatableState? {
+		func transform(state: UIView.AnimatableState?, phase: Phase, in parent: Scene) -> UIView.AnimatableState? {
 			guard var result = state else { return nil }
 			
 			switch self.kind {
@@ -44,16 +45,16 @@ extension Walkthrough {
 				result.alpha = 0
 				
 			case .moveLeft:
-				result.frame.origin.x = forTransitionOut ? result.frame.origin.x - parent.view.bounds.width : result.frame.origin.x + parent.view.bounds.width
+				result.frame.origin.x = phase != .in ? result.frame.origin.x - parent.view.bounds.width : result.frame.origin.x + parent.view.bounds.width
 				
 			case .moveRight:
-				result.frame.origin.x = forTransitionOut ? result.frame.origin.x + parent.view.bounds.width : result.frame.origin.x - parent.view.bounds.width
+				result.frame.origin.x = phase != .in ? result.frame.origin.x + parent.view.bounds.width : result.frame.origin.x - parent.view.bounds.width
 				
 			case .moveUp:
-				result.frame.origin.y = forTransitionOut ? result.frame.origin.y - parent.view.bounds.height : result.frame.origin.y + parent.view.bounds.height
+				result.frame.origin.y = phase != .in ? result.frame.origin.y - parent.view.bounds.height : result.frame.origin.y + parent.view.bounds.height
 				
 			case .moveDown:
-				result.frame.origin.y = forTransitionOut ? result.frame.origin.y + parent.view.bounds.height : result.frame.origin.y - parent.view.bounds.height
+				result.frame.origin.y = phase != .in ? result.frame.origin.y + parent.view.bounds.height : result.frame.origin.y - parent.view.bounds.height
 				
 			case .pop:
 				result.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
