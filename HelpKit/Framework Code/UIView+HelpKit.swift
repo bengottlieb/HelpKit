@@ -23,8 +23,8 @@ extension UIView {
 		var outTransition: Walkthrough.Transition?		// out
 		var inDuration: TimeInterval?					// inDur
 		var outDuration: TimeInterval?					// outDur
-		var inDelay: TimeInterval?						// inDelay
-		var outDelay: TimeInterval?						// outDelay
+		var inDelay: TimeInterval = 0					// inDelay
+		var outDelay: TimeInterval = 0					// outDelay
 		
 		init?(_ string: String?) {
 			guard let formatted = string else { return nil }
@@ -44,8 +44,8 @@ extension UIView {
 				case "inDur": self.inDuration = TimeInterval(parts.last!)
 				case "outDur": self.outDuration = TimeInterval(parts.last!)
 
-				case "inDur": self.inDelay = TimeInterval(parts.last!)
-				case "outDur": self.inDelay = TimeInterval(parts.last!)
+				case "inDelay": self.inDelay = TimeInterval(parts.last!) ?? 0
+				case "outDelay": self.inDelay = TimeInterval(parts.last!) ?? 0
 					
 				default: break
 				}

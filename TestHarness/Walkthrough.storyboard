@@ -21,7 +21,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In Our App, You Do Cool Things, and More Cool Things Happen" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pS3-Xv-jAZ">
-                                <rect key="frame" x="68" y="64" width="184" height="61"/>
+                                <rect key="frame" x="68" y="83" width="184" height="61"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="184" id="wNK-AW-u6X"/>
                                 </constraints>
@@ -29,22 +29,30 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransitionInfo" value="in: moveDown"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransitionInfo" value="in: moveDown, inDelay: 2.0"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="woF-ch-AEC">
+                                <rect key="frame" x="109" y="35" width="102" height="28"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransitionInfo" value="in: pop"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="pS3-Xv-jAZ" firstAttribute="top" secondItem="IV7-bN-rCD" secondAttribute="bottom" constant="44" id="X0W-8m-Hck"/>
+                            <constraint firstItem="woF-ch-AEC" firstAttribute="centerX" secondItem="t3n-2X-zjT" secondAttribute="centerX" id="BgG-gA-ube"/>
+                            <constraint firstItem="woF-ch-AEC" firstAttribute="top" secondItem="IV7-bN-rCD" secondAttribute="bottom" constant="15" id="BxD-hP-MSu"/>
+                            <constraint firstItem="pS3-Xv-jAZ" firstAttribute="top" secondItem="IV7-bN-rCD" secondAttribute="bottom" constant="63" id="X0W-8m-Hck"/>
                             <constraint firstItem="pS3-Xv-jAZ" firstAttribute="centerX" secondItem="t3n-2X-zjT" secondAttribute="centerX" id="raD-WE-k3B"/>
                         </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="sceneID" value="page1"/>
-                        </userDefinedRuntimeAttributes>
                     </view>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="onScreenDuration">
-                            <integer key="value" value="1"/>
+                            <integer key="value" value="2"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </viewController>
@@ -61,11 +69,11 @@
                         <viewControllerLayoutGuide type="bottom" id="Bp4-wt-0GM"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ee2-8v-NHg">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DEMO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dAq-d6-8GB">
-                                <rect key="frame" x="62" y="162" width="197" height="99"/>
+                                <rect key="frame" x="89" y="162" width="197" height="99"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="197" id="RTf-Rp-Zkz"/>
@@ -107,11 +115,11 @@
                         <viewControllerLayoutGuide type="bottom" id="TZr-P8-yko"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="4ha-Zz-dPq">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Here you can see we're doing a cool thing, which is causing other cool things to happen." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3s9-3w-vYz">
-                                <rect key="frame" x="68" y="390" width="184" height="81.5"/>
+                                <rect key="frame" x="95.5" y="390" width="184" height="81.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="184" id="JzQ-C7-46c"/>
                                 </constraints>
@@ -123,7 +131,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DEMO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zvF-yR-hQ6">
-                                <rect key="frame" x="62" y="283" width="197" height="99"/>
+                                <rect key="frame" x="89" y="283" width="197" height="99"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="99" id="fET-y0-RPW"/>

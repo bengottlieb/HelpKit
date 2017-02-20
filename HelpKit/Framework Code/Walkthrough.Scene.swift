@@ -41,12 +41,16 @@ import UIKit
 			let duration = over ?? self.transitionDuration
 			
 			self.view.frame = parent.contentFrame
-			var finalStates: [Int: UIView.AnimatableState] = [:]
 			var persisted: [PersistedView] = []
 			
 			self.view.transitionableViews.forEach { view in
-				finalStates[view.hashValue] = view.animatableState
-				view.animatableState = view.transitionInfo?.inTransition?.transform(state: view.animatableState, forTransitionOut: false, in: self)
+				guard let info = view.transitionInfo else { return }
+				
+				let finalState = view.animatableState
+				view.animatableState = info.inTransition?.transform(state: view.animatableState, forTransitionOut: false, in: self)
+				UIView.animate(withDuration: info.inDuration ?? duration, delay: info.inDelay, options: [], animations: {
+					view.animatableState = finalState
+				}, completion: nil)
 			}
 			
 			for view in self.view.viewsWithSceneIDs {
@@ -60,11 +64,6 @@ import UIKit
 			parent.view.addSubview(self.view)
 			if duration > 0 {
 				UIView.animate(withDuration: duration, animations: {
-					self.view.transitionableViews.forEach { view in
-						view.animatableState = finalStates[view.hashValue]
-					}
-					
-					
 					persisted.forEach { $0.oldView.frame = $0.newView.frame }
 				}) { completed in
 					persisted.forEach { $0.oldView.isHidden = true; $0.newView.isHidden = false }
