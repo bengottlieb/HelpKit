@@ -10,10 +10,23 @@ import UIKit
 
 public typealias Scene = WalkthroughScene
 
-public class Walkthrough: UIViewController {
+open class Walkthrough: UIViewController {
+	public var contentInset: UIEdgeInsets = .zero
 	var scenes: [Scene] = []
 	var visible: [Scene] = []
 	weak var nextSceneTimer: Timer?
+	var contentFrame: CGRect {
+		let bounds = self.view.bounds
+		return CGRect(x: bounds.origin.x + self.contentInset.left,
+		              y: bounds.origin.y + self.contentInset.top,
+		              width: bounds.width + (self.contentInset.left + self.contentInset.right),
+		              height: bounds.height + (self.contentInset.top + self.contentInset.bottom))
+	}
+	
+	required public init?(coder aDecoder: NSCoder) { super.init(coder: aDecoder); self.didInit() }
+	public init() { super.init(nibName: nil, bundle: nil); self.didInit() }
+	
+	open func didInit() { }
 	
 	public func add(scene: Scene) {
 		if scene.walkthroughOrder == nil { scene.walkthroughOrder = self.scenes.count }
@@ -38,7 +51,7 @@ public class Walkthrough: UIViewController {
 }
 
 extension Walkthrough {
-	public override func viewDidLoad() {
+	open override func viewDidLoad() {
 		super.viewDidLoad()
 		self.start()
 	}
@@ -77,7 +90,9 @@ extension Walkthrough {
 
 extension Walkthrough {
 	func existingView(with id: String) -> UIView? {
-		for view in self.viewsWithSceneIDs { if view.sceneID == id && !view.isHidden { return view }}
+		for view in self.viewsWithSceneIDs { if view.transitionInfo?.id == id && !view.isHidden {
+			return view
+		}}
 		return nil
 	}
 	

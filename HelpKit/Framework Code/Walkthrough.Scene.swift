@@ -27,7 +27,7 @@ import UIKit
 			if duration > 0 {
 				UIView.animate(withDuration: duration, animations: {
 					self.view.transitionableViews.forEach { view in
-						view.animatableState = view.transitionOut?.transform(state: view.animatableState, forTransitionOut: true, in: self)
+						view.animatableState = view.transitionInfo?.outTransition?.transform(state: view.animatableState, forTransitionOut: true, in: self)
 					}
 				}) { completed in
 					self.view.removeFromSuperview()
@@ -40,17 +40,17 @@ import UIKit
 		func show(in parent: Walkthrough, over: TimeInterval? = nil) {
 			let duration = over ?? self.transitionDuration
 			
-			self.view.frame = parent.view.bounds
+			self.view.frame = parent.contentFrame
 			var finalStates: [Int: UIView.AnimatableState] = [:]
 			var persisted: [PersistedView] = []
 			
 			self.view.transitionableViews.forEach { view in
 				finalStates[view.hashValue] = view.animatableState
-				view.animatableState = view.transitionIn?.transform(state: view.animatableState, forTransitionOut: false, in: self)
+				view.animatableState = view.transitionInfo?.inTransition?.transform(state: view.animatableState, forTransitionOut: false, in: self)
 			}
 			
 			for view in self.view.viewsWithSceneIDs {
-				if let existing = self.walkthrough.existingView(with: view.sceneID!), existing != view {
+				if let sceneID = view.transitionInfo?.id, let existing = self.walkthrough.existingView(with: sceneID), existing != view {
 					persisted.append(PersistedView(oldView: existing, newView: view))
 					view.isHidden = true
 				}

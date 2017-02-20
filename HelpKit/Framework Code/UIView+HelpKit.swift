@@ -16,28 +16,50 @@ extension UIView {
 	}
 }
 
-extension String {
-	func substring(withPrefix prefix: String) -> String? {
-		let splits = CharacterSet(charactersIn: ":= ")
-		for component in self.components(separatedBy: ",") {
-			if component.trimmingCharacters(in: .whitespaces).hasPrefix(prefix) {
-				let subs = component.components(separatedBy: splits)
-				if subs.count > 1 { return subs.last }
+extension UIView {
+	public struct PresentationInfo {
+		var id: String?									// id
+		var inTransition: Walkthrough.Transition?		// in
+		var outTransition: Walkthrough.Transition?		// out
+		var inDuration: TimeInterval?					// inDur
+		var outDuration: TimeInterval?					// outDur
+		var inDelay: TimeInterval?						// inDelay
+		var outDelay: TimeInterval?						// outDelay
+		
+		init?(_ string: String?) {
+			guard let formatted = string else { return nil }
+			let outerSplits = CharacterSet(charactersIn: ",;")
+			let innerSplits = CharacterSet(charactersIn: ":= ")
+			let components = formatted.components(separatedBy: outerSplits)
+			
+			for component in components {
+				let parts = component.trimmingCharacters(in: .whitespaces).components(separatedBy: innerSplits)
+				
+				switch parts.first ?? "" {
+				case "id": self.id = parts.last
+
+				case "in": self.inTransition = Walkthrough.Transition(rawValue: parts.last)
+				case "out": self.outTransition = Walkthrough.Transition(rawValue: parts.last)
+					
+				case "inDur": self.inDuration = TimeInterval(parts.last!)
+				case "outDur": self.outDuration = TimeInterval(parts.last!)
+
+				case "inDur": self.inDelay = TimeInterval(parts.last!)
+				case "outDur": self.inDelay = TimeInterval(parts.last!)
+					
+				default: break
+				}
 			}
 		}
-		return nil
 	}
-}
-
-extension UIView {
-	var transitionIn: Walkthrough.Transition? { return Walkthrough.Transition(rawValue: self.sceneTransition?.substring(withPrefix: "in") ?? "") }
-	var transitionOut: Walkthrough.Transition? { return Walkthrough.Transition(rawValue: self.sceneTransition?.substring(withPrefix: "out") ?? "") }
+	
+	var transitionInfo: PresentationInfo? { return PresentationInfo(self.sceneTransitionInfo) }
 
 	var transitionableViews: [UIView] {
 		var views: [UIView] = []
 		
 		for view in self.subviews {
-			if view.sceneTransition != nil { views.append(view) }
+			if view.transitionInfo != nil { views.append(view) }
 			views += view.transitionableViews
 		}
 		return views
@@ -47,7 +69,7 @@ extension UIView {
 		var views: [UIView] = []
 		
 		for view in self.subviews {
-			if view.sceneID != nil { views.append(view) }
+			if view.transitionInfo?.id != nil { views.append(view) }
 			views += view.viewsWithSceneIDs
 		}
 		return views
@@ -76,17 +98,12 @@ extension UIView {
 		static var tipBody = "hk:body"
 		static var tipAppearance = "hk:appearance"
 		static var tipPosition = "hk:position"
-		static var sceneID = "hk:sceneID"
-		static var sceneTransition = "hk:Transition"
+		static var transitionInfo = "hk:transitionInfo"
 	}
-	
-	@IBInspectable public var sceneID: String? {
-		get { return objc_getAssociatedObject(self, &Keys.sceneID) as? String }
-		set { objc_setAssociatedObject(self, &Keys.sceneID, newValue as NSString?, .OBJC_ASSOCIATION_RETAIN_NONATOMIC ) }
-	}
-	@IBInspectable public var sceneTransition: String? {
-		get { return objc_getAssociatedObject(self, &Keys.sceneTransition) as? String }
-		set { objc_setAssociatedObject(self, &Keys.sceneTransition, newValue as NSString?, .OBJC_ASSOCIATION_RETAIN_NONATOMIC ) }
+
+	@IBInspectable public var sceneTransitionInfo: String? {
+		get { return objc_getAssociatedObject(self, &Keys.transitionInfo) as? String }
+		set { objc_setAssociatedObject(self, &Keys.transitionInfo, newValue as NSString?, .OBJC_ASSOCIATION_RETAIN_NONATOMIC ) }
 	}
 	
 	
@@ -111,5 +128,18 @@ extension UIView {
 		get { return TooltipView.TipPosition(rawValue: objc_getAssociatedObject(self, &Keys.tipPosition) as? String ?? "") ?? .best }
 		set { objc_setAssociatedObject(self, &Keys.tipPosition, newValue.rawValue as NSString?, .OBJC_ASSOCIATION_RETAIN_NONATOMIC ) }
 	}
-
 }
+
+extension String {
+	func substring(withPrefix prefix: String) -> String? {
+		let splits = CharacterSet(charactersIn: ":= ")
+		for component in self.components(separatedBy: ",") {
+			if component.trimmingCharacters(in: .whitespaces).hasPrefix(prefix) {
+				let subs = component.components(separatedBy: splits)
+				if subs.count > 1 { return subs.last }
+			}
+		}
+		return nil
+	}
+}
+
