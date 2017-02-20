@@ -28,6 +28,22 @@ open class Walkthrough: UIViewController {
 	
 	open func didInit() { }
 	
+	open func present(in parent: UIViewController) {
+		self.willMove(toParentViewController: parent)
+		parent.addChildViewController(self)
+		self.view.frame = parent.view.bounds
+		parent.view.addSubview(self.view)
+		self.didMove(toParentViewController: parent)
+	}
+	
+	open func dismiss(animated: Bool = true) {
+		self.willMove(toParentViewController: nil)
+		self.removeFromParentViewController()
+		
+		self.view.removeFromSuperview()
+		self.didMove(toParentViewController: nil)
+	}
+	
 	public func add(scene: Scene) {
 		if scene.walkthroughOrder == nil { scene.walkthroughOrder = self.scenes.count }
 		if self.scenes.count == 0 { scene.replacesExisting = true }
@@ -41,12 +57,17 @@ open class Walkthrough: UIViewController {
 		}
 	}
 	
-	public func present(in parent: UIViewController) {
-		self.willMove(toParentViewController: parent)
-		parent.addChildViewController(self)
-		self.view.frame = parent.view.bounds
-		parent.view.addSubview(self.view)
-		self.didMove(toParentViewController: parent)
+	@discardableResult public func apply(transition: Transition? = nil, batchID: String, over duration: TimeInterval) -> TimeInterval {
+		let views = self.viewsWith(batchID: batchID)
+		guard let current = self.visible.last else { return 0 }
+		var maxDuration: TimeInterval = 0
+		
+		views.forEach { view in
+			guard let tran = transition ?? view.transitionInfo?.otherTransition else { return }
+			maxDuration = max(maxDuration, view.apply(transition: tran, for: .other, duration: duration, in: current))
+		}
+		
+		return maxDuration
 	}
 }
 
@@ -100,6 +121,14 @@ extension Walkthrough {
 		var views: [UIView] = []
 		
 		for scene in self.visible { views += scene.view.viewsWithSceneIDs }
+		
+		return views
+	}
+
+	func viewsWith(batchID: String) -> [UIView] {
+		var views: [UIView] = []
+		
+		for scene in self.visible { views += scene.view.viewsMatching(batchID: batchID) }
 		
 		return views
 	}

@@ -39,7 +39,7 @@ extension UIView {
 
 				case "in": self.inTransition = Walkthrough.Transition(rawValue: parts.last)
 				case "out": self.outTransition = Walkthrough.Transition(rawValue: parts.last)
-				case "other": self.outTransition = Walkthrough.Transition(rawValue: parts.last)
+				case "other": self.otherTransition = Walkthrough.Transition(rawValue: parts.last)
 
 				default: break
 				}

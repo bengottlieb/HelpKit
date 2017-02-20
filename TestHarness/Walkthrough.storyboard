@@ -166,10 +166,10 @@
             </objects>
             <point key="canvasLocation" x="2175" y="154"/>
         </scene>
-        <!--Walkthrough Scene-->
+        <!--Page4 Scene-->
         <scene sceneID="suD-nE-Um9">
             <objects>
-                <viewController storyboardIdentifier="page4" id="xql-mq-ajg" customClass="WalkthroughScene" customModule="HelpKit" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="page4" id="xql-mq-ajg" customClass="Page4Scene" customModule="TestHarness" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Oeg-JF-0GK"/>
                         <viewControllerLayoutGuide type="bottom" id="ttU-xV-t4I"/>
@@ -189,12 +189,24 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransitionInfo" value="in: pop"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransitionInfo" value="in: pop; batch: #1; other: fade"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xtt-pQ-esT">
+                                <rect key="frame" x="176" y="686" width="62" height="30"/>
+                                <state key="normal" title="Continue"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransitionInfo" value="in: moveUp"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="continueWalkthrough" destination="xql-mq-ajg" eventType="touchUpInside" id="xYt-2m-lUw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="xtt-pQ-esT" firstAttribute="centerX" secondItem="LSS-uh-ylw" secondAttribute="centerX" id="49g-BO-cch"/>
+                            <constraint firstItem="ttU-xV-t4I" firstAttribute="top" secondItem="xtt-pQ-esT" secondAttribute="bottom" constant="20" id="cxR-31-ajJ"/>
                             <constraint firstItem="tri-nS-EGf" firstAttribute="centerY" secondItem="LSS-uh-ylw" secondAttribute="centerY" id="doO-gy-eYI"/>
                             <constraint firstItem="tri-nS-EGf" firstAttribute="centerX" secondItem="LSS-uh-ylw" secondAttribute="centerX" id="h4w-np-8eq"/>
                         </constraints>

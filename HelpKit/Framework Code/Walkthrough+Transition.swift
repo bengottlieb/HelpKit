@@ -9,14 +9,14 @@
 import UIKit
 
 extension Walkthrough {
-	struct Transition {
+	public struct Transition {
 		public enum Phase { case `in`, out, other }
 		public enum Kind: String { case fade, moveLeft, moveRight, moveUp, moveDown, pop, drop }
-		let kind: Kind
-		let duration: TimeInterval?
-		let delay: TimeInterval
+		public let kind: Kind
+		public let duration: TimeInterval?
+		public let delay: TimeInterval
 		
-		init?(rawValue: String?) {
+		public init?(rawValue: String?) {
 			guard let components = rawValue?.components(separatedBy: ","), let kind = Kind(rawValue: components.first ?? "") else {
 				self.kind = .drop
 				return nil

@@ -20,3 +20,14 @@ class Page2Scene:  Scene {
 		self.walkthrough.advance()
 	}
 }
+
+class Page4Scene:  Scene {
+
+	@IBAction func continueWalkthrough() {
+		let duration = self.walkthrough.apply(batchID: "#1", over: 3.0)
+		
+		DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
+			self.walkthrough.dismiss()
+		}
+	}
+}
