@@ -25,6 +25,7 @@ extension UIView {
 		var outDuration: TimeInterval?					// outDur
 		var inDelay: TimeInterval = 0					// inDelay
 		var outDelay: TimeInterval = 0					// outDelay
+		var batchID: String?							// batch
 		
 		init?(_ string: String?) {
 			guard let formatted = string else { return nil }
@@ -46,6 +47,8 @@ extension UIView {
 
 				case "inDelay": self.inDelay = TimeInterval(parts.last!) ?? 0
 				case "outDelay": self.inDelay = TimeInterval(parts.last!) ?? 0
+					
+				case "batch": self.batchID = parts.last
 					
 				default: break
 				}
@@ -71,6 +74,16 @@ extension UIView {
 		for view in self.subviews {
 			if view.transitionInfo?.id != nil { views.append(view) }
 			views += view.viewsWithSceneIDs
+		}
+		return views
+	}
+	
+	func viewsMatching(batchID: String) -> [UIView] {
+		var views: [UIView] = []
+		
+		for view in self.subviews {
+			if view.transitionInfo?.batchID == batchID { views.append(view) }
+			views += view.viewsMatching(batchID: batchID)
 		}
 		return views
 	}
