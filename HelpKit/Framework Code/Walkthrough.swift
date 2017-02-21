@@ -59,6 +59,15 @@ open class Walkthrough: UIViewController {
 	
 	@discardableResult public func apply(transition: Transition? = nil, batchID: String, over duration: TimeInterval) -> TimeInterval {
 		let views = self.viewsWith(batchID: batchID)
+		return self.apply(transition: transition, to: views, over: duration)
+	}
+
+	@discardableResult public func apply(transition: Transition? = nil, sceneID: String, over duration: TimeInterval) -> TimeInterval {
+		guard let view = self.existingView(with: sceneID) else { return 0 }
+		return self.apply(transition: transition, to: [view], over: duration)
+	}
+	
+	@discardableResult public func apply(transition: Transition? = nil, to views: [UIView], over duration: TimeInterval) -> TimeInterval {
 		guard let current = self.visible.last else { return 0 }
 		var maxDuration: TimeInterval = 0
 		

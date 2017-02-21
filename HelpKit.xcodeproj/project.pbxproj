@@ -36,7 +36,7 @@
 		B56B4D091E5A2C9100955E5E /* Page2Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56B4D081E5A2C9100955E5E /* Page2Scene.swift */; };
 		B56B4D0B1E5BA7A800955E5E /* Walkthrough.Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56B4D0A1E5BA7A800955E5E /* Walkthrough.Timeline.swift */; };
 		B5C23CC51E571A91002E0F3A /* UILabel+Tooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C23CC41E571A91002E0F3A /* UILabel+Tooltip.swift */; };
-		B5C23CC71E59C03B002E0F3A /* Walkthrough+Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C23CC61E59C03B002E0F3A /* Walkthrough+Transition.swift */; };
+		B5C23CC71E59C03B002E0F3A /* Walkthrough.Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C23CC61E59C03B002E0F3A /* Walkthrough.Transition.swift */; };
 		B5D740DB1E4F402600E5C3E1 /* TooltipView.BackgroundLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D740DA1E4F402600E5C3E1 /* TooltipView.BackgroundLayer.swift */; };
 		B5DC61501E49330C001CD747 /* HelpKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC614E1E49330C001CD747 /* HelpKitTests.swift */; };
 		B5DC61561E4933E4001CD747 /* TooltipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC61551E4933E4001CD747 /* TooltipView.swift */; };
@@ -94,7 +94,7 @@
 		B56B4D081E5A2C9100955E5E /* Page2Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Page2Scene.swift; sourceTree = "<group>"; };
 		B56B4D0A1E5BA7A800955E5E /* Walkthrough.Timeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Walkthrough.Timeline.swift; sourceTree = "<group>"; };
 		B5C23CC41E571A91002E0F3A /* UILabel+Tooltip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Tooltip.swift"; sourceTree = "<group>"; };
-		B5C23CC61E59C03B002E0F3A /* Walkthrough+Transition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Walkthrough+Transition.swift"; sourceTree = "<group>"; };
+		B5C23CC61E59C03B002E0F3A /* Walkthrough.Transition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Walkthrough.Transition.swift; sourceTree = "<group>"; };
 		B5D740DA1E4F402600E5C3E1 /* TooltipView.BackgroundLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TooltipView.BackgroundLayer.swift; sourceTree = "<group>"; };
 		B5DC614E1E49330C001CD747 /* HelpKitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpKitTests.swift; sourceTree = "<group>"; };
 		B5DC614F1E49330C001CD747 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -193,7 +193,7 @@
 				B56B4CFC1E59540D00955E5E /* Walkthrough.swift */,
 				B56B4D0A1E5BA7A800955E5E /* Walkthrough.Timeline.swift */,
 				B56B4CFE1E59542100955E5E /* Walkthrough.Scene.swift */,
-				B5C23CC61E59C03B002E0F3A /* Walkthrough+Transition.swift */,
+				B5C23CC61E59C03B002E0F3A /* Walkthrough.Transition.swift */,
 			);
 			name = "Framework Code";
 			path = "HelpKit/Framework Code";
@@ -426,7 +426,7 @@
 				B56B4CFA1E58EF9B00955E5E /* TooltipView.Behavior.swift in Sources */,
 				B5DC61561E4933E4001CD747 /* TooltipView.swift in Sources */,
 				B5DC615B1E493759001CD747 /* TooltipView.Appearance.swift in Sources */,
-				B5C23CC71E59C03B002E0F3A /* Walkthrough+Transition.swift in Sources */,
+				B5C23CC71E59C03B002E0F3A /* Walkthrough.Transition.swift in Sources */,
 				B56B4D0B1E5BA7A800955E5E /* Walkthrough.Timeline.swift in Sources */,
 				B5D740DB1E4F402600E5C3E1 /* TooltipView.BackgroundLayer.swift in Sources */,
 				B56B4D041E59E05F00955E5E /* Walkthrough.swift in Sources */,

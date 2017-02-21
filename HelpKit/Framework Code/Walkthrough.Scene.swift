@@ -43,6 +43,10 @@ import UIKit
 			self.timeline.end()
 			self.view.removeFromSuperview()
 		}
+		
+		@discardableResult public func apply(transition: Walkthrough.Transition? = nil, over duration: TimeInterval) -> TimeInterval {
+			return self.walkthrough.apply(transition: transition, to: self.view.subviews, over: duration)
+		}
 
 		@discardableResult func show(in parent: Walkthrough, over: TimeInterval? = nil) -> TimeInterval {
 			let duration = over ?? self.transitionDuration
@@ -91,6 +95,7 @@ extension UIView {
 		switch phase {
 		case .in:
 			finalState = self.animatableState
+			self.isHidden = false
 			self.animatableState = transition.transform(state: self.animatableState, phase: phase, in: scene)
 		case .out, .other:
 			finalState = transition.transform(state: self.animatableState, phase: phase, in: scene)

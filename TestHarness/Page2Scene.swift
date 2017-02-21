@@ -34,7 +34,11 @@ class Page4Scene:  Scene {
 		let duration = self.walkthrough.apply(batchID: "#1", over: 3.0)
 		
 		DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
-			self.walkthrough.dismiss()
+			let transition = Walkthrough.Transition(kind: .moveLeft)
+			let nextDuration = self.apply(transition: transition, over: 4.0)
+			DispatchQueue.main.asyncAfter(deadline: .now() + nextDuration) {
+				self.walkthrough.dismiss()
+			}
 		}
 	}
 }

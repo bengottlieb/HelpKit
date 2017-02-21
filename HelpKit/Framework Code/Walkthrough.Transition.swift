@@ -37,6 +37,12 @@ extension Walkthrough {
 			}
 		}
 		
+		public init(kind: Kind, duration: TimeInterval? = nil, delay: TimeInterval = 0) {
+			self.kind = kind
+			self.duration = duration
+			self.delay = delay
+		}
+		
 		func transform(state: UIView.AnimatableState?, phase: Phase, in parent: Scene) -> UIView.AnimatableState? {
 			guard var result = state else { return nil }
 			
