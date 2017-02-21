@@ -18,6 +18,13 @@ extension Walkthrough {
 			self.startedAt = Date()
 			self.sortEvents()
 		}
+		
+		public func reset() {
+			self.startedAt = Date()
+			self.events = []
+			self.tags = [:]
+		}
+		
 		public func end( ){
 			self.timer?.invalidate()
 		}
