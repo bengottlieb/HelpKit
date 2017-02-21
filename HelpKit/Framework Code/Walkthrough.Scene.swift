@@ -27,7 +27,7 @@ import UIKit
 			var effectiveDuration: TimeInterval = 0
 
 			self.view.transitionableViews.forEach { view in
-				effectiveDuration = max(effectiveDuration, view.apply(transition: view.transitionInfo?.outTransition, for: .out, duration: duration, in: self) {
+				effectiveDuration = max(effectiveDuration, view.apply(view.transitionInfo?.outTransition, for: .out, duration: duration, in: self) {
 					view.isHidden = true
 				})
 			}
@@ -44,8 +44,8 @@ import UIKit
 			self.view.removeFromSuperview()
 		}
 		
-		@discardableResult public func apply(transition: Walkthrough.Transition? = nil, over duration: TimeInterval) -> TimeInterval {
-			return self.walkthrough.apply(transition: transition, to: self.view.subviews, over: duration)
+		@discardableResult public func apply(_ transition: Walkthrough.Transition? = nil, direction: Walkthrough.Transition.Direction, over duration: TimeInterval) -> TimeInterval {
+			return self.walkthrough.apply(transition, direction: direction, to: self.view.subviews, over: duration)
 		}
 
 		@discardableResult func show(in parent: Walkthrough, over: TimeInterval? = nil) -> TimeInterval {
@@ -56,7 +56,7 @@ import UIKit
 			var persisted: [PersistedView] = []
 			
 			self.view.transitionableViews.forEach { view in
-				effectiveDuration = max(effectiveDuration, view.apply(transition: view.transitionInfo?.inTransition, for: .in, duration: duration, in: self))
+				effectiveDuration = max(effectiveDuration, view.apply(view.transitionInfo?.inTransition, for: .in, duration: duration, in: self))
 			}
 			
 			for view in self.view.viewsWithSceneIDs {
@@ -84,7 +84,7 @@ import UIKit
 //}
 
 extension UIView {
-	func apply(transition: Walkthrough.Transition?, for phase: Walkthrough.Transition.Phase, duration: TimeInterval, in scene: Scene, completion: (() -> Void)? = nil) -> TimeInterval {
+	func apply(_ transition: Walkthrough.Transition?, for direction: Walkthrough.Transition.Direction, duration: TimeInterval, in scene: Scene, completion: (() -> Void)? = nil) -> TimeInterval {
 		guard let transition = transition else {
 			completion?()
 			return 0
@@ -92,13 +92,18 @@ extension UIView {
 		let finalState: AnimatableState?
 		let actualDuration = duration == 0 ? transition.duration ?? 0 : duration
 		
-		switch phase {
+		switch direction {
 		case .in:
 			finalState = self.animatableState
 			self.isHidden = false
-			self.animatableState = transition.transform(state: self.animatableState, phase: phase, in: scene)
-		case .out, .other:
-			finalState = transition.transform(state: self.animatableState, phase: phase, in: scene)
+			self.animatableState = transition.transform(state: self.animatableState, direction: direction, in: scene)
+		case .out:
+			finalState = transition.transform(state: self.animatableState, direction: direction, in: scene)
+
+		case .other:
+			self.isHidden = false
+			self.animatableState = transition.transform(state: self.animatableState, direction: .out, in: scene)
+			finalState = transition.transform(state: self.animatableState, direction: .in, in: scene)
 		}
 		
 		UIView.animate(withDuration: actualDuration, delay: transition.delay, options: [], animations: {

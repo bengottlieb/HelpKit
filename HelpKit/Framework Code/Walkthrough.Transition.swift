@@ -10,7 +10,7 @@ import UIKit
 
 extension Walkthrough {
 	public struct Transition {
-		public enum Phase { case `in`, out, other }
+		public enum Direction { case `in`, out, other }
 		public enum Kind: String { case fade, moveLeft, moveRight, moveUp, moveDown, pop, drop }
 		public let kind: Kind
 		public let duration: TimeInterval?
@@ -43,7 +43,7 @@ extension Walkthrough {
 			self.delay = delay
 		}
 		
-		func transform(state: UIView.AnimatableState?, phase: Phase, in parent: Scene) -> UIView.AnimatableState? {
+		func transform(state: UIView.AnimatableState?, direction: Direction, in parent: Scene) -> UIView.AnimatableState? {
 			guard var result = state else { return nil }
 			
 			switch self.kind {
@@ -51,16 +51,16 @@ extension Walkthrough {
 				result.alpha = 0
 				
 			case .moveLeft:
-				result.frame.origin.x = phase != .in ? result.frame.origin.x - parent.view.bounds.width : result.frame.origin.x + parent.view.bounds.width
+				result.frame.origin.x = direction != .in ? result.frame.origin.x - parent.view.bounds.width : result.frame.origin.x + parent.view.bounds.width
 				
 			case .moveRight:
-				result.frame.origin.x = phase != .in ? result.frame.origin.x + parent.view.bounds.width : result.frame.origin.x - parent.view.bounds.width
+				result.frame.origin.x = direction != .in ? result.frame.origin.x + parent.view.bounds.width : result.frame.origin.x - parent.view.bounds.width
 				
 			case .moveUp:
-				result.frame.origin.y = phase != .in ? result.frame.origin.y - parent.view.bounds.height : result.frame.origin.y + parent.view.bounds.height
+				result.frame.origin.y = direction != .in ? result.frame.origin.y - parent.view.bounds.height : result.frame.origin.y + parent.view.bounds.height
 				
 			case .moveDown:
-				result.frame.origin.y = phase != .in ? result.frame.origin.y + parent.view.bounds.height : result.frame.origin.y - parent.view.bounds.height
+				result.frame.origin.y = direction != .in ? result.frame.origin.y + parent.view.bounds.height : result.frame.origin.y - parent.view.bounds.height
 				
 			case .pop:
 				result.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
@@ -75,3 +75,14 @@ extension Walkthrough {
 		}
 	}
 }
+
+extension Walkthrough.Transition {
+	public static let fade = Walkthrough.Transition(kind: .fade, duration: 0.2)
+	public static let moveLeft = Walkthrough.Transition(kind: .moveLeft, duration: 0.2)
+	public static let moveRight = Walkthrough.Transition(kind: .moveRight, duration: 0.2)
+	public static let moveUp = Walkthrough.Transition(kind: .moveUp, duration: 0.2)
+	public static let moveDown = Walkthrough.Transition(kind: .moveDown, duration: 0.2)
+	public static let pop = Walkthrough.Transition(kind: .pop, duration: 0.2)
+	public static let drop = Walkthrough.Transition(kind: .drop, duration: 0.2)
+}
+

@@ -31,7 +31,7 @@ class Page2Scene:  Scene {
 class Page4Scene:  Scene {
 
 	@IBAction func continueWalkthrough() {
-		let duration = self.walkthrough.apply(batchID: "#1", over: 3.0)
+		let duration = self.walkthrough.apply(transition: .fade, batchID: "#1", over: 3.0)
 		
 		DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
 			let transition = Walkthrough.Transition(kind: .moveLeft)

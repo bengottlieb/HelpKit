@@ -57,23 +57,23 @@ open class Walkthrough: UIViewController {
 		}
 	}
 	
-	@discardableResult public func apply(transition: Transition? = nil, batchID: String, over duration: TimeInterval) -> TimeInterval {
+	@discardableResult public func apply(_ transition: Transition? = nil, direction: Transition.Direction, batchID: String, over duration: TimeInterval) -> TimeInterval {
 		let views = self.viewsWith(batchID: batchID)
-		return self.apply(transition: transition, to: views, over: duration)
+		return self.apply(transition, direction: direction, to: views, over: duration)
 	}
 
-	@discardableResult public func apply(transition: Transition? = nil, sceneID: String, over duration: TimeInterval) -> TimeInterval {
+	@discardableResult public func apply(_ transition: Transition? = nil, direction: Transition.Direction, sceneID: String, over duration: TimeInterval) -> TimeInterval {
 		guard let view = self.existingView(with: sceneID) else { return 0 }
-		return self.apply(transition: transition, to: [view], over: duration)
+		return self.apply(transition, direction: direction, to: [view], over: duration)
 	}
 	
-	@discardableResult public func apply(transition: Transition? = nil, to views: [UIView], over duration: TimeInterval) -> TimeInterval {
+	@discardableResult public func apply(_ transition: Transition? = nil, direction: Transition.Direction, to views: [UIView], over duration: TimeInterval) -> TimeInterval {
 		guard let current = self.visible.last else { return 0 }
 		var maxDuration: TimeInterval = 0
 		
 		views.forEach { view in
 			guard let tran = transition ?? view.transitionInfo?.otherTransition else { return }
-			maxDuration = max(maxDuration, view.apply(transition: tran, for: .other, duration: duration, in: current))
+			maxDuration = max(maxDuration, view.apply(tran, for: direction, duration: duration, in: current))
 		}
 		
 		return maxDuration
