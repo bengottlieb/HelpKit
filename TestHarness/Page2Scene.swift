@@ -31,13 +31,13 @@ class Page2Scene:  Scene {
 class Page4Scene:  Scene {
 
 	@IBAction func continueWalkthrough() {
-		let duration = self.walkthrough.apply(transition: .fade, batchID: "#1", over: 3.0)
+		let duration = self.walkthrough.apply(.fade, batchID: "#1", over: 3.0)
 		
 		DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
 			let transition = Walkthrough.Transition(kind: .moveLeft)
-			let nextDuration = self.apply(transition: transition, over: 4.0)
+			let nextDuration = self.apply(transition, over: 4.0)
 			DispatchQueue.main.asyncAfter(deadline: .now() + nextDuration) {
-				self.walkthrough.dismiss()
+			//	self.walkthrough.dismiss()
 			}
 		}
 	}

@@ -189,14 +189,14 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransitionInfo" value="in: pop; batch: #1; other: fade"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransitionInfo" value="in: pop; batch: #1; out: fade"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xtt-pQ-esT">
                                 <rect key="frame" x="176" y="686" width="62" height="30"/>
                                 <state key="normal" title="Continue"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransitionInfo" value="in: moveUp"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransitionInfo" value="in: moveUp; batch:#1; out: fade"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="continueWalkthrough" destination="xql-mq-ajg" eventType="touchUpInside" id="xYt-2m-lUw"/>

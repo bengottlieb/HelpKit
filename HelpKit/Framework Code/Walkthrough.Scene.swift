@@ -44,7 +44,7 @@ import UIKit
 			self.view.removeFromSuperview()
 		}
 		
-		@discardableResult public func apply(_ transition: Walkthrough.Transition? = nil, direction: Walkthrough.Transition.Direction, over duration: TimeInterval) -> TimeInterval {
+		@discardableResult public func apply(_ transition: Walkthrough.Transition? = nil, direction: Walkthrough.Direction = .out, over duration: TimeInterval) -> TimeInterval {
 			return self.walkthrough.apply(transition, direction: direction, to: self.view.subviews, over: duration)
 		}
 
@@ -84,7 +84,7 @@ import UIKit
 //}
 
 extension UIView {
-	func apply(_ transition: Walkthrough.Transition?, for direction: Walkthrough.Transition.Direction, duration: TimeInterval, in scene: Scene, completion: (() -> Void)? = nil) -> TimeInterval {
+	func apply(_ transition: Walkthrough.Transition?, for direction: Walkthrough.Direction, duration: TimeInterval, in scene: Scene, completion: (() -> Void)? = nil) -> TimeInterval {
 		guard let transition = transition else {
 			completion?()
 			return 0

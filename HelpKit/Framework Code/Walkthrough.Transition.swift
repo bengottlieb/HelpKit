@@ -9,8 +9,8 @@
 import UIKit
 
 extension Walkthrough {
+	public enum Direction { case `in`, out, other }
 	public struct Transition {
-		public enum Direction { case `in`, out, other }
 		public enum Kind: String { case fade, moveLeft, moveRight, moveUp, moveDown, pop, drop }
 		public let kind: Kind
 		public let duration: TimeInterval?

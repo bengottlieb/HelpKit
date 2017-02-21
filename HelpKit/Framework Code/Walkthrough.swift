@@ -57,17 +57,17 @@ open class Walkthrough: UIViewController {
 		}
 	}
 	
-	@discardableResult public func apply(_ transition: Transition? = nil, direction: Transition.Direction, batchID: String, over duration: TimeInterval) -> TimeInterval {
+	@discardableResult public func apply(_ transition: Transition? = nil, direction: Walkthrough.Direction = .out, batchID: String, over duration: TimeInterval) -> TimeInterval {
 		let views = self.viewsWith(batchID: batchID)
 		return self.apply(transition, direction: direction, to: views, over: duration)
 	}
 
-	@discardableResult public func apply(_ transition: Transition? = nil, direction: Transition.Direction, sceneID: String, over duration: TimeInterval) -> TimeInterval {
+	@discardableResult public func apply(_ transition: Transition? = nil, direction: Walkthrough.Direction = .out, sceneID: String, over duration: TimeInterval) -> TimeInterval {
 		guard let view = self.existingView(with: sceneID) else { return 0 }
 		return self.apply(transition, direction: direction, to: [view], over: duration)
 	}
 	
-	@discardableResult public func apply(_ transition: Transition? = nil, direction: Transition.Direction, to views: [UIView], over duration: TimeInterval) -> TimeInterval {
+	@discardableResult public func apply(_ transition: Transition? = nil, direction: Walkthrough.Direction = .out, to views: [UIView], over duration: TimeInterval) -> TimeInterval {
 		guard let current = self.visible.last else { return 0 }
 		var maxDuration: TimeInterval = 0
 		
