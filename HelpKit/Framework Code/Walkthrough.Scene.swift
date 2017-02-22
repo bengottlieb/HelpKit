@@ -28,7 +28,11 @@ import UIKit
 		}
 		
 		func remove() {
+			if !self.isViewLoaded || self.view.superview == nil { return }
+			
+			self.viewWillDisappear(true)
 			self.view.removeFromSuperview()
+			self.viewDidDisappear(true)
 		}
 		
 		@discardableResult public func apply(_ transition: Walkthrough.Transition, direction: Walkthrough.Direction = .out, over duration: TimeInterval) -> TimeInterval {
@@ -37,9 +41,11 @@ import UIKit
 
 		@discardableResult func show(in parent: Walkthrough) {
 			self.view.frame = parent.contentFrame
-
+			
+			self.viewWillAppear(true)
 			parent.view.addSubview(self.view)
 			self.script.start(in: self)
+			self.viewDidAppear(true)
 		}
 
 	}
