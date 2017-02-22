@@ -93,17 +93,14 @@ extension UIView {
 		let actualDuration = duration == 0 ? transition.duration ?? 0 : duration
 		
 		switch direction {
-		case .in:
-			finalState = self.animatableState
+		case .in, .other:
+			self.animatableState = transition.inverse.transform(state: self.animatableState, direction: .in, endPoint: .begin, in: scene)
+			finalState = transition.inverse.transform(state: self.animatableState, direction: .in, endPoint: .end, in: scene)
 			self.isHidden = false
-			self.animatableState = transition.transform(state: self.animatableState, direction: direction, in: scene)
-		case .out:
-			finalState = transition.transform(state: self.animatableState, direction: direction, in: scene)
 
-		case .other:
-			self.isHidden = false
-			self.animatableState = transition.transform(state: self.animatableState, direction: .out, in: scene)
-			finalState = transition.transform(state: self.animatableState, direction: .in, in: scene)
+		case .out:
+			self.animatableState = transition.inverse.transform(state: self.animatableState, direction: .out, endPoint: .begin, in: scene)
+			finalState = transition.inverse.transform(state: self.animatableState, direction: .out, endPoint: .end, in: scene)
 		}
 		
 		UIView.animate(withDuration: actualDuration, delay: transition.delay, options: [], animations: {

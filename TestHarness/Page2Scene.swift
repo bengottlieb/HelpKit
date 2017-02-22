@@ -29,16 +29,17 @@ class Page2Scene:  Scene {
 }
 
 class Page4Scene:  Scene {
-
+	
 	@IBAction func continueWalkthrough() {
 		let duration = self.walkthrough.apply(.fade, batchID: "#1", over: 3.0)
 		
 		DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
-			let transition = Walkthrough.Transition(kind: .moveLeft)
-			let nextDuration = self.apply(transition, over: 4.0)
-			DispatchQueue.main.asyncAfter(deadline: .now() + nextDuration) {
+//			let transition = Walkthrough.Transition(kind: .moveLeft)
+//			let nextDuration = self.apply(transition, over: 4.0)
+//			DispatchQueue.main.asyncAfter(deadline: .now() + nextDuration) {
+				self.walkthrough.apply(.fade, direction: .in, sceneID: "#5", over: 3.0)
 			//	self.walkthrough.dismiss()
-			}
+//			}
 		}
 	}
 }

@@ -38,7 +38,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransitionInfo" value="in: pop"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransitionInfo" value="in: pop,,2; id: wordView"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                         </subviews>
@@ -189,26 +189,38 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransitionInfo" value="in: pop; batch: #1; out: fade"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransitionInfo" value="in: pop; batch: #1"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xtt-pQ-esT">
                                 <rect key="frame" x="176" y="686" width="62" height="30"/>
                                 <state key="normal" title="Continue"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransitionInfo" value="in: moveUp; batch:#1; out: fade"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransitionInfo" value="in: moveUp; batch:#1"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="continueWalkthrough" destination="xql-mq-ajg" eventType="touchUpInside" id="xYt-2m-lUw"/>
                                 </connections>
                             </button>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="OR NOT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RHg-i1-Yzm">
+                                <rect key="frame" x="34" y="50" width="347" height="104"/>
+                                <color key="backgroundColor" red="0.84172603629999998" green="0.13092011049999999" blue="0.025217046060000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="63"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransitionInfo" value="id: #5"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="xtt-pQ-esT" firstAttribute="centerX" secondItem="LSS-uh-ylw" secondAttribute="centerX" id="49g-BO-cch"/>
+                            <constraint firstItem="RHg-i1-Yzm" firstAttribute="centerX" secondItem="LSS-uh-ylw" secondAttribute="centerX" id="KEh-L2-JAp"/>
                             <constraint firstItem="ttU-xV-t4I" firstAttribute="top" secondItem="xtt-pQ-esT" secondAttribute="bottom" constant="20" id="cxR-31-ajJ"/>
                             <constraint firstItem="tri-nS-EGf" firstAttribute="centerY" secondItem="LSS-uh-ylw" secondAttribute="centerY" id="doO-gy-eYI"/>
                             <constraint firstItem="tri-nS-EGf" firstAttribute="centerX" secondItem="LSS-uh-ylw" secondAttribute="centerX" id="h4w-np-8eq"/>
+                            <constraint firstItem="RHg-i1-Yzm" firstAttribute="top" secondItem="Oeg-JF-0GK" secondAttribute="bottom" constant="30" id="zNa-lz-VLH"/>
                         </constraints>
                     </view>
                     <userDefinedRuntimeAttributes>

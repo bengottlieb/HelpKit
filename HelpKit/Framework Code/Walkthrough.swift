@@ -120,7 +120,7 @@ extension Walkthrough {
 
 extension Walkthrough {
 	func existingView(with id: String) -> UIView? {
-		for view in self.viewsWithSceneIDs { if view.transitionInfo?.id == id && !view.isHidden {
+		for view in self.viewsWithSceneIDs { if view.transitionInfo?.id == id {
 			return view
 		}}
 		return nil

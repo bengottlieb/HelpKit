@@ -10,6 +10,7 @@ import UIKit
 
 extension Walkthrough {
 	public enum Direction { case `in`, out, other }
+	public enum EndPoint { case begin, end }
 	public struct Transition {
 		public enum Kind: String { case fade, moveLeft, moveRight, moveUp, moveDown, pop, drop }
 		public let kind: Kind
@@ -43,32 +44,91 @@ extension Walkthrough {
 			self.delay = delay
 		}
 		
-		func transform(state: UIView.AnimatableState?, direction: Direction, in parent: Scene) -> UIView.AnimatableState? {
+		var inverse: Transition {
+			switch self.kind {
+			case .moveLeft:	return Transition(kind: .moveRight, duration: self.duration, delay: self.delay)
+			case .moveRight:	return Transition(kind: .moveLeft, duration: self.duration, delay: self.delay)
+			case .moveUp:	return Transition(kind: .moveDown, duration: self.duration, delay: self.delay)
+			case .moveDown:	return Transition(kind: .moveUp, duration: self.duration, delay: self.delay)
+			default: return self
+			}
+		}
+		
+		func transform(state: UIView.AnimatableState?, direction: Direction, endPoint: EndPoint, in parent: Scene) -> UIView.AnimatableState? {
 			guard var result = state else { return nil }
 			
-			switch self.kind {
-			case .fade:
-				result.alpha = 0
-				
-			case .moveLeft:
-				result.frame.origin.x = direction != .in ? result.frame.origin.x - parent.view.bounds.width : result.frame.origin.x + parent.view.bounds.width
-				
-			case .moveRight:
-				result.frame.origin.x = direction != .in ? result.frame.origin.x + parent.view.bounds.width : result.frame.origin.x - parent.view.bounds.width
-				
-			case .moveUp:
-				result.frame.origin.y = direction != .in ? result.frame.origin.y - parent.view.bounds.height : result.frame.origin.y + parent.view.bounds.height
-				
-			case .moveDown:
-				result.frame.origin.y = direction != .in ? result.frame.origin.y + parent.view.bounds.height : result.frame.origin.y - parent.view.bounds.height
-				
-			case .pop:
-				result.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
-				result.alpha = 0.0
-				
-			case .drop:
-				result.transform = CGAffineTransform(scaleX: 10, y: 10)
-				result.alpha = 0.0
+			let disappearing = direction != .in
+			
+			if endPoint == .begin {			//how should we set things up before the animation begins?
+				switch self.kind {
+				case .fade:
+					result.alpha = disappearing ? 1.0 : 0.0
+					
+				case .moveLeft:
+					if !disappearing { result.frame.origin.x = result.frame.origin.x + parent.view.bounds.width }
+					
+				case .moveRight:
+					if !disappearing { result.frame.origin.x = result.frame.origin.x - parent.view.bounds.width }
+					
+				case .moveUp:
+					if !disappearing { result.frame.origin.y = result.frame.origin.y + parent.view.bounds.height }
+					
+				case .moveDown:
+					if !disappearing { result.frame.origin.y = result.frame.origin.y - parent.view.bounds.height }
+					
+				case .pop:
+					if !disappearing {
+						result.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+						result.alpha = 0.0
+					} else {
+						result.transform = .identity
+						result.alpha = 1.0
+					}
+					
+				case .drop:
+					if !disappearing {
+						result.transform = CGAffineTransform(scaleX: 10.0, y: 10.0)
+						result.alpha = 0.0
+					} else {
+						result.transform = .identity
+						result.alpha = 1.0
+					}
+				}
+			} else {
+				switch self.kind {
+				case .fade:
+					result.alpha = disappearing ? 0.0 : 1.0
+					
+				case .moveLeft:
+					if disappearing { result.frame.origin.x = result.frame.origin.x + parent.view.bounds.width }
+					
+				case .moveRight:
+					if disappearing { result.frame.origin.x = result.frame.origin.x - parent.view.bounds.width }
+					
+				case .moveUp:
+					if disappearing { result.frame.origin.y = result.frame.origin.y + parent.view.bounds.height }
+					
+				case .moveDown:
+					if disappearing { result.frame.origin.y = result.frame.origin.y - parent.view.bounds.height }
+					
+				case .pop:
+					if disappearing {
+						result.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+						result.alpha = 0.0
+					} else {
+						result.transform = .identity
+						result.alpha = 1.0
+					}
+					
+				case .drop:
+					if disappearing {
+						result.transform = CGAffineTransform(scaleX: 10.0, y: 10.0)
+						result.alpha = 0.0
+					} else {
+						result.transform = .identity
+						result.alpha = 1.0
+					}
+				}
 			}
 			
 			return result
