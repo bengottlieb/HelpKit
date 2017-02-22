@@ -17,53 +17,11 @@ extension UIView {
 }
 
 extension UIView {
-	public struct PresentationInfo {
-		var id: String?									// id
-		var batchID: String?							// batch
-		var inTransition: Walkthrough.Transition?		// in
-		var outTransition: Walkthrough.Transition?		// out
-		var otherTransition: Walkthrough.Transition?	// other
-		
-		init?(_ string: String?) {
-			guard let formatted = string else { return nil }
-			let outerSplits = CharacterSet(charactersIn: ";")
-			let innerSplits = CharacterSet(charactersIn: ":= ")
-			let components = formatted.components(separatedBy: outerSplits)
-			
-			for component in components {
-				let parts = component.trimmingCharacters(in: .whitespaces).components(separatedBy: innerSplits)
-				
-				switch parts.first ?? "" {
-				case "id": self.id = parts.last
-				case "batch": self.batchID = parts.last
-
-				case "in": self.inTransition = Walkthrough.Transition(rawValue: parts.last)
-				case "out": self.outTransition = Walkthrough.Transition(rawValue: parts.last)
-				case "other": self.otherTransition = Walkthrough.Transition(rawValue: parts.last)
-
-				default: break
-				}
-			}
-		}
-	}
-	
-	var transitionInfo: PresentationInfo? { return PresentationInfo(self.sceneTransitionInfo) }
-
-	var transitionableViews: [UIView] {
-		var views: [UIView] = []
-		
-		for view in self.subviews {
-			if view.transitionInfo != nil { views.append(view) }
-			views += view.transitionableViews
-		}
-		return views
-	}
-	
 	var viewsWithSceneIDs: [UIView] {
 		var views: [UIView] = []
 		
 		for view in self.subviews {
-			if view.transitionInfo?.id != nil { views.append(view) }
+			if view.helpKitSceneID != nil { views.append(view) }
 			views += view.viewsWithSceneIDs
 		}
 		return views
@@ -73,7 +31,7 @@ extension UIView {
 		var views: [UIView] = []
 		
 		for view in self.subviews {
-			if view.transitionInfo?.batchID == batchID { views.append(view) }
+			if view.helpKitBatchID == batchID { views.append(view) }
 			views += view.viewsMatching(batchID: batchID)
 		}
 		return views
@@ -102,12 +60,17 @@ extension UIView {
 		static var tipBody = "hk:body"
 		static var tipAppearance = "hk:appearance"
 		static var tipPosition = "hk:position"
-		static var transitionInfo = "hk:transitionInfo"
+		static var sceneID = "hk:sceneID"
+		static var batchID = "hk:batchID"
 	}
 
-	@IBInspectable public var sceneTransitionInfo: String? {
-		get { return objc_getAssociatedObject(self, &Keys.transitionInfo) as? String }
-		set { objc_setAssociatedObject(self, &Keys.transitionInfo, newValue as NSString?, .OBJC_ASSOCIATION_RETAIN_NONATOMIC ) }
+	@IBInspectable public var helpKitSceneID: String? {
+		get { return objc_getAssociatedObject(self, &Keys.sceneID) as? String }
+		set { objc_setAssociatedObject(self, &Keys.sceneID, newValue as NSString?, .OBJC_ASSOCIATION_RETAIN_NONATOMIC ) }
+	}
+	@IBInspectable public var helpKitBatchID: String? {
+		get { return objc_getAssociatedObject(self, &Keys.batchID) as? String }
+		set { objc_setAssociatedObject(self, &Keys.batchID, newValue as NSString?, .OBJC_ASSOCIATION_RETAIN_NONATOMIC ) }
 	}
 	
 	

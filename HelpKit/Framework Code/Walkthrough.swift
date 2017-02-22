@@ -19,8 +19,8 @@ open class Walkthrough: UIViewController {
 		let bounds = self.view.bounds
 		return CGRect(x: bounds.origin.x + self.contentInset.left,
 		              y: bounds.origin.y + self.contentInset.top,
-		              width: bounds.width + (self.contentInset.left + self.contentInset.right),
-		              height: bounds.height + (self.contentInset.top + self.contentInset.bottom))
+		              width: bounds.width - (self.contentInset.left + self.contentInset.right),
+		              height: bounds.height -  (self.contentInset.top + self.contentInset.bottom))
 	}
 	
 	required public init?(coder aDecoder: NSCoder) { super.init(coder: aDecoder); self.didInit() }
@@ -29,7 +29,7 @@ open class Walkthrough: UIViewController {
 	open func didInit() { }
 	
 	open func reset() {
-		self.visible.forEach { $0.removeFromWalkthrough() }
+		self.visible.forEach { $0.remove() }
 		self.visible = []
 	}
 	
@@ -54,7 +54,6 @@ open class Walkthrough: UIViewController {
 	}
 	
 	public func add(scene: Scene) {
-		if scene.walkthroughOrder == nil { scene.walkthroughOrder = self.scenes.count }
 		if self.scenes.count == 0 { scene.replacesExisting = true }
 		scene.walkthrough = self
 		self.scenes.append(scene)
@@ -66,7 +65,7 @@ open class Walkthrough: UIViewController {
 		}
 	}
 	
-	@discardableResult public func apply(_ transition: Transition? = nil, direction: Walkthrough.Direction = .out, batchID: String, over duration: TimeInterval) -> TimeInterval {
+	@discardableResult public func apply(_ transition: Transition, direction: Walkthrough.Direction = .out, batchID: String, over duration: TimeInterval) -> TimeInterval {
 		let views = self.viewsWith(batchID: batchID)
 		if views.count == 0 {
 			print("Unable to find any views with a batch ID: \(batchID)")
@@ -75,7 +74,7 @@ open class Walkthrough: UIViewController {
 		return self.apply(transition, direction: direction, to: views, over: duration)
 	}
 
-	@discardableResult public func apply(_ transition: Transition? = nil, direction: Walkthrough.Direction = .out, sceneID: String, over duration: TimeInterval) -> TimeInterval {
+	@discardableResult public func apply(_ transition: Transition, direction: Walkthrough.Direction = .out, sceneID: String, over duration: TimeInterval) -> TimeInterval {
 		guard let view = self.existingView(with: sceneID) else {
 			print("Unable to find any views with a sceneID: \(sceneID)")
 			return 0
@@ -83,13 +82,12 @@ open class Walkthrough: UIViewController {
 		return self.apply(transition, direction: direction, to: [view], over: duration)
 	}
 	
-	@discardableResult public func apply(_ transition: Transition? = nil, direction: Walkthrough.Direction = .out, to views: [UIView], over duration: TimeInterval) -> TimeInterval {
+	@discardableResult public func apply(_ transition: Transition, direction: Walkthrough.Direction = .out, to views: [UIView], over duration: TimeInterval) -> TimeInterval {
 		guard let current = self.visible.last else { return 0 }
 		var maxDuration: TimeInterval = 0
 		
 		views.forEach { view in
-			guard let tran = transition ?? view.transitionInfo?.otherTransition else { return }
-			maxDuration = max(maxDuration, view.apply(tran, for: direction, duration: duration, in: current))
+			maxDuration = max(maxDuration, view.apply(transition, for: direction, duration: duration, in: current))
 		}
 		
 		return maxDuration
@@ -105,38 +103,35 @@ extension Walkthrough {
 
 extension Walkthrough {
 	public func start() {
-		self.show(next: self.scenes.first!, over: 0)
+		self.show(next: self.scenes.first!)
 	}
 	
-	public func show(next scene: Scene, over interval: TimeInterval?) {
+	public func show(next scene: Scene) {
 		if scene.replacesExisting {
-			self.visible.forEach { $0.remove(over: $0.transitionDuration) }
+			self.visible.forEach { $0.remove() }
 			self.visible = []
 		}
 		
 		self.visible.append(scene)
 		scene.show(in: self)
-		if scene.onScreenDuration != 0 {
-			self.nextSceneTimer = Timer.scheduledTimer(timeInterval: scene.onScreenDuration, target: self, selector: #selector(advanceToNext), userInfo: nil, repeats: false)
-		}
 	}
 	
 	func advanceToNext() { self.advance() }
-	public func advance(over: TimeInterval? = nil) {
+	public func advance() {
 		guard let current = self.visible.last, let index = self.scenes.index(of: current) else { return }
 		
 		if index >= self.scenes.count - 1 {
 			
 		} else {
 			let scene = self.scenes[index + 1]
-			self.show(next: scene, over: scene.transitionDuration)
+			self.show(next: scene)
 		}
 	}
 }
 
 extension Walkthrough {
 	func existingView(with id: String) -> UIView? {
-		for view in self.viewsWithSceneIDs { if view.transitionInfo?.id == id {
+		for view in self.viewsWithSceneIDs { if view.helpKitSceneID == id {
 			return view
 		}}
 		return nil

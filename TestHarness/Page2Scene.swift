@@ -9,18 +9,30 @@
 import UIKit
 import HelpKit
 
+class Page1Scene: Scene {
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		self.hideAll()
+		
+		self.script.then(.pop, batchID: "welcome", direction: .in, duration: 1.0)
+		self.script.wait(2)
+		self.script.finish()
+	}
+}
+
+class Page3Scene:  Scene {
+
+}
+
 class Page2Scene:  Scene {
 	@IBOutlet var thirdPartLabel: UILabel!
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.transitionDuration = 0.2
-		self.onScreenDuration = 5.0
+		self.hideAll()
 		
-		self.timeline.queueEvent(at: 0.0, closure: { print("#0: \(Date())") } )
-		self.timeline.queueEvent(at: 1.0, closure: { print("#1: \(Date())") } )
-		self.timeline.queueEvent(at: 2.0, closure: { print("#2: \(Date())") } )
-		self.timeline.queueEvent(at: 3.0, closure: { print("#3: \(Date())") } )
-		self.timeline.queueEvent(at: 4.0, closure: { print("#4: \(Date())") } )
+		self.script.then(.fade, sceneID: "DEMO", direction: .in, duration: 1.0)
+		self.script.then(.moveLeft, sceneID: "DEMO", direction: .out, duration: 1.0)
+		self.script.finish()
 	}
 	
 	@IBAction func advance() {

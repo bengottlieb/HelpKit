@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Walkthrough Scene-->
+        <!--Page1 Scene-->
         <scene sceneID="y7c-iS-qtM">
             <objects>
-                <viewController storyboardIdentifier="page1" id="IEm-Hx-oE6" customClass="WalkthroughScene" customModule="HelpKit" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="page1" id="IEm-Hx-oE6" customClass="Page1Scene" customModule="TestHarness" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IV7-bN-rCD"/>
                         <viewControllerLayoutGuide type="bottom" id="n2z-gc-4Jj"/>
@@ -29,7 +29,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransitionInfo" value="in: moveDown,,2.0"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="helpKitBatchID" value="welcome"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="woF-ch-AEC">
@@ -38,7 +38,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransitionInfo" value="in: pop,,2; id: wordView"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="helpKitBatchID" value="welcome"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                         </subviews>
@@ -50,11 +50,6 @@
                             <constraint firstItem="pS3-Xv-jAZ" firstAttribute="centerX" secondItem="t3n-2X-zjT" secondAttribute="centerX" id="raD-WE-k3B"/>
                         </constraints>
                     </view>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="onScreenDuration">
-                            <integer key="value" value="2"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zDI-bH-0tv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -63,7 +58,7 @@
         <!--Page2 Scene-->
         <scene sceneID="8Cn-Ju-nLA">
             <objects>
-                <viewController storyboardIdentifier="page2" id="Wf9-Nk-vSY" customClass="Page2Scene" customModule="TestHarness" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="page2" id="Wf9-Nk-vSY" customClass="Page2Scene" customModule="TestHarness" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="byk-Qk-Eie"/>
                         <viewControllerLayoutGuide type="bottom" id="Bp4-wt-0GM"/>
@@ -83,7 +78,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransitionInfo" value="in: pop; id: demoLabel"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="helpKitSceneID" value="DEMO"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                         </subviews>
@@ -93,23 +88,15 @@
                             <constraint firstItem="dAq-d6-8GB" firstAttribute="top" secondItem="byk-Qk-Eie" secondAttribute="bottom" constant="142" id="mR4-2f-BWE"/>
                         </constraints>
                     </view>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="onScreenDuration">
-                            <integer key="value" value="1"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="number" keyPath="transitionDuration">
-                            <integer key="value" value="2"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LxV-Bx-CJI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1528.8" y="154.27286356821591"/>
         </scene>
-        <!--Walkthrough Scene-->
+        <!--Page3 Scene-->
         <scene sceneID="zim-qi-fdZ">
             <objects>
-                <viewController storyboardIdentifier="page3" id="L41-F9-5U5" customClass="WalkthroughScene" customModule="HelpKit" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="page3" id="L41-F9-5U5" customClass="Page3Scene" customModule="TestHarness" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="VRR-5P-Qbp"/>
                         <viewControllerLayoutGuide type="bottom" id="TZr-P8-yko"/>
@@ -126,41 +113,14 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransitionInfo" value="in: moveUp; out: moveLeft"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DEMO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zvF-yR-hQ6">
-                                <rect key="frame" x="108.66666666666669" y="283" width="197" height="99"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="99" id="fET-y0-RPW"/>
-                                    <constraint firstAttribute="width" constant="197" id="fbt-ri-kTe"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="63"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransitionInfo" value="id: demoLabel"/>
-                                </userDefinedRuntimeAttributes>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="3s9-3w-vYz" firstAttribute="centerX" secondItem="4ha-Zz-dPq" secondAttribute="centerX" id="9kX-le-R9m"/>
-                            <constraint firstItem="zvF-yR-hQ6" firstAttribute="top" secondItem="VRR-5P-Qbp" secondAttribute="bottom" constant="263" id="QJr-dD-38A"/>
                             <constraint firstItem="3s9-3w-vYz" firstAttribute="top" secondItem="VRR-5P-Qbp" secondAttribute="bottom" constant="370" id="j5i-yR-uZc"/>
-                            <constraint firstItem="zvF-yR-hQ6" firstAttribute="centerX" secondItem="4ha-Zz-dPq" secondAttribute="centerX" id="nsF-0d-ghp"/>
                         </constraints>
                     </view>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="onScreenDuration">
-                            <integer key="value" value="4"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="number" keyPath="transitionDuration">
-                            <integer key="value" value="2"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BiA-yX-d1R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -188,9 +148,6 @@
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="63"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransitionInfo" value="in: pop; batch: #1"/>
-                                </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xtt-pQ-esT">
                                 <rect key="frame" x="176" y="686" width="62" height="30"/>
@@ -208,9 +165,6 @@
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="63"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="sceneTransitionInfo" value="id: #5"/>
-                                </userDefinedRuntimeAttributes>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -223,14 +177,6 @@
                             <constraint firstItem="RHg-i1-Yzm" firstAttribute="top" secondItem="Oeg-JF-0GK" secondAttribute="bottom" constant="30" id="zNa-lz-VLH"/>
                         </constraints>
                     </view>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="onScreenDuration">
-                            <integer key="value" value="4"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="number" keyPath="transitionDuration">
-                            <integer key="value" value="2"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hUJ-sf-XBq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

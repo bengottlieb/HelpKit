@@ -9,7 +9,7 @@
 import UIKit
 
 extension Walkthrough {
-	public enum Direction { case `in`, out, other }
+	public enum Direction { case `in`, out, none }
 	public enum EndPoint { case begin, end }
 	public struct Transition {
 		public enum Kind: String { case fade, moveLeft, moveRight, moveUp, moveDown, pop, drop }

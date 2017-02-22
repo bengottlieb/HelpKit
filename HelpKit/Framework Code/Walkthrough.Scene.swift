@@ -11,73 +11,35 @@ import UIKit
 //extension Walkthrough {
 	open class WalkthroughScene: UIViewController {
 		public var replacesExisting = false
-		public var onScreenDuration: TimeInterval = 0.5
-		public var walkthroughOrder: Int?
-		public var transitionDuration: TimeInterval = 0.2
 		public var walkthrough: Walkthrough!
-		public var timeline = Walkthrough.Timeline()
+		public var script = Walkthrough.Script()
 		
 		open override func viewDidLoad() {
 			super.viewDidLoad()
 			self.view.backgroundColor = nil
 		}
 		
-		@discardableResult func remove(over: TimeInterval? = nil) -> TimeInterval {
-			let duration = over ?? self.transitionDuration
-			var effectiveDuration: TimeInterval = 0
-
-			self.view.transitionableViews.forEach { view in
-				effectiveDuration = max(effectiveDuration, view.apply(view.transitionInfo?.outTransition, for: .out, duration: duration, in: self) {
-					view.isHidden = true
-				})
-			}
-			
-			DispatchQueue.main.asyncAfter(deadline: .now() + effectiveDuration) {
-				self.removeFromWalkthrough()
-			}
-			
-			return effectiveDuration
+		public func hide(batchID: String) {
+			self.walkthrough.viewsWith(batchID: batchID).forEach { $0.isHidden = true }
 		}
 		
-		func removeFromWalkthrough() {
-			self.timeline.end()
+		public func hideAll() {
+			self.view.subviews.forEach { $0.isHidden = true }
+		}
+		
+		func remove() {
 			self.view.removeFromSuperview()
 		}
 		
-		@discardableResult public func apply(_ transition: Walkthrough.Transition? = nil, direction: Walkthrough.Direction = .out, over duration: TimeInterval) -> TimeInterval {
+		@discardableResult public func apply(_ transition: Walkthrough.Transition, direction: Walkthrough.Direction = .out, over duration: TimeInterval) -> TimeInterval {
 			return self.walkthrough.apply(transition, direction: direction, to: self.view.subviews, over: duration)
 		}
 
-		@discardableResult func show(in parent: Walkthrough, over: TimeInterval? = nil) -> TimeInterval {
-			let duration = over ?? self.transitionDuration
-			var effectiveDuration: TimeInterval = 0
-			
+		@discardableResult func show(in parent: Walkthrough) {
 			self.view.frame = parent.contentFrame
-			var persisted: [PersistedView] = []
-			
-			self.view.transitionableViews.forEach { view in
-				effectiveDuration = max(effectiveDuration, view.apply(view.transitionInfo?.inTransition, for: .in, duration: duration, in: self))
-			}
-			
-			for view in self.view.viewsWithSceneIDs {
-				if let sceneID = view.transitionInfo?.id, let existing = self.walkthrough.existingView(with: sceneID), existing != view {
-					persisted.append(PersistedView(oldView: existing, newView: view))
-					view.isHidden = true
-				}
-			}
 
 			parent.view.addSubview(self.view)
-			if duration > 0, persisted.count > 0 {
-				effectiveDuration = max(effectiveDuration, duration)
-				UIView.animate(withDuration: duration, animations: {
-					persisted.forEach { $0.oldView.frame = $0.newView.frame }
-				}) { completed in
-					persisted.forEach { $0.oldView.isHidden = true; $0.newView.isHidden = false }
-				}
-			}
-			
-			self.timeline.start()
-			return effectiveDuration
+			self.script.start(in: self)
 		}
 
 	}
@@ -93,14 +55,19 @@ extension UIView {
 		let actualDuration = duration == 0 ? transition.duration ?? 0 : duration
 		
 		switch direction {
-		case .in, .other:
-			self.animatableState = transition.inverse.transform(state: self.animatableState, direction: .in, endPoint: .begin, in: scene)
-			finalState = transition.inverse.transform(state: self.animatableState, direction: .in, endPoint: .end, in: scene)
+		case .in:
+			self.animatableState = transition.transform(state: self.animatableState, direction: .in, endPoint: .begin, in: scene)
+			finalState = transition.transform(state: self.animatableState, direction: .in, endPoint: .end, in: scene)
 			self.isHidden = false
 
 		case .out:
-			self.animatableState = transition.inverse.transform(state: self.animatableState, direction: .out, endPoint: .begin, in: scene)
-			finalState = transition.inverse.transform(state: self.animatableState, direction: .out, endPoint: .end, in: scene)
+			self.animatableState = transition.transform(state: self.animatableState, direction: .out, endPoint: .begin, in: scene)
+			finalState = transition.transform(state: self.animatableState, direction: .out, endPoint: .end, in: scene)
+
+		case .none:
+			finalState = transition.transform(state: self.animatableState, direction: .in, endPoint: .end, in: scene)
+			self.isHidden = false
+			
 		}
 		
 		UIView.animate(withDuration: actualDuration, delay: transition.delay, options: [], animations: {

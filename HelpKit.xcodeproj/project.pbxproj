@@ -34,7 +34,7 @@
 		B56B4D051E59E05F00955E5E /* Walkthrough.Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56B4CFE1E59542100955E5E /* Walkthrough.Scene.swift */; };
 		B56B4D071E59E16000955E5E /* Walkthrough.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B56B4D061E59E16000955E5E /* Walkthrough.storyboard */; };
 		B56B4D091E5A2C9100955E5E /* Page2Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56B4D081E5A2C9100955E5E /* Page2Scene.swift */; };
-		B56B4D0B1E5BA7A800955E5E /* Walkthrough.Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56B4D0A1E5BA7A800955E5E /* Walkthrough.Timeline.swift */; };
+		B58E8B9D1E5DD785008CEC86 /* Walkthrough.Script.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58E8B9C1E5DD785008CEC86 /* Walkthrough.Script.swift */; };
 		B5C23CC51E571A91002E0F3A /* UILabel+Tooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C23CC41E571A91002E0F3A /* UILabel+Tooltip.swift */; };
 		B5C23CC71E59C03B002E0F3A /* Walkthrough.Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C23CC61E59C03B002E0F3A /* Walkthrough.Transition.swift */; };
 		B5D740DB1E4F402600E5C3E1 /* TooltipView.BackgroundLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D740DA1E4F402600E5C3E1 /* TooltipView.BackgroundLayer.swift */; };
@@ -92,7 +92,7 @@
 		B56B4CFE1E59542100955E5E /* Walkthrough.Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Walkthrough.Scene.swift; sourceTree = "<group>"; };
 		B56B4D061E59E16000955E5E /* Walkthrough.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Walkthrough.storyboard; sourceTree = "<group>"; };
 		B56B4D081E5A2C9100955E5E /* Page2Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Page2Scene.swift; sourceTree = "<group>"; };
-		B56B4D0A1E5BA7A800955E5E /* Walkthrough.Timeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Walkthrough.Timeline.swift; sourceTree = "<group>"; };
+		B58E8B9C1E5DD785008CEC86 /* Walkthrough.Script.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Walkthrough.Script.swift; sourceTree = "<group>"; };
 		B5C23CC41E571A91002E0F3A /* UILabel+Tooltip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Tooltip.swift"; sourceTree = "<group>"; };
 		B5C23CC61E59C03B002E0F3A /* Walkthrough.Transition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Walkthrough.Transition.swift; sourceTree = "<group>"; };
 		B5D740DA1E4F402600E5C3E1 /* TooltipView.BackgroundLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TooltipView.BackgroundLayer.swift; sourceTree = "<group>"; };
@@ -191,8 +191,8 @@
 				B56B4CF71E58B2BC00955E5E /* UIView+HelpKit.swift */,
 				B56B4CFB1E59534A00955E5E /* Tooltips */,
 				B56B4CFC1E59540D00955E5E /* Walkthrough.swift */,
-				B56B4D0A1E5BA7A800955E5E /* Walkthrough.Timeline.swift */,
 				B56B4CFE1E59542100955E5E /* Walkthrough.Scene.swift */,
+				B58E8B9C1E5DD785008CEC86 /* Walkthrough.Script.swift */,
 				B5C23CC61E59C03B002E0F3A /* Walkthrough.Transition.swift */,
 			);
 			name = "Framework Code";
@@ -423,11 +423,11 @@
 			files = (
 				B56B4D051E59E05F00955E5E /* Walkthrough.Scene.swift in Sources */,
 				B5DC61631E4C2707001CD747 /* TooltipBlocker.swift in Sources */,
+				B58E8B9D1E5DD785008CEC86 /* Walkthrough.Script.swift in Sources */,
 				B56B4CFA1E58EF9B00955E5E /* TooltipView.Behavior.swift in Sources */,
 				B5DC61561E4933E4001CD747 /* TooltipView.swift in Sources */,
 				B5DC615B1E493759001CD747 /* TooltipView.Appearance.swift in Sources */,
 				B5C23CC71E59C03B002E0F3A /* Walkthrough.Transition.swift in Sources */,
-				B56B4D0B1E5BA7A800955E5E /* Walkthrough.Timeline.swift in Sources */,
 				B5D740DB1E4F402600E5C3E1 /* TooltipView.BackgroundLayer.swift in Sources */,
 				B56B4D041E59E05F00955E5E /* Walkthrough.swift in Sources */,
 				B5C23CC51E571A91002E0F3A /* UILabel+Tooltip.swift in Sources */,
