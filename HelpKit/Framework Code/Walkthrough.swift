@@ -28,6 +28,15 @@ open class Walkthrough: UIViewController {
 	
 	open func didInit() { }
 	
+	open func reset() {
+		self.visible.forEach { $0.removeFromWalkthrough() }
+		self.visible = []
+	}
+	
+	open func clearScenes() {
+		self.scenes = []
+	}
+	
 	open func present(in parent: UIViewController) {
 		self.willMove(toParentViewController: parent)
 		parent.addChildViewController(self)
