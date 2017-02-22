@@ -34,6 +34,7 @@ open class Walkthrough: UIViewController {
 	}
 	
 	open func clearScenes() {
+		self.reset()
 		self.scenes = []
 	}
 	
@@ -43,6 +44,7 @@ open class Walkthrough: UIViewController {
 		self.view.frame = parent.view.bounds
 		parent.view.addSubview(self.view)
 		self.didMove(toParentViewController: parent)
+		self.start()
 	}
 	
 	open func dismiss(animated: Bool = true) {
@@ -97,7 +99,6 @@ open class Walkthrough: UIViewController {
 extension Walkthrough {
 	open override func viewDidLoad() {
 		super.viewDidLoad()
-		self.start()
 	}
 }
 
