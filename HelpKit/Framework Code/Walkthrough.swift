@@ -59,11 +59,18 @@ open class Walkthrough: UIViewController {
 	
 	@discardableResult public func apply(_ transition: Transition? = nil, direction: Walkthrough.Direction = .out, batchID: String, over duration: TimeInterval) -> TimeInterval {
 		let views = self.viewsWith(batchID: batchID)
+		if views.count == 0 {
+			print("Unable to find any views with a batch ID: \(batchID)")
+			return 0
+		}
 		return self.apply(transition, direction: direction, to: views, over: duration)
 	}
 
 	@discardableResult public func apply(_ transition: Transition? = nil, direction: Walkthrough.Direction = .out, sceneID: String, over duration: TimeInterval) -> TimeInterval {
-		guard let view = self.existingView(with: sceneID) else { return 0 }
+		guard let view = self.existingView(with: sceneID) else {
+			print("Unable to find any views with a sceneID: \(sceneID)")
+			return 0
+		}
 		return self.apply(transition, direction: direction, to: [view], over: duration)
 	}
 	
