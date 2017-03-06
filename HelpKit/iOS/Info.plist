@@ -22,11 +22,5 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>NSPrincipalClass</key>
 	<string></string>
-	<key>branch</key>
-	<string>master</string>
-	<key>built</key>
-	<string>Wed Feb 22 12:47:24 CST 2017</string>
-	<key>rev</key>
-	<string>7998d40</string>
 </dict>
 </plist>

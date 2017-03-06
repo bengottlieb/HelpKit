@@ -1,0 +1,9 @@
+{
+  "working-directory" : "..\/",
+  "name" : "HelpKit",
+  "ios-output" : [
+    "..\/iOS Framework\/HelpKit.framework"
+  ],
+  "scriptpath" : "..\/HelpKit\/BuildFramework.sh",
+  "disabled" : false
+}
