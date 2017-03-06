@@ -6,20 +6,21 @@
 #  Created by Ben Gottlieb on 11/14/15.
 #  Copyright (c) 2015 Stand Alone, Inc. All rights reserved.
 
-BASE_BUILD_DIR="Build"		#${BUILD_DIR}
+echo "Building HelpKit"
+
+BASE_BUILD_DIR=${BUILD_DIR}
 FRAMEWORK_NAME="HelpKit"
 PROJECT_NAME="HelpKit"
 IOS_SUFFIX=""
-CONFIG="Release"
+CONFIG=$CONFIGURATION
 UNIVERSAL_OUTPUTFOLDER="Build/${CONFIG}-universal"
 
 GIT_BRANCH=`git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1/"`
 GIT_REV=`git rev-parse --short HEAD`
 
 BUILD_DATE=`date`
-PROJECT_DIRECTORY=`pwd`
 
-IOS_PLIST_PATH="${PROJECT_DIRECTORY}/HelpKit/iOS/info.plist"
+IOS_PLIST_PATH="${PROJECT_DIR}/HelpKit/iOS/info.plist"
 echo $IOS_PLIST_PATH
 /usr/libexec/PlistBuddy "${IOS_PLIST_PATH}" -c "Add :branch string ${GIT_BRANCH}"
 /usr/libexec/PlistBuddy "${IOS_PLIST_PATH}" -c "Add :rev string ${GIT_REV}"
@@ -49,6 +50,6 @@ lipo -create -output "${UNIVERSAL_OUTPUTFOLDER}/${FRAMEWORK_NAME}${IOS_SUFFIX}.f
 /usr/libexec/PlistBuddy "${IOS_PLIST_PATH}" -c "Delete :built"
 
 # Step 5. Convenience step to copy the framework to the project's directory
-mkdir -p "${PROJECT_DIRECTORY}/iOS Framework/"
-rm -rf "${PROJECT_DIRECTORY}/iOS Framework/${FRAMEWORK_NAME}.framework"
-cp -R "${UNIVERSAL_OUTPUTFOLDER}/${FRAMEWORK_NAME}.framework" "${PROJECT_DIRECTORY}/iOS Framework"
+mkdir -p "${PROJECT_DIR}/iOS Framework/"
+rm -rf "${PROJECT_DIR}/iOS Framework/${FRAMEWORK_NAME}.framework"
+cp -R "${UNIVERSAL_OUTPUTFOLDER}/${FRAMEWORK_NAME}.framework" "${PROJECT_DIR}/iOS Framework"
