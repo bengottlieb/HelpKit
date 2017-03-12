@@ -18,13 +18,16 @@ UNIVERSAL_OUTPUTFOLDER="Build/${CONFIG}-universal"
 GIT_BRANCH=`git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1/"`
 GIT_REV=`git rev-parse --short HEAD`
 
-BUILD_DATE=`date`
+BUILD_DATE=`date "+%c%m%d%H%M%S"`
+BRANCH=`git rev-parse --abbrev-ref HEAD`
+BUILD_NUMBER=`echo $(expr $(git rev-list $BRANCH --count) - $(git rev-list HEAD..$BRANCH --count))`
 
 IOS_PLIST_PATH="${PROJECT_DIR}/HelpKit/iOS/info.plist"
-echo $IOS_PLIST_PATH
+/usr/libexec/PlistBuddy "${IOS_PLIST_PATH}" -c
 /usr/libexec/PlistBuddy "${IOS_PLIST_PATH}" -c "Add :branch string ${GIT_BRANCH}"
 /usr/libexec/PlistBuddy "${IOS_PLIST_PATH}" -c "Add :rev string ${GIT_REV}"
 /usr/libexec/PlistBuddy "${IOS_PLIST_PATH}" -c "Add :built string ${BUILD_DATE}"
+/usr/libexec/PlistBuddy "${IOS_PLIST_PATH}" -c "Add :git_number string ${BUILD_NUMBER}"
 
 # make sure the output directory exists
 mkdir -p "${UNIVERSAL_OUTPUTFOLDER}"
@@ -48,6 +51,7 @@ lipo -create -output "${UNIVERSAL_OUTPUTFOLDER}/${FRAMEWORK_NAME}${IOS_SUFFIX}.f
 /usr/libexec/PlistBuddy "${IOS_PLIST_PATH}" -c "Delete :branch"
 /usr/libexec/PlistBuddy "${IOS_PLIST_PATH}" -c "Delete :rev"
 /usr/libexec/PlistBuddy "${IOS_PLIST_PATH}" -c "Delete :built"
+/usr/libexec/PlistBuddy "${IOS_PLIST_PATH}" -c "Delete :git_number"
 
 # Step 5. Convenience step to copy the framework to the project's directory
 mkdir -p "${PROJECT_DIR}/iOS Framework/"
