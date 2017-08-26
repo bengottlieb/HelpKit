@@ -55,7 +55,7 @@ open class TooltipView: UIView {
 		self.tooltipLayer?.TipPosition = self.effectiveArrowDirection
 	}
 	
-	func tapped(recog: UITapGestureRecognizer) {
+	@objc func tapped(recog: UITapGestureRecognizer) {
 		if recog.state == .recognized && TooltipView.behavior.tapTipsToDismiss {
 			self.hide(over: 0.2)
 		}

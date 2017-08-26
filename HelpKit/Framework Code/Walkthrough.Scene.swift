@@ -39,7 +39,7 @@ import UIKit
 			return self.walkthrough.apply(transition, direction: direction, to: self.view.subviews, over: duration)
 		}
 
-		@discardableResult func show(in parent: Walkthrough) {
+		func show(in parent: Walkthrough) {
 			self.view.frame = parent.contentFrame
 			
 			self.viewWillAppear(true)

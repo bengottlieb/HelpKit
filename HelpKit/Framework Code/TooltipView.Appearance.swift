@@ -42,14 +42,14 @@ extension TooltipView {
 }
 
 extension TooltipView.Appearance {
-	var titleAttributes: [String: Any] {
+	var titleAttributes: [NSAttributedStringKey: Any] {
 		let paraStyle = NSMutableParagraphStyle(); paraStyle.alignment = self.titleAlignment
-		return [ NSFontAttributeName: self.titleFont, NSForegroundColorAttributeName: self.titleColor, NSParagraphStyleAttributeName: paraStyle ]
+		return [ NSAttributedStringKey.font: self.titleFont, NSAttributedStringKey.foregroundColor: self.titleColor, NSAttributedStringKey.paragraphStyle: paraStyle ]
 	}
 
-	var bodyAttributes: [String: Any] {
+	var bodyAttributes: [NSAttributedStringKey: Any] {
 		let paraStyle = NSMutableParagraphStyle(); paraStyle.alignment = self.bodyAlignment
-		return [ NSFontAttributeName: self.bodyFont, NSForegroundColorAttributeName: self.bodyColor, NSParagraphStyleAttributeName: paraStyle ]
+		return [ NSAttributedStringKey.font: self.bodyFont, NSAttributedStringKey.foregroundColor: self.bodyColor, NSAttributedStringKey.paragraphStyle: paraStyle ]
 	}
 	
 	func minimumHeight(forTitle title: String?, and body: String?) -> CGFloat {
